@@ -7,6 +7,9 @@
   <base target="_top">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
   <style>
     /* SEMUA CSS ASLI KAMU - 100% SAMA, TIDAK DIUBAH */
     :root {
@@ -139,7 +142,7 @@
     .total-margin-card { background: var(--bg-inset); border: none; border-radius: 24px; padding: 22px; margin-top: 20px; box-shadow: var(--shadow-tenggelam); }
     .tm-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; } .tm-label { font-size: 0.8rem; font-weight: 900; color: var(--text-secondary); } .tm-val { font-size: 1.1rem; font-weight: 900; color: var(--text-primary); }
     .tm-divider { height: 2px; border-radius: 2px; background: rgba(0,0,0,0.3); box-shadow: 0 1px 1px rgba(255,255,255,0.05); margin: 14px 0; } .tm-total-label { font-size: 0.8rem; font-weight: 900; color: var(--text-muted); } .tm-total-val  { font-size: 1.3rem; font-weight: 900; color: var(--c-kop); } .tm-persen-val { font-size: 1.6rem; font-weight: 900; color: var(--c-margin-text); letter-spacing: -0.5px; }
-    .tgl-group { font-size: 0.75rem; font-weight: 900; color: var(--c-sppg) !important; text-transform: uppercase; letter-spacing: 0.9px; margin: 24px 0 14px 4px; display: flex; align-items: center; gap: 10px; } .tgl-group::after { content: ''; flex: 1; height: 2px; border-radius: 2px; background: rgba(0,0,0,0.2); box-shadow: 0 1px 1px rgba(255,255,255,0.05); }
+    .tgl-group { font-size: 0.75rem; font-weight: 900; color: var(--c-sppg) !important; text-transform: uppercase; letter-spacing: 0.9px; margin: 24px 0 14px 4px; display: flex; align-items: center; gap: 10px; } .tgl-group::after { content: ''; flex: 1; height: 2px; border-radius: 2px; background: rgba(0,0,0,0.2); box-shadow: 0 1px 1px rgba(0,0,0,0.5); }
     .spinner-glass { width: 38px; height: 38px; border: 4px solid var(--bg-inset); border-top: 4px solid var(--c-sppg); border-radius: 50%; animation: spin 0.75s linear infinite; margin: 0 auto 18px; box-shadow: var(--shadow-btn);}
     @keyframes spin { to { transform: rotate(360deg); } }
     .loading-wrap { text-align: center; padding: 48px 0; color: var(--text-muted); font-weight: 800; font-size: 0.9rem; }
@@ -177,7 +180,6 @@
 </head>
 <body>
 
-  <!-- LOADING OVERLAY -->
   <div class="ios-loader-overlay" id="iosLoader">
     <div class="ios-loader-box">
       <div class="spinner-ios"></div>
@@ -185,7 +187,6 @@
     </div>
   </div>
 
-  <!-- TAMBAHAN: HALAMAN LOGIN (Awalnya Sembunyi) -->
   <div id="halamanLogin" style="display:none; height:90vh; align-items:center; justify-content:center; flex-direction:column; padding:20px;">
       <div class="g-card fade-up" style="width:100%; max-width:400px; text-align:center;">
           <h2 style="margin-bottom:8px; font-weight:900; color:var(--c-sppg);">MODE ADMIN</h2>
@@ -199,10 +200,8 @@
       </div>
   </div>
 
-  <!-- CONTAINER APP UTAMA -->
   <div id="mainApp" style="display:block;">
 
-    <!-- HALAMAN HARIAN -->
     <div id="halamanHarian">
       <div class="g-card fade-up">
         <div style="display:grid; grid-template-columns: 1fr 1fr auto; gap:12px;">
@@ -223,7 +222,6 @@
       <div id="tempatHasil"></div>
     </div>
 
-    <!-- HALAMAN LAPORAN -->
     <div id="halamanLaporan" style="display:none;">
       <div id="pesanLaporan" class="empty-state">Tekan "GO" di menu Harian dulu ya, Yu!<br>Laporan otomatis muncul di sini.</div>
       <div id="laporanCard" style="display:none;" class="g-card fade-up">
@@ -246,10 +244,10 @@
           <div class="tm-row"><div class="tm-total-label">Total Margin</div><div class="tm-total-val" id="lapTotMrg">0</div></div>
           <div class="tm-row" style="margin-top:8px;"><div class="tm-label">Persentase Margin</div><div class="tm-persen-val" id="lapPersen">0%</div></div>
         </div>
+        <button id="btnGenerateLap" class="btn-go" onclick="showGenerateOptions()" style="margin-top:24px; background:#10B981; color:var(--bg-inset);">🖨️ SIMPAN LAPORAN</button>
       </div>
     </div>
 
-    <!-- HALAMAN PERIODE -->
     <div id="halamanLapPeriode" style="display:none;">
       <div class="g-card fade-up">
         <div style="display:flex; flex-direction:column; gap:14px;">
@@ -289,7 +287,6 @@
       </div>
     </div>
 
-    <!-- HALAMAN CETAK (ADMIN ONLY) -->
     <div id="halamanCetak" style="display:none;">
       <div class="g-card fade-up">
         <div style="font-size:0.8rem; font-weight:900; color:var(--text-muted); margin-bottom:16px; text-transform:uppercase;">Pilih Target Cetak / Hapus</div>
@@ -345,7 +342,6 @@
       </div>
     </div>
 
-    <!-- HALAMAN BARANG (ADMIN ONLY) -->
     <div id="halamanBarang" style="display:none;">
       <div class="g-card fade-up">
         <div style="display:flex; flex-direction:column; gap:14px;">
@@ -357,7 +353,6 @@
       <div id="hasilBarang"></div>
     </div>
 
-    <!-- HALAMAN EDIT (ADMIN ONLY) -->
     <div id="halamanEdit" style="display:none;">
       <div class="g-card fade-up">
         <select id="kAction" class="form-select" onchange="gantiModeKelola()" style="margin-bottom:24px;">
@@ -401,7 +396,6 @@
       <div id="listEditBawah"></div>
     </div>
 
-    <!-- HALAMAN MASTER (ADMIN ONLY) -->
     <div id="halamanMaster" style="display:none;">
       <div class="g-card fade-up">
         <div class="section-head" style="margin-top:0;">1. Pilih Lokasi Dapur</div>
@@ -422,21 +416,16 @@
       <datalist id="listBarangMaster"></datalist>
     </div>
 
-  </div> <!-- Penutup Main App -->
-
-  <!-- NAVIGASI BAWAH -->
-  <div class="bottom-nav" id="mainNav">
+  </div> <div class="bottom-nav" id="mainNav">
     <div class="nav-item active" id="btnHarian" onclick="showHarian()"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><span>Home</span></div>
     <div class="nav-item" id="btnLaporan" onclick="showLaporan()"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg><span>Lap Har</span></div>
     <div class="nav-item" id="btnLapPeriode" onclick="showLapPeriode()"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg><span>Periode</span></div>
     
-    <!-- ADMIN ONLY MENUS (Hidden by Default) -->
     <div class="nav-item admin-only" id="btnCetak" onclick="showCetak()" style="display:none;"><svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg><span>Cetak</span></div>
     <div class="nav-item admin-only" id="btnBarang" onclick="showBarang()" style="display:none;"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg><span>Cari</span></div>
     <div class="nav-item admin-only" id="btnEdit" onclick="showEdit()" style="display:none;"><svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.995.995 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg><span>Edit</span></div>
     <div class="nav-item admin-only" id="btnMaster" onclick="showMaster()" style="display:none;"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-10 4h6v2H9V7zm-2 2h-2V7h2v2zm10 8H7v-2h10v2zm0-4H7v-2h10v2z"/></svg><span>Master</span></div>
 
-    <!-- TOMBOL LOGIN ADMIN -->
     <div class="nav-item" id="btnAdminAuth" onclick="showLoginScreen()"><svg viewBox="0 0 24 24"><path d="M12 17c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6-9h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM8.9 6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1v2H8.9V6zM18 20H6V10h12v10z"/></svg><span>Admin</span></div>
   </div>
 
@@ -455,14 +444,9 @@
     </div>
   </div>
 
-  <!-- SCRIPT API -->
   <script>
-    // =========================================================
-    // PASTIKAN PASTE URL HASIL DEPLOY DARI APP SCRIPT DI SINI!
-    // =========================================================
     const API_URL = "https://script.google.com/macros/s/AKfycbzRCljjE0h1nzMzcYVykPXQzhuLEdeEf4hGmrwWF2Y6pRspcUP02GCjZifP1UfJ-UFx/exec";
 
-    // FUNGSI INTI UNTUK MENGIRIM PERINTAH KE GOOGLE SPREADSHEET
     async function apiCall(action, params = {}) {
       const payload = { action: action, ...params };
       try {
@@ -479,9 +463,9 @@
       }
     }
 
-    // SIMPAN DATA SEMENTARA BUAT SHARE
     window.tempShareData = [];
     let listBarangMasterAll = []; 
+    let lastItemCount = 0; // Tambahan: Simpan jumlah item harian
 
     function showLoading(msg) { document.getElementById('loaderText').innerHTML = msg; document.getElementById('iosLoader').style.display = 'flex'; }
     function hideLoading() { document.getElementById('iosLoader').style.display = 'none'; }
@@ -502,60 +486,50 @@
     function showEdit()        { resetNav(); document.getElementById('halamanEdit').style.display='block';        document.getElementById('btnEdit').classList.add('active'); gantiModeKelola(); }
     function showMaster()      { resetNav(); document.getElementById('halamanMaster').style.display='block';      document.getElementById('btnMaster').classList.add('active'); }
 
-    // MENYIAPKAN TAMPILAN AWAL WEB
     window.onload = function() {
-      // Langsung munculin aplikasi buat viewer
       document.getElementById('mainApp').style.display = 'block';
       document.getElementById('mainNav').style.display = 'flex';
-      
-      initApp(); // Tarik data dropdown (Dapur & Tgl)
-      aturMenuAdmin(); // Cek dia admin atau cuma viewer
+      initApp(); 
+      aturMenuAdmin(); 
     };
 
-    // MUNCULKAN HALAMAN LOGIN (Kalo klik icon gembok)
     function showLoginScreen() {
       document.getElementById('mainApp').style.display = 'none';
       document.getElementById('mainNav').style.display = 'none';
       document.getElementById('halamanLogin').style.display = 'flex';
     }
 
-    // BATAL LOGIN (Balik ke mode viewer)
     function batalLogin() {
       document.getElementById('halamanLogin').style.display = 'none';
       document.getElementById('mainApp').style.display = 'block';
       document.getElementById('mainNav').style.display = 'flex';
-      showHarian(); // Balikin tampilannya ke Home
+      showHarian(); 
     }
 
-    // ATUR MENU ADMIN BERDASARKAN SESSION
     function aturMenuAdmin() {
       const isAdmin = sessionStorage.getItem('isLoggedIn') === 'true';
       const adminItems = document.querySelectorAll('.admin-only');
-      
       if (isAdmin) {
          adminItems.forEach(el => el.style.display = 'flex');
-         document.getElementById('btnAdminAuth').style.display = 'none'; // Sembunyikan gembok
+         document.getElementById('btnAdminAuth').style.display = 'none'; 
       } else {
          adminItems.forEach(el => el.style.display = 'none');
-         document.getElementById('btnAdminAuth').style.display = 'flex'; // Munculkan gembok
+         document.getElementById('btnAdminAuth').style.display = 'flex'; 
       }
     }
 
-    // PROSES LOGIN
     function prosesLogin() {
       const u = document.getElementById('loginUser').value;
       const p = document.getElementById('loginPass').value;
-      
       if(!u || !p) return showIosAlert("Username sama Password harus diisi ya Yu!");
-
       showLoading("Mengecek akses...<br>Tunggu bentar.");
       apiCall('login', { user: u, pass: p }).then(res => {
           hideLoading();
           if (res.status === 'success') {
               sessionStorage.setItem('isLoggedIn', 'true');
               showIosAlert(res.msg);
-              batalLogin();    // Tutup layar login, balik ke app
-              aturMenuAdmin(); // Panggil fungsi buat nampilin semua menu admin
+              batalLogin();    
+              aturMenuAdmin(); 
           } else {
               showIosAlert(res.msg);
           }
@@ -565,7 +539,6 @@
       });
     }
 
-    // LOAD DATA API UNTUK SEMUA (VIEWER & ADMIN)
     function initApp() {
       apiCall('getFilterData').then(res => {
           let optD = res.dapur.map(d => `<option value="${d}">${d}</option>`).join('');
@@ -573,14 +546,11 @@
           document.getElementById('dapurBarang').innerHTML = optD;
           document.getElementById('dapurLapPer').innerHTML = optD;
           document.getElementById('dapurCetak').innerHTML = '<option value="">Pilih Dapur...</option>' + optD;
-          
           let optT = res.tanggal.map(t => `<option value="${t.asli}">${t.tampilan}</option>`).join('');
           document.getElementById('tanggal').innerHTML = optT;
           document.getElementById('tglCetak').innerHTML = '<option value="">Pilih Tanggal...</option>' + optT;
       });
-
       apiCall('getInitMasterBarang').then(initMasterData);
-
       const hargaIds = ['mHargaSPPG', 'mHargaKoperasi', 'mHargaSupplier'];
       hargaIds.forEach(id => {
         const el = document.getElementById(id);
@@ -597,15 +567,13 @@
       const dapurSelect = document.getElementById('mDapur');
       data.dapurList.forEach(d => {
         let opt = document.createElement('option');
-        opt.value = d;
-        opt.innerHTML = d;
+        opt.value = d; opt.innerHTML = d;
         dapurSelect.appendChild(opt);
       });
       const datalist = document.getElementById('listBarangMaster');
       data.items.forEach(item => {
         let opt = document.createElement('option');
-        opt.value = item;
-        datalist.appendChild(opt);
+        opt.value = item; datalist.appendChild(opt);
       });
       listBarangMasterAll = data.items;
     }
@@ -639,21 +607,12 @@
       const nama = document.getElementById('mNamaBarang').value.trim();
       const dapur = document.getElementById('mDapur').value;
       const badge = document.getElementById('mStatusBadge');
-
-      if (nama === "") {
-        badge.style.display = 'none';
-        kunciHargaMaster(true); resetHargaMaster();
-        return;
-      }
-
+      if (nama === "") { badge.style.display = 'none'; kunciHargaMaster(true); resetHargaMaster(); return; }
       kunciHargaMaster(false);
-
       if (listBarangMasterAll.includes(nama)) {
         badge.style.display = 'inline-block'; badge.innerText = 'TERDAFTAR'; badge.style.color = '#F59E0B';
         document.getElementById('mHargaSPPG').placeholder = "Loading...";
-        
         apiCall('getHargaMasterBarang', { nama: nama, dapur: dapur }).then(isiHargaMaster);
-
       } else {
         badge.style.display = 'inline-block'; badge.innerText = 'ITEM BARU'; badge.style.color = 'var(--c-kop)';
         resetHargaMaster(); 
@@ -666,9 +625,7 @@
         document.getElementById('mHargaSPPG').value = ""; document.getElementById('mHargaSPPG').placeholder = "Saat ini: " + formatRupiah(harga.sppg.toString(), 'Rp. ');
         document.getElementById('mHargaKoperasi').value = ""; document.getElementById('mHargaKoperasi').placeholder = "Saat ini: " + formatRupiah(harga.kop.toString(), 'Rp. ');
         document.getElementById('mHargaSupplier').value = ""; document.getElementById('mHargaSupplier').placeholder = "Saat ini: " + formatRupiah(harga.sup.toString(), 'Rp. ');
-      } else {
-        resetHargaMaster();
-      }
+      } else { resetHargaMaster(); }
       cekFormMasterLengkap();
     }
 
@@ -686,7 +643,6 @@
       const btn = document.getElementById('btnSimpanMaster');
       const nama = document.getElementById('mNamaBarang').value;
       const h1 = document.getElementById('mHargaSPPG').value; const h2 = document.getElementById('mHargaKoperasi').value; const h3 = document.getElementById('mHargaSupplier').value;
-      
       if (nama !== "" && (h1 !== "" || h2 !== "" || h3 !== "")) { btn.style.opacity = '1'; btn.style.pointerEvents = 'auto'; } 
       else { btn.style.opacity = '0.5'; btn.style.pointerEvents = 'none'; }
     }
@@ -699,39 +655,29 @@
         hargaKoperasi: cleanRupiah(document.getElementById('mHargaKoperasi').value),
         hargaSupplier: cleanRupiah(document.getElementById('mHargaSupplier').value)
       };
-
       const btn = document.getElementById('btnSimpanMaster');
       btn.innerText = "MENYIMPAN..."; btn.style.opacity = '0.5'; btn.style.pointerEvents = 'none';
-      
       apiCall('simpanMasterBarang', { data: data }).then(function(res) {
         showIosAlert(res);
         btn.innerText = "SIMPAN MASTER DATA";
-        
         if (!listBarangMasterAll.includes(data.namaBarang)) {
           listBarangMasterAll.push(data.namaBarang);
           let opt = document.createElement('option'); opt.value = data.namaBarang;
           document.getElementById('listBarangMaster').appendChild(opt);
         }
-        
         document.getElementById('mNamaBarang').value = ""; document.getElementById('mStatusBadge').style.display = "none";
         resetHargaMaster(); kunciHargaMaster(true); cekFormMasterLengkap();
       });
     }
 
-    // --- FUNGSI PROSES CETAK WEB ---
     function prosesCetak(tipe, btnEl) {
       const d = document.getElementById('dapurCetak').value;
       const t = document.getElementById('tglCetak').value;
-      
       if (!d || !t) { showIosAlert("Pilih Dapur & Tanggal dulu ya, Yu!"); return; }
-
       const allBtns = document.querySelectorAll('.action-btn');
       allBtns.forEach(b => b.disabled = true);
       showLoading("Memproses Berkas...<br>Jangan ditutup ya, Yu!");
-
-      let funcName = "";
-      let param3 = null;
-
+      let funcName = ""; let param3 = null;
       if(tipe.includes('hapus')) funcName = "webHapusBerkasDrive";
       else if(tipe === 'sup') funcName = "webBatchPdfSuppliers";
       else if(tipe === 'kop') funcName = "webBatchPdfKoperasi";
@@ -743,39 +689,135 @@
       else if(tipe === 'rab_nisam') { funcName = "webCetakRabAk"; param3 = "nisam"; }
       else if(tipe === 'rab_arratibi') { funcName = "webCetakRabAk"; param3 = "arratibi"; }
       else if(tipe === 'rab_palda') { funcName = "webCetakRabAk"; param3 = "palda"; }
-
       apiCall(funcName, { dapur: d, tgl: t, tipe: param3 || tipe, jenisRab: param3 || tipe }).then(function(res) {
           allBtns.forEach(b => b.disabled = false);
           hideLoading();
-
           if(res.error) { showIosAlert(res.error); return; }
-
-          if(res.tipe === 'rekap' || res.tipe === 'hapus') {
-              showIosAlert(res.msg);
-          } else if(res.tipe === 'surat') {
-              tampilkanModalSurat(res);
-          } else {
-              tampilkanModalSharePDF(res.tipe, res.data);
-          }
+          if(res.tipe === 'rekap' || res.tipe === 'hapus') { showIosAlert(res.msg); } 
+          else if(res.tipe === 'surat') { tampilkanModalSurat(res); } 
+          else { tampilkanModalSharePDF(res.tipe, res.data); }
       }).catch(err => {
           allBtns.forEach(b => b.disabled = false);
           hideLoading(); showIosAlert("Aduh, gagal konek. " + err.message);
       });
     }
 
+    // --- TAMBAHAN: FUNGSI GENERATE LAPORAN LOKAL ---
+    function showGenerateOptions() {
+      const d = document.getElementById('lapDapur').innerText;
+      const t = document.getElementById('lapTanggal').innerText;
+      
+      document.getElementById('shareModalHeader').innerHTML = `<span style="color:#10B981;">📊 Opsi Simpan Laporan</span>`;
+      document.getElementById('shareModalContent').innerHTML = `
+        <div style="text-align:center; padding:10px;">
+          <p style="font-size:13px; color:var(--text-secondary); margin-bottom:24px;">Silakan pilih format penyimpanan laporan untuk <br><strong>${d} (${t})</strong></p>
+          <button onclick="copyLaporanWA()" style="display:block; width:100%; padding:16px; background:var(--bg-inset); color:#34D399; border:none; border-radius:20px; font-weight:800; margin-bottom:14px; box-shadow: var(--shadow-tenggelam);">📲 Salin Format WhatsApp</button>
+          <button onclick="cetakLaporanPDFResmi()" style="display:block; width:100%; padding:16px; background:#10B981; color:var(--bg-inset); border:none; border-radius:20px; font-weight:900; box-shadow: 4px 4px 10px rgba(11, 16, 26, 0.6), inset 2px 2px 4px rgba(255,255,255,0.4);">📄 Cetak PDF Resmi</button>
+        </div>
+      `;
+      document.getElementById('shareModal').style.display = 'flex';
+    }
+
+    function copyLaporanWA() {
+      const d = document.getElementById('lapDapur').innerText;
+      const t = document.getElementById('lapTanggal').innerText;
+      const p = document.getElementById('lapPagu').innerText.replace('Rp ', '');
+      const sppg = document.getElementById('lapPoSppg').innerText;
+      const sisa = document.getElementById('lapSisaPagu').innerText;
+      const kopr = document.getElementById('lapPoKop').innerText;
+      const suply = document.getElementById('lapPoSup').innerText;
+      const mrgK = document.getElementById('lapMrgKop').innerText;
+      const mrgY = document.getElementById('lapMrgYyn').innerText;
+      const totM = document.getElementById('lapTotMrg').innerText;
+      const prsn = document.getElementById('lapPersen').innerText;
+
+      const waText = `SPPG      	:	${d}\nTgl            	:	${t}\nJmI tem   	:	${lastItemCount} item\n-----------------------------------------------------------------		\nPAGU        	:	${p}\n-----------------------------------------------------------------		\n\`PO SPPG\`   	:	${sppg}\nSISA PAGU  	:	${sisa.includes('-') ? sisa : '+ ' + sisa}\n-----------------------------------------------------------------		\n\`PO KOPR\`    	:	${kopr}\n\`PO SUPLY\`  	:	${suply}\n-----------------------------------------------------------------		\nMRG KOP - SPPG         	:	${mrgK}\nMRG YYN - SUPLY        	:	${mrgY}\n-----------------------------------------------------------------		\nTOTAL MRG         	:	${totM}\n-----------------------------------------------------------------		\n\`Persentase Margin\`	:	${prsn}`;
+
+      navigator.clipboard.writeText(waText).then(() => {
+        showIosAlert("✅ Format laporan sudah disalin! <br>Tinggal tempel (paste) ke WhatsApp Bos.");
+      });
+    }
+
+    function cetakLaporanPDFResmi() {
+      const d = document.getElementById('lapDapur').innerText;
+      const t = document.getElementById('lapTanggal').innerText;
+      const menu = document.getElementById('lapMenu').innerText;
+      const p = document.getElementById('lapPagu').innerText;
+      const sppg = document.getElementById('lapPoSppg').innerText;
+      const sisa = document.getElementById('lapSisaPagu').innerText;
+      const kopr = document.getElementById('lapPoKop').innerText;
+      const suply = document.getElementById('lapPoSup').innerText;
+      const mrgK = document.getElementById('lapMrgKop').innerText;
+      const mrgY = document.getElementById('lapMrgYyn').innerText;
+      const totM = document.getElementById('lapTotMrg').innerText;
+      const prsn = document.getElementById('lapPersen').innerText;
+
+      const printHtml = `
+        <div style="padding: 40px; font-family: 'Times New Roman', serif; color: #000; background: #fff; width: 210mm; min-height: 297mm; box-sizing: border-box;">
+          <div style="text-align: center; border-bottom: 3px double #000; padding-bottom: 10px; margin-bottom: 20px;">
+            <h2 style="margin: 0; font-size: 20px;">YAYASAN MUSLIM ACEH PEDULI</h2>
+            <h3 style="margin: 5px 0 0; font-size: 16px;">LAPORAN MRG HARIAN</h3>
+          </div>
+          
+          <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 14px;">
+            <tr><td style="width: 120px; padding: 5px 0;">SPPG / DAPUR</td><td style="width: 20px;">:</td><td style="font-weight: bold;">${d}</td></tr>
+            <tr><td style="padding: 5px 0;">TANGGAL</td><td>:</td><td>${t}</td></tr>
+            <tr><td style="padding: 5px 0;">MENU</td><td>:</td><td style="font-style: italic;">${menu}</td></tr>
+            <tr><td style="padding: 5px 0;">JUMLAH ITEM</td><td>:</td><td>${lastItemCount} Item</td></tr>
+          </table>
+
+          <div style="border: 1px solid #000; padding: 20px;">
+            <table style="width: 100%; font-size: 15px;">
+              <tr><td style="padding: 8px 0;">PAGU HARIAN</td><td style="text-align: right; font-weight: bold;">${p}</td></tr>
+              <tr><td colspan="2"><hr style="border: 0.5px solid #ccc;"></td></tr>
+              <tr><td style="padding: 8px 0;">TOTAL PO SPPG (REALISASI)</td><td style="text-align: right;">${sppg}</td></tr>
+              <tr><td style="padding: 8px 0; color: ${sisa.includes('-') ? 'red' : 'green'};">SISA ANGGARAN (PAGU)</td><td style="text-align: right; font-weight: bold;">${sisa}</td></tr>
+              <tr><td colspan="2"><hr style="border: 0.5px solid #000;"></td></tr>
+              <tr><td style="padding: 8px 0;">PO KOPERASI</td><td style="text-align: right;">${kopr}</td></tr>
+              <tr><td style="padding: 8px 0;">PO SUPPLIER</td><td style="text-align: right;">${suply}</td></tr>
+              <tr><td colspan="2"><hr style="border: 0.5px dashed #ccc;"></td></tr>
+              <tr><td style="padding: 8px 0;">MARGIN KOPERASI (SPPG - KOP)</td><td style="text-align: right;">${mrgK}</td></tr>
+              <tr><td style="padding: 8px 0;">MARGIN YAYASAN (KOP - SUP)</td><td style="text-align: right;">${mrgY}</td></tr>
+              <tr><td colspan="2" style="background: #eee; padding: 10px;"><table style="width: 100%;">
+                <tr><td style="font-weight: bold;">TOTAL MARGIN BERSIH</td><td style="text-align: right; font-weight: bold; font-size: 18px;">${totM}</td></tr>
+                <tr><td style="font-size: 12px;">PERSENTASE MARGIN</td><td style="text-align: right; font-weight: bold;">${prsn}</td></tr>
+              </table></td></tr>
+            </table>
+          </div>
+
+          <div style="margin-top: 50px; float: right; width: 250px; text-align: center; font-size: 14px;">
+            <p>Aceh Utara, ${t.split(', ')[1] || ''}</p>
+            <p style="margin-bottom: 80px;">Verifikator,</p>
+            <p style="font-weight: bold; text-decoration: underline;">( TERVERIFIKASI )</p>
+            <p style="font-size: 11px; margin-top: 5px;">Sistem PO Otomatis</p>
+          </div>
+        </div>
+      `;
+
+      const opt = {
+        margin: 0,
+        filename: `Laporan_MRG_${d}_${t.replace(/[/, ]/g, '_')}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      };
+
+      showLoading("Menyusun PDF Resmi...<br>Harap tunggu.");
+      html2pdf().from(printHtml).set(opt).save().then(() => {
+        hideLoading();
+        showIosAlert("✅ Laporan PDF Resmi berhasil dibuat dan di-download!");
+      });
+    }
+
     function tampilkanModalSharePDF(tipe, dataArr) {
       if (!dataArr) return; 
-        
       window.tempShareData = dataArr;
-      
       let warnaTeks = "var(--c-kop)"; let ikon = "✅"; let teksJml = "PO Siap Dikirim!";
       if(tipe === 'kop') { warnaTeks = "var(--c-sppg)"; ikon = "📄"; teksJml = "PO Koperasi Siap!"; }
       else if(tipe === 'bon') { warnaTeks = "#F59E0B"; ikon = "🧾"; teksJml = "File BON Siap!"; }
       else if(tipe === 'rabak') { warnaTeks = "var(--c-margin-text)"; ikon = "🏢"; teksJml = "Berkas RAB AK Siap!"; }
       else if(tipe === 'pogabungan') { warnaTeks = "var(--c-sup)"; ikon = "📑"; teksJml = "PO Gabungan Siap!"; }
-
       document.getElementById('shareModalHeader').innerHTML = `<span style="color:${warnaTeks};">${ikon} ${dataArr.length} ${teksJml}</span>`;
-      
       let html = '';
       dataArr.forEach((item, index) => {
          html += `
@@ -810,16 +852,13 @@
     function shareSatuFile(idx) {
        const item = window.tempShareData[idx];
        const btn = document.getElementById('btnShare-' + idx);
-       
        try {
           const byteCharacters = atob(item.base64);
           const byteNumbers = new Array(byteCharacters.length);
           for (let i = 0; i < byteCharacters.length; i++) { byteNumbers[i] = byteCharacters.charCodeAt(i); }
           const byteArray = new Uint8Array(byteNumbers);
           const file = new File([byteArray], item.fileName, { type: "application/pdf" });
-
           const shareData = { files: [file], title: "PO " + item.nama, text: item.pesan };
-
           if (navigator.canShare && navigator.canShare({ files: [file] })) {
              navigator.share(shareData)
                 .then(() => {
@@ -831,7 +870,6 @@
              const url = window.URL.createObjectURL(file);
              const a = document.createElement('a'); a.style.display = 'none'; a.href = url; a.download = item.fileName;
              document.body.appendChild(a); a.click(); window.URL.revokeObjectURL(url);
-             
              btn.innerHTML = "⬇️ Downloaded"; btn.style.backgroundColor = "var(--bg-card)"; btn.style.color = "var(--text-soft)"; btn.style.boxShadow = "var(--shadow-tenggelam)"; btn.disabled = true;
           }
        } catch(e) { alert("Error: " + e.message); }
@@ -851,18 +889,20 @@
       const tgl = document.getElementById('kTglLama').value;
       const dpr = document.getElementById('kDapurLama').value;
       if (!tgl || !dpr) return;
-
       document.getElementById('listEditBawah').innerHTML = `<div class="loading-wrap"><div class="spinner-glass"></div>Memuat daftar item...</div>`;
-
       apiCall('getDataCepat', { dapur: dpr, tgl: tgl }).then(function(res) {
         if (!res.items || !res.items.length) {
           document.getElementById('listEditBawah').innerHTML = '<div class="empty-state">Belum ada data untuk dapur dan tanggal ini.</div>';
           return;
         }
-
         let html = '<div class="section-head" style="margin-top:28px;">Daftar Item (Klik untuk Edit)</div>';
         res.items.forEach((it) => {
           let safeItem = encodeURIComponent(JSON.stringify(it));
+          // MODIFIKASI: Tampilkan Harga SATUAN di Daftar Edit
+          let uSppg = it.qty > 0 ? Math.round(it.tSppg / it.qty) : 0;
+          let uKop  = it.qty > 0 ? Math.round(it.tKop / it.qty) : 0;
+          let uSup  = it.qty > 0 ? Math.round(it.tSup / it.qty) : 0;
+
           html += `
           <div class="item-glass fade-up" style="cursor:pointer;" onclick="pilihItemEdit('${safeItem}')">
             <div class="item-top">
@@ -874,9 +914,9 @@
             </div>
             <div style="font-size:0.78rem; color:var(--text-muted); margin-bottom:18px;">Ket: <b>${it.ket || '-'}</b></div>
             <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:12px;">
-              <div class="sub-box sb-sppg"><div class="sub-lbl">SPPG</div><div class="sub-val">${Math.round(it.tSppg).toLocaleString('id-ID')}</div></div>
-              <div class="sub-box sb-kop"><div class="sub-lbl">KOP</div><div class="sub-val">${Math.round(it.tKop).toLocaleString('id-ID')}</div></div>
-              <div class="sub-box sb-sup"><div class="sub-lbl">SUP</div><div class="sub-val">${Math.round(it.tSup).toLocaleString('id-ID')}</div></div>
+              <div class="sub-box sb-sppg"><div class="sub-lbl">SPPG / ${it.sat}</div><div class="sub-val">${uSppg.toLocaleString('id-ID')}</div></div>
+              <div class="sub-box sb-kop"><div class="sub-lbl">KOP / ${it.sat}</div><div class="sub-val">${uKop.toLocaleString('id-ID')}</div></div>
+              <div class="sub-box sb-sup"><div class="sub-lbl">SUP / ${it.sat}</div><div class="sub-val">${uSup.toLocaleString('id-ID')}</div></div>
             </div>
           </div>
           `;
@@ -887,13 +927,19 @@
 
     function pilihItemEdit(encodedItem) {
       const it = JSON.parse(decodeURIComponent(encodedItem));
+      // MODIFIKASI: Hitung harga satuan buat placeholder form
+      let uSppg = it.qty > 0 ? Math.round(it.tSppg / it.qty) : 0;
+      let uKop  = it.qty > 0 ? Math.round(it.tKop / it.qty) : 0;
+      let uSup  = it.qty > 0 ? Math.round(it.tSup / it.qty) : 0;
 
       document.getElementById('kBarangLama').value = it.barang;
       document.getElementById('kAction').value = "edit";
       gantiModeKelola();
-
-      document.getElementById('kTglBaru').value = ""; document.getElementById('kDapurBaru').value = ""; document.getElementById('kBarangBaru').value = ""; document.getElementById('kBarangBaru').placeholder = "Saat ini: " + it.barang; document.getElementById('kQty').value = "";  document.getElementById('kQty').placeholder = "Saat ini Qty: " + String(it.qty).replace('.', ',');  document.getElementById('kSatuan').value = ""; document.getElementById('kSatuan').placeholder = "Saat ini: " + (it.sat || '-'); document.getElementById('kSupplier').value = ""; document.getElementById('kSupplier').placeholder = "Saat ini: " + (it.supplier || '-'); document.getElementById('kKet').value = ""; document.getElementById('kKet').placeholder = "Keterangan: " + (it.ket || '-'); document.getElementById('kSppg').value = ""; document.getElementById('kSppg').placeholder = "Saat ini: " + it.tSppg; document.getElementById('kKop').value = ""; document.getElementById('kKop').placeholder = "Saat ini: " + it.tKop; document.getElementById('kSup').value = ""; document.getElementById('kSup').placeholder = "Saat ini: " + it.tSup;
-
+      document.getElementById('kTglBaru').value = ""; document.getElementById('kDapurBaru').value = ""; document.getElementById('kBarangBaru').value = ""; document.getElementById('kBarangBaru').placeholder = "Saat ini: " + it.barang; document.getElementById('kQty').value = "";  document.getElementById('kQty').placeholder = "Saat ini Qty: " + String(it.qty).replace('.', ',');  document.getElementById('kSatuan').value = ""; document.getElementById('kSatuan').placeholder = "Saat ini: " + (it.sat || '-'); document.getElementById('kSupplier').value = ""; document.getElementById('kSupplier').placeholder = "Saat ini: " + (it.supplier || '-'); document.getElementById('kKet').value = ""; document.getElementById('kKet').placeholder = "Keterangan: " + (it.ket || '-'); 
+      // Munculin Harga Satuan di Placeholder
+      document.getElementById('kSppg').value = ""; document.getElementById('kSppg').placeholder = "Satuan: " + uSppg; 
+      document.getElementById('kKop').value = "";  document.getElementById('kKop').placeholder = "Satuan: " + uKop; 
+      document.getElementById('kSup').value = "";  document.getElementById('kSup').placeholder = "Satuan: " + uSup;
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -902,17 +948,13 @@
       const payload = { 
         tanggalLama: document.getElementById('kTglLama').value, dapurLama: document.getElementById('kDapurLama').value, barangLama: document.getElementById('kBarangLama').value, tanggalBaru: document.getElementById('kTglBaru').value, dapurBaru: document.getElementById('kDapurBaru').value, barangBaru: document.getElementById('kBarangBaru').value, qtyBaru: document.getElementById('kQty').value, satuanBaru: document.getElementById('kSatuan').value, supplierBaru: document.getElementById('kSupplier').value, ketBaru: document.getElementById('kKet').value, tSppg: document.getElementById('kSppg').value, tKop: document.getElementById('kKop').value, tSup: document.getElementById('kSup').value 
       }; 
-      
       if ((action === 'edit' || action === 'hapus') && (!payload.tanggalLama || !payload.dapurLama || !payload.barangLama)) { showIosAlert("Area TARGET DATA harus diisi lengkap ya."); return; } 
       if (action === 'tambah' && (!payload.tanggalBaru || !payload.dapurBaru || !payload.barangBaru || !payload.supplierBaru)) { showIosAlert("Tanggal, Dapur, Barang, dan Supplier wajib diisi."); return; } 
-      
       showLoading("Menyimpan ke Spreadsheet...<br>Bentar ya Yu!"); 
-      
       apiCall('kelolaDataPesanan', { actionType: action, data: payload }).then(function(res) { 
           hideLoading(); showIosAlert(res.msg); 
           if(res.status === 'success') { 
             document.getElementById('kBarangLama').value = ''; document.getElementById('kBarangBaru').value = ''; document.getElementById('kSppg').value = ''; document.getElementById('kKop').value = ''; document.getElementById('kSup').value = ''; document.getElementById('kQty').value = ''; document.getElementById('kSatuan').value = ''; document.getElementById('kKet').value = ''; document.getElementById('kSupplier').value = ''; 
-            document.getElementById('kBarangBaru').placeholder = 'Nama Barang...'; document.getElementById('kQty').placeholder = 'Qty Baru'; document.getElementById('kSatuan').placeholder = 'Sat Baru'; document.getElementById('kSupplier').placeholder = 'Nama Supplier Baru...'; document.getElementById('kKet').placeholder = 'Keterangan Baru'; document.getElementById('kSppg').placeholder = '0'; document.getElementById('kKop').placeholder = '0'; document.getElementById('kSup').placeholder = '0';
             loadDaftarEdit();
           } 
       }); 
@@ -925,18 +967,14 @@
     function cariData() { 
       const d = document.getElementById('dapur').value; const t = document.getElementById('tanggal').value; const tTeks = document.getElementById('tanggal').options[document.getElementById('tanggal').selectedIndex].text; 
       document.getElementById('hasilHarian').style.display = 'none'; document.getElementById('tempatHasil').innerHTML = `<div class="loading-wrap"><div class="spinner-glass"></div>Sabar ya, cari data...</div>`; 
-      
       apiCall('getDataCepat', { dapur: d, tgl: t }).then(function(res) { 
         if (!res.items.length) { document.getElementById('tempatHasil').innerHTML = '<div class="empty-state">Data kosong, Yu.</div>'; document.getElementById('pesanLaporan').style.display = 'block'; document.getElementById('laporanCard').style.display = 'none'; return; } 
+        lastItemCount = res.items.length; // SIMPAN JUMLAH ITEM
         document.getElementById('hasilHarian').style.display = 'block'; document.getElementById('totSppgHar').innerText = Math.round(res.grand.tSppg).toLocaleString('id-ID'); document.getElementById('totKopHar').innerText  = Math.round(res.grand.tKop).toLocaleString('id-ID'); document.getElementById('marKopHar').innerText  = Math.round(res.grand.mKop).toLocaleString('id-ID'); document.getElementById('totSupHar').innerText  = Math.round(res.grand.tSup).toLocaleString('id-ID'); document.getElementById('marYynHar').innerText  = Math.round(res.grand.mYyn).toLocaleString('id-ID'); 
-        
         let grouped = {}; res.items.forEach(it => { let s = it.supplier || "TANPA SUPPLIER"; if (!grouped[s]) grouped[s] = { tk:0, ts:0, tp:0, list:[] }; grouped[s].tk += it.tKop; grouped[s].ts += it.tSup; grouped[s].tp += it.tSppg; grouped[s].list.push(it); }); document.getElementById('tempatHasil').innerHTML = bikinLaciHTML(grouped, 'har'); 
         let pagu = res.grand.pagu || 0; let menu = res.grand.menu || "-"; let poSppg = res.grand.tSppg; let poKop  = res.grand.tKop; let poSup  = res.grand.tSup; let sisaPagu = pagu - poSppg; let mrgKop = poSppg - poKop; let mrgYyn = poKop - poSup; let totMrg = mrgKop + mrgYyn; let persen = poSppg > 0 ? ((totMrg / poSppg) * 100).toFixed(2).replace('.', ',') : "0"; 
-        
         document.getElementById('pesanLaporan').style.display = 'none'; document.getElementById('laporanCard').style.display  = 'block'; document.getElementById('lapDapur').innerText   = d; document.getElementById('lapTanggal').innerText = tTeks; document.getElementById('lapMenu').innerText    = menu; document.getElementById('lapPagu').innerText    = `Rp ${Math.round(pagu).toLocaleString('id-ID')}`; document.getElementById('lapPoSppg').innerText  = `Rp ${Math.round(poSppg).toLocaleString('id-ID')}`; document.getElementById('lapPoKop').innerText   = `Rp ${Math.round(poKop).toLocaleString('id-ID')}`; document.getElementById('lapPoSup').innerText   = `Rp ${Math.round(poSup).toLocaleString('id-ID')}`; 
-        
         let elSisa  = document.getElementById('lapSisaPagu'); let rowSisa = document.getElementById('bgSisaPagu'); let lblSisa = document.getElementById('textSisaPagu'); elSisa.innerText = `Rp ${Math.round(sisaPagu).toLocaleString('id-ID')}`; rowSisa.className = 'price-row pr-neutral ' + (sisaPagu < 0 ? 'sisa-over' : 'sisa-ok'); rowSisa.style.borderLeftColor = sisaPagu < 0 ? 'var(--c-sup)' : 'var(--c-kop)'; lblSisa.style.color = sisaPagu < 0 ? 'var(--c-sup)' : 'var(--c-kop)'; 
-        
         document.getElementById('lapMrgKop').innerText  = `Rp ${Math.round(mrgKop).toLocaleString('id-ID')}`; document.getElementById('lapMrgYyn').innerText  = `Rp ${Math.round(mrgYyn).toLocaleString('id-ID')}`; document.getElementById('lapTmKop').innerText   = `Rp ${Math.round(mrgKop).toLocaleString('id-ID')}`; document.getElementById('lapTmYyn').innerText   = `Rp ${Math.round(mrgYyn).toLocaleString('id-ID')}`; document.getElementById('lapTotMrg').innerText  = `Rp ${Math.round(totMrg).toLocaleString('id-ID')}`; document.getElementById('lapPersen').innerText  = `${persen}%`; 
       }); 
     }
@@ -944,18 +982,13 @@
     function cariLapPeriode() { 
       const d = document.getElementById('dapurLapPer').value; const t1 = document.getElementById('tglMulaiLap').value; const t2 = document.getElementById('tglSelesaiLap').value; 
       if (!d || !t1 || !t2) { showIosAlert("Pilih Dapur & Tanggal dulu Yu!"); return; } 
-      
       const fmt = v => { let [y,m,day] = v.split('-'); return `${day}/${m}/${y}`; }; 
       document.getElementById('hasilLapPeriode').style.display = 'none'; document.getElementById('lapPerListHari').innerHTML = `<div class="loading-wrap"><div class="spinner-glass"></div>Menyusun laporan periode...</div>`; document.getElementById('hasilLapPeriode').style.display = 'block'; 
-      
       apiCall('getRekapPeriode', { dapur: d, tgl1: t1, tgl2: t2 }).then(function(res) { 
         if (!res || !res.items || !res.items.length) { document.getElementById('lapPerListHari').innerHTML = '<div class="empty-state">Data kosong.</div>'; return; } 
         let gSppg = res.grand.tSppg; let gKop = res.grand.tKop; let gSup = res.grand.tSup; let gMrgKop = gSppg - gKop; let gMrgYyn = gKop - gSup; let gTotMrg = gMrgKop + gMrgYyn; let gPersen = gSppg > 0 ? ((gTotMrg / gSppg) * 100).toFixed(2).replace('.', ',') : "0"; 
-        
         document.getElementById('lapPerDapur').innerText = d; document.getElementById('lapPerRange').innerText = `${fmt(t1)} – ${fmt(t2)}`; document.getElementById('lapPerTotSppg').innerText = `Rp ${Math.round(gSppg).toLocaleString('id-ID')}`; document.getElementById('lapPerTotKop').innerText = `Rp ${Math.round(gKop).toLocaleString('id-ID')}`; document.getElementById('lapPerTotSup').innerText = `Rp ${Math.round(gSup).toLocaleString('id-ID')}`; document.getElementById('lapPerPoSppg').innerText = `Rp ${Math.round(gSppg).toLocaleString('id-ID')}`; document.getElementById('lapPerPoKop').innerText = `Rp ${Math.round(gKop).toLocaleString('id-ID')}`; document.getElementById('lapPerPoSup').innerText = `Rp ${Math.round(gSup).toLocaleString('id-ID')}`; document.getElementById('lapPerMrgKop').innerText = `Rp ${Math.round(gMrgKop).toLocaleString('id-ID')}`; document.getElementById('lapPerMrgYyn').innerText = `Rp ${Math.round(gMrgYyn).toLocaleString('id-ID')}`; document.getElementById('lapPerTmKop').innerText = `Rp ${Math.round(gMrgKop).toLocaleString('id-ID')}`; document.getElementById('lapPerTmYyn').innerText = `Rp ${Math.round(gMrgYyn).toLocaleString('id-ID')}`; document.getElementById('lapPerTotMrg').innerText = `Rp ${Math.round(gTotMrg).toLocaleString('id-ID')}`; document.getElementById('lapPerPersen').innerText = `${gPersen}%`; 
-        
         let perTgl = {}; res.items.forEach(it => { let tgl = it.tanggal || 'Tanpa Tanggal'; if (!perTgl[tgl]) perTgl[tgl] = { sppg:0, kop:0, sup:0, menu:'', list:[], sortKey: it.sortDateInt||0 }; perTgl[tgl].sppg += it.tSppg; perTgl[tgl].kop += it.tKop; perTgl[tgl].sup += it.tSup; if (it.menu) perTgl[tgl].menu = it.menu; perTgl[tgl].list.push(it); }); let tglKeys = Object.keys(perTgl).sort((a,b) => (perTgl[a].sortKey||0) - (perTgl[b].sortKey||0)); document.getElementById('lapPerJmlHari').innerText = tglKeys.length + ' hari'; 
-        
         let html = ''; tglKeys.forEach((tgl, idx) => { let h = perTgl[tgl]; let mKop = h.sppg - h.kop; let mYyn = h.kop - h.sup; let totM = mKop + mYyn; let prs = h.sppg > 0 ? ((totM/h.sppg)*100).toFixed(1).replace('.',',') : '0'; let grouped = {}; h.list.forEach(it => { let s = it.supplier || 'TANPA SUPPLIER'; if (!grouped[s]) grouped[s] = { sppg:0, kop:0, sup:0, list:[] }; grouped[s].sppg += it.tSppg; grouped[s].kop += it.tKop; grouped[s].sup += it.tSup; grouped[s].list.push(it); }); 
         let detailHTML = ''; Object.keys(grouped).sort().forEach(sup => { let sg = grouped[sup]; detailHTML += `<div style="margin-bottom:14px; background: transparent; border-radius: 20px; padding: 6px; border: none;"><div style="position: sticky; top: 10px; z-index: 5; font-size:0.85rem; font-weight:900; margin-bottom: 14px; display:flex; align-items:center; gap:10px; padding: 14px; border-radius: 18px; background: var(--bg-card); box-shadow: var(--shadow-timbul);"><span style="color:var(--text-primary); font-weight:900;">📦 ${sup}</span></div><div style="padding: 0 4px; border-left: 2px dashed rgba(255,255,255,0.1); margin-left: 10px;">`; sg.list.forEach(it => { let uS = it.qty>0 ? Math.round(it.tSppg/it.qty).toLocaleString('id-ID') : 0; let uK = it.qty>0 ? Math.round(it.tKop/it.qty).toLocaleString('id-ID')  : 0; let uU = it.qty>0 ? Math.round(it.tSup/it.qty).toLocaleString('id-ID')  : 0; detailHTML += `<div class="item-glass" style="margin-bottom:14px;"><div class="item-top"><div class="item-name">${it.barang}</div><div class="qty-badge">${String(it.qty).replace('.', ',')} ${it.sat}</div></div><div class="price-row pr-sppg"><div class="pr-left"><div class="pr-label">SPPG</div><div class="pr-unit">${uS}/${it.sat}</div></div><div class="pr-val">${Math.round(it.tSppg).toLocaleString('id-ID')}</div></div><div class="price-row pr-kop"><div class="pr-left"><div class="pr-label">KOP</div><div class="pr-unit">${uK}/${it.sat}</div></div><div class="pr-val">${Math.round(it.tKop).toLocaleString('id-ID')}</div></div><div class="price-row pr-sup"><div class="pr-left"><div class="pr-label">SUP</div><div class="pr-unit">${uU}/${it.sat}</div></div><div class="pr-val">${Math.round(it.tSup).toLocaleString('id-ID')}</div></div></div>`; }); let smK = sg.sppg-sg.kop; let smY = sg.kop-sg.sup; detailHTML += `<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;margin-top:16px;"><div class="price-row pr-kop" style="margin-top:0;"><div class="pr-left"><div class="pr-label" style="font-size:0.7rem;">Mrg KOP</div></div><div class="pr-val" style="font-size:0.95rem;">${Math.round(smK).toLocaleString('id-ID')}</div></div><div class="price-row pr-sup" style="margin-top:0;"><div class="pr-left"><div class="pr-label" style="font-size:0.7rem;">Mrg YYN</div></div><div class="pr-val" style="font-size:0.95rem;">${Math.round(smY).toLocaleString('id-ID')}</div></div></div></div></div>`; }); detailHTML += `<div class="section-head" style="margin:24px 0 14px; color: var(--text-muted);">Laporan Keuangan Hari Ini</div><div class="price-row pr-sppg" style="margin-top:0;"><div class="pr-left"><div class="pr-label">Total SPPG</div></div><div class="pr-val">Rp ${Math.round(h.sppg).toLocaleString('id-ID')}</div></div><div class="price-row pr-kop" style="margin-top:10px;"><div class="pr-left"><div class="pr-label">PO Koperasi</div></div><div class="pr-val">Rp ${Math.round(h.kop).toLocaleString('id-ID')}</div></div><div class="price-row pr-sup" style="margin-top:10px;"><div class="pr-left"><div class="pr-label">PO Supplier</div></div><div class="pr-val">Rp ${Math.round(h.sup).toLocaleString('id-ID')}</div></div><div class="total-margin-card" style="margin-top:16px;"><div class="tm-row"><div class="tm-label">Margin KOP</div><div class="tm-val">Rp ${Math.round(mKop).toLocaleString('id-ID')}</div></div><div class="tm-row"><div class="tm-label">Margin YYN</div><div class="tm-val">Rp ${Math.round(mYyn).toLocaleString('id-ID')}</div></div><div class="tm-divider"></div><div class="tm-row"><div class="tm-total-label">Total Margin</div><div class="tm-total-val">Rp ${Math.round(totM).toLocaleString('id-ID')}</div></div><div class="tm-row" style="margin-top:8px;"><div class="tm-label">Persentase</div><div class="tm-persen-val">${prs}%</div></div></div>`; html += `<div class="hari-card" id="haricard-${idx}" onclick="toggleHariCard(${idx})"><div class="hari-card-header"><div class="hari-tgl">📅 ${tgl}</div><div class="hari-menu-badge">${h.menu || '-'}</div></div><div class="hari-mini-grid"><div class="hari-mini-box sub-box sb-sppg"><div class="sub-lbl">SPPG</div><div class="sub-val">${Math.round(h.sppg).toLocaleString('id-ID')}</div></div><div class="hari-mini-box sub-box sb-kop"><div class="sub-lbl">KOP</div><div class="sub-val">${Math.round(h.kop).toLocaleString('id-ID')}</div></div><div class="hari-mini-box sub-box sb-sup"><div class="sub-lbl">SUP</div><div class="sub-val">${Math.round(h.sup).toLocaleString('id-ID')}</div></div></div><div class="hari-margin-strip"><div class="hms-label">Total Margin</div><div class="hms-val">Rp ${Math.round(totM).toLocaleString('id-ID')}</div><div class="hms-label" style="margin-left:14px;">Persen</div><div class="hms-val">${prs}%</div></div><div class="hari-detail" onclick="event.stopPropagation()">${detailHTML}</div></div>`; }); document.getElementById('lapPerListHari').innerHTML = html; 
       }); 
@@ -967,25 +1000,10 @@
       const d = document.getElementById('dapurBarang').value; const b = document.getElementById('namaBarang').value; 
       if(!d || !b) { showIosAlert("Pilih dapur dan ketik nama barang dulu ya!"); return; } 
       document.getElementById('hasilBarang').innerHTML = `<div class="loading-wrap"><div class="spinner-glass"></div>Mencari riwayat harga...</div>`; 
-      
       apiCall('getHargaBarang', { dapur: d, barang: b }).then(function(res) { 
         if(!res || !res.length) { document.getElementById('hasilBarang').innerHTML = '<div class="empty-state">Tidak ada riwayat harga.</div>'; return; } 
         let html = ''; let lastPrices = null; res.forEach(it => { let uSppg = it.qty > 0 ? Math.round(it.tSppg / it.qty) : 0; let uKop = it.qty > 0 ? Math.round(it.tKop / it.qty) : 0; let uSup = it.qty > 0 ? Math.round(it.tSup / it.qty) : 0; let currentPrices = `${uSppg}-${uKop}-${uSup}`; if (currentPrices !== lastPrices) { html += `<div class="tgl-group" style="margin-left:0;">📅 ${it.tanggal}</div><div class="item-glass fade-up"><div class="item-top"><div class="item-name">${it.barang}</div><div class="qty-badge">${String(it.qty).replace('.', ',')} ${it.sat}</div></div><div class="price-row pr-sppg"><div class="pr-left"><div class="pr-label">SPPG</div><div class="pr-unit">Harga Satuan</div></div><div class="pr-val">Rp ${uSppg.toLocaleString('id-ID')}</div></div><div class="price-row pr-kop"><div class="pr-left"><div class="pr-label">KOP</div><div class="pr-unit">Harga Satuan</div></div><div class="pr-val">Rp ${uKop.toLocaleString('id-ID')}</div></div><div class="price-row pr-sup"><div class="pr-left"><div class="pr-label">SUP</div><div class="pr-unit">Harga Satuan</div></div><div class="pr-val">Rp ${uSup.toLocaleString('id-ID')}</div></div></div>`; lastPrices = currentPrices; } }); if (html === '') { html = '<div class="empty-state">Tidak ada perubahan harga.</div>'; } document.getElementById('hasilBarang').innerHTML = html; 
       }); 
-    }
-  </script>
-  <script>
-    // Daftarkan Service Worker biar bisa di-install
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js')
-          .then(registration => {
-            console.log('ServiceWorker sukses didaftarkan!');
-          })
-          .catch(err => {
-            console.log('ServiceWorker gagal:', err);
-          });
-      });
     }
   </script>
 </body>
