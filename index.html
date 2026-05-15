@@ -465,7 +465,7 @@
 
     window.tempShareData = [];
     let listBarangMasterAll = []; 
-    let lastItemCount = 0; // Tambahan: Simpan jumlah item harian
+    let lastItemCount = 0;
 
     function showLoading(msg) { document.getElementById('loaderText').innerHTML = msg; document.getElementById('iosLoader').style.display = 'flex'; }
     function hideLoading() { document.getElementById('iosLoader').style.display = 'none'; }
@@ -702,7 +702,6 @@
       });
     }
 
-    // --- TAMBAHAN: FUNGSI GENERATE LAPORAN LOKAL ---
     function showGenerateOptions() {
       const d = document.getElementById('lapDapur').innerText;
       const t = document.getElementById('lapTanggal').innerText;
@@ -738,7 +737,6 @@
       });
     }
 
-
     function tampilkanModalSharePDF(tipe, dataArr) {
       if (!dataArr) return; 
       window.tempShareData = dataArr;
@@ -764,45 +762,118 @@
       document.getElementById('shareModal').style.display = 'flex';
     }
 
+    // MODIFIKASI: SURAT TERIMA BARANG (WA Text Generated)
     function tampilkanModalSurat(res) {
+       const tglSel = document.getElementById('tglCetak');
+       const tglTeks = tglSel.options[tglSel.selectedIndex].text;
+       const tglVal = tglSel.value;
+       
+       let h1Text = "";
+       if (tglVal) {
+          let d = new Date(tglVal);
+          d.setDate(d.getDate() - 1);
+          let hariArr = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+          let blnArr = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+          h1Text = `${hariArr[d.getDay()]}, ${d.getDate()} ${blnArr[d.getMonth()]} ${d.getFullYear()}`;
+       }
+
+       const pesanWA = `SURAT TERIMA BARANG
+Untuk Menu ${tglTeks}
+
+Pesanan harus diantar pada :
+*${h1Text}*
+
+Mohon dicek file terlampir. ⬇️`;
+
        document.getElementById('shareModalHeader').innerHTML = `<span style="color:var(--text-primary); font-size:18px;">✨ File Siap!</span>`;
-       let encodedMsg = encodeURIComponent(res.pesan);
+       let encodedMsg = encodeURIComponent(pesanWA);
        document.getElementById('shareModalContent').innerHTML = `
           <div style="text-align:center; padding:10px;">
             <p style="font-size:13px; color:var(--text-secondary); margin-bottom:24px; line-height:1.5;">
               <strong style="color:var(--text-primary);">${res.fileName}</strong><br>Berkas Siap Dikirim Ke Logistik.
             </p>
             <a href="${res.link}" target="_blank" style="display:block; padding:16px; background:var(--bg-inset); color:var(--c-sppg); text-decoration:none; border-radius:20px; font-weight:800; margin-bottom:14px; box-shadow: var(--shadow-tenggelam);">Buka Spreadsheet</a>
-            <button onclick="window.open('https://wa.me/?text=${encodedMsg}', '_blank')" style="display:block; width:100%; padding:16px; background:var(--c-kop); color:var(--bg-inset); border:none; border-radius:20px; font-weight:900; cursor:pointer; box-shadow: 4px 4px 10px rgba(11, 16, 26, 0.6), inset 2px 2px 4px rgba(255,255,255,0.4);">Kirim ke WhatsApp</button>
+            <button onclick="navigator.clipboard.writeText(decodeURIComponent('${encodedMsg}')).catch(e=>console.log(e)); window.open('https://wa.me/?text=${encodedMsg}', '_blank')" style="display:block; width:100%; padding:16px; background:var(--c-kop); color:var(--bg-inset); border:none; border-radius:20px; font-weight:900; cursor:pointer; box-shadow: 4px 4px 10px rgba(11, 16, 26, 0.6), inset 2px 2px 4px rgba(255,255,255,0.4);">Kirim ke WhatsApp</button>
           </div>
        `;
        document.getElementById('shareModal').style.display = 'flex';
     }
 
+    // MODIFIKASI: SHARE PO PDF (WA Text Generated & Copy Clipboard)
     function shareSatuFile(idx) {
        const item = window.tempShareData[idx];
        const btn = document.getElementById('btnShare-' + idx);
+       
+       const tglSel = document.getElementById('tglCetak');
+       const tglTeks = tglSel.options[tglSel.selectedIndex].text; 
+       const tglVal = tglSel.value; 
+       
+       let h1Text = "";
+       if (tglVal) {
+          let d = new Date(tglVal);
+          d.setDate(d.getDate() - 1);
+          let hariArr = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+          let blnArr = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+          h1Text = `${hariArr[d.getDay()]}, ${d.getDate()} ${blnArr[d.getMonth()]} ${d.getFullYear()}`;
+       }
+       
+       let jenisText = "PO";
+       let targetName = item.nama.toUpperCase();
+       if(item.fileName.toLowerCase().includes("rab")) jenisText = "RAB AK";
+       else if(item.fileName.toLowerCase().includes("gabungan")) jenisText = "PO GABUNGAN";
+       else if(item.fileName.toLowerCase().includes("bon")) jenisText = "BON";
+
+       const pesanWA = `${jenisText} ${targetName}
+Untuk Menu ${tglTeks}
+
+Pesanan harus diantar pada :
+*${h1Text}*
+
+Mohon dicek file terlampir. ⬇️`;
+
        try {
           const byteCharacters = atob(item.base64);
           const byteNumbers = new Array(byteCharacters.length);
           for (let i = 0; i < byteCharacters.length; i++) { byteNumbers[i] = byteCharacters.charCodeAt(i); }
           const byteArray = new Uint8Array(byteNumbers);
           const file = new File([byteArray], item.fileName, { type: "application/pdf" });
-          const shareData = { files: [file], title: "PO " + item.nama, text: item.pesan };
+          
+          const shareData = { files: [file], title: item.fileName, text: pesanWA };
+          
           if (navigator.canShare && navigator.canShare({ files: [file] })) {
+             
+             navigator.clipboard.writeText(pesanWA).catch(e => console.log("Clipboard error: ", e));
+             
+             let oldText = btn.innerHTML;
+             btn.innerHTML = "⏳ WA...";
+             
              navigator.share(shareData)
                 .then(() => {
-                   btn.innerHTML = "✅ Selesai"; btn.style.backgroundColor = "var(--bg-card)"; btn.style.color = "var(--c-kop)"; btn.style.boxShadow = "var(--shadow-tenggelam)"; btn.disabled = true;
+                   btn.innerHTML = "✅ Selesai"; 
+                   btn.style.backgroundColor = "var(--bg-card)"; 
+                   btn.style.color = "var(--c-kop)"; 
+                   btn.style.boxShadow = "var(--shadow-tenggelam)"; 
+                   btn.disabled = true;
                 })
-                .catch((err) => console.log('Batal: ' + err.message));
+                .catch((err) => {
+                   btn.innerHTML = oldText; 
+                   console.log('Batal: ' + err.message);
+                });
           } else {
-             alert("Browser tidak support share langsung. File otomatis didownload.");
+             alert("Browser tidak support share langsung. File didownload.");
              const url = window.URL.createObjectURL(file);
              const a = document.createElement('a'); a.style.display = 'none'; a.href = url; a.download = item.fileName;
              document.body.appendChild(a); a.click(); window.URL.revokeObjectURL(url);
-             btn.innerHTML = "⬇️ Downloaded"; btn.style.backgroundColor = "var(--bg-card)"; btn.style.color = "var(--text-soft)"; btn.style.boxShadow = "var(--shadow-tenggelam)"; btn.disabled = true;
+             
+             btn.innerHTML = "⬇️ Downloaded"; 
+             btn.style.backgroundColor = "var(--bg-card)"; 
+             btn.style.color = "var(--text-soft)"; 
+             btn.style.boxShadow = "var(--shadow-tenggelam)"; 
+             btn.disabled = true;
           }
-       } catch(e) { alert("Error: " + e.message); }
+       } catch(e) { 
+          alert("Error: " + e.message); 
+       }
     }
 
     function cetakLaporanPDFResmi() {
@@ -819,7 +890,6 @@
       const totM = document.getElementById('lapTotMrg').innerText;
       const prsn = document.getElementById('lapPersen').innerText;
 
-      // Desain ulang tabel margin biar gak di-'sunat' sama html2pdf
       const printHtml = `
         <div style="padding: 10px; font-family: 'Times New Roman', serif; color: #000; background: #fff; width: 100%; box-sizing: border-box;">
           
@@ -871,7 +941,6 @@
         </div>
       `;
 
-      // Settingan ditambahin margin otomatis 15mm biar pas di tengah kertas A4
       const opt = {
         margin:       15, 
         filename:     `Laporan_MRG_${d}_${t.replace(/[/, ]/g, '_')}.pdf`,
@@ -886,7 +955,6 @@
         showIosAlert("✅ Laporan PDF Resmi berhasil dibuat dan di-download!");
       });
     }
-
 
     function gantiModeKelola() { const act = document.getElementById('kAction').value; const aLama = document.getElementById('areaDataLama'); const aBaru = document.getElementById('areaDataBaru'); if (act === 'hapus') { aLama.style.display = 'block'; aBaru.style.display = 'none'; } else if (act === 'tambah') { aLama.style.display = 'none'; aBaru.style.display = 'block'; } else { aLama.style.display = 'block'; aBaru.style.display = 'block'; } }
     
@@ -911,7 +979,6 @@
         let html = '<div class="section-head" style="margin-top:28px;">Daftar Item (Klik untuk Edit)</div>';
         res.items.forEach((it) => {
           let safeItem = encodeURIComponent(JSON.stringify(it));
-          // MODIFIKASI: Tampilkan Harga SATUAN di Daftar Edit
           let uSppg = it.qty > 0 ? Math.round(it.tSppg / it.qty) : 0;
           let uKop  = it.qty > 0 ? Math.round(it.tKop / it.qty) : 0;
           let uSup  = it.qty > 0 ? Math.round(it.tSup / it.qty) : 0;
@@ -940,7 +1007,6 @@
 
     function pilihItemEdit(encodedItem) {
       const it = JSON.parse(decodeURIComponent(encodedItem));
-      // MODIFIKASI: Hitung harga satuan buat placeholder form
       let uSppg = it.qty > 0 ? Math.round(it.tSppg / it.qty) : 0;
       let uKop  = it.qty > 0 ? Math.round(it.tKop / it.qty) : 0;
       let uSup  = it.qty > 0 ? Math.round(it.tSup / it.qty) : 0;
@@ -949,7 +1015,6 @@
       document.getElementById('kAction').value = "edit";
       gantiModeKelola();
       document.getElementById('kTglBaru').value = ""; document.getElementById('kDapurBaru').value = ""; document.getElementById('kBarangBaru').value = ""; document.getElementById('kBarangBaru').placeholder = "Saat ini: " + it.barang; document.getElementById('kQty').value = "";  document.getElementById('kQty').placeholder = "Saat ini Qty: " + String(it.qty).replace('.', ',');  document.getElementById('kSatuan').value = ""; document.getElementById('kSatuan').placeholder = "Saat ini: " + (it.sat || '-'); document.getElementById('kSupplier').value = ""; document.getElementById('kSupplier').placeholder = "Saat ini: " + (it.supplier || '-'); document.getElementById('kKet').value = ""; document.getElementById('kKet').placeholder = "Keterangan: " + (it.ket || '-'); 
-      // Munculin Harga Satuan di Placeholder
       document.getElementById('kSppg').value = ""; document.getElementById('kSppg').placeholder = "Satuan: " + uSppg; 
       document.getElementById('kKop').value = "";  document.getElementById('kKop').placeholder = "Satuan: " + uKop; 
       document.getElementById('kSup').value = "";  document.getElementById('kSup').placeholder = "Satuan: " + uSup;
