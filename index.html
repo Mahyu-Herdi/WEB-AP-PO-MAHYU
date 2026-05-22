@@ -205,40 +205,41 @@
        SPLIT-SCREEN KHUSUS TABLET / PC (Min-Width: 800px)
        ========================================= */
     @media (min-width: 800px) {
-      body { padding: 32px 40px 110px; } /* Ruang bernapas ekstra di layar lebar */
+      body { padding: 32px 40px 110px; }
       
-      /* SPLIT: MENU HARIAN */
-      #halamanHarian {
+      /* 1. TAMPILAN AWAL SEBELUM PENCARIAN (Tengah & Elegan) */
+      #halamanHarian, #halamanLapPeriode {
+        max-width: 540px;
+        margin: 10vh auto 0; /* Turun sedikit biar pas di tengah mata */
+        transition: all 0.3s ease;
+      }
+
+      /* 2. SPLIT SCREEN OTOMATIS AKTIF KETIKA HASIL MUNCUL */
+      #halamanHarian:has(#hasilHarian:not([style*="none"])),
+      #halamanLapPeriode:has(#hasilLapPeriode:not([style*="none"])) {
+        max-width: 100%;
+        margin: 0;
         display: grid;
-        /* minmax(0, 1fr) adalah kunci biar kolom gak melar segede sungai */
         grid-template-columns: 340px minmax(0, 1fr);
         grid-template-rows: auto 1fr;
         gap: 28px;
         align-items: start;
       }
+
+      /* ATURAN GRID HARIAN */
       #halamanHarian > .g-card { grid-column: 1; grid-row: 1; margin-bottom: 0; }
-      
-      /* Trik :not([style*="none"]) jauh lebih aman dan responsif terhadap JS */
       #hasilHarian:not([style*="none"]) { display: contents !important; }
       #hasilHarian .dash-grid { grid-column: 1; grid-row: 2; position: sticky; top: 32px; margin-top: 24px; }
       #tempatHasil { grid-column: 2; grid-row: 1 / span 2; }
 
-      /* SPLIT: MENU PERIODE */
-      #halamanLapPeriode {
-        display: grid;
-        grid-template-columns: 340px minmax(0, 1fr);
-        grid-template-rows: auto 1fr;
-        gap: 28px;
-        align-items: start;
-      }
+      /* ATURAN GRID PERIODE */
       #halamanLapPeriode > .g-card { grid-column: 1; grid-row: 1; margin-bottom: 0; }
-      
       #hasilLapPeriode:not([style*="none"]) { display: contents !important; }
       #hasilLapPeriode > .g-card { grid-column: 1; grid-row: 2; position: sticky; top: 32px; margin-top: 24px; }
       #hasilLapPeriode > .section-head { grid-column: 2; grid-row: 1; align-self: center; margin-top: 0; margin-bottom: 16px; }
       #hasilLapPeriode > #lapPerListHari { grid-column: 2; grid-row: 2; }
 
-      /* SPLIT: MENU EDIT / KELOLA */
+      /* SPLIT: MENU EDIT / KELOLA (Selalu Split) */
       #halamanEdit {
         display: grid;
         grid-template-columns: 360px minmax(0, 1fr);
@@ -246,13 +247,12 @@
         gap: 0 28px;
         align-items: start;
       }
-      #halamanEdit > .g-card { display: contents; } /* Pecah kontainer utama Edit */
+      #halamanEdit > .g-card { display: contents; }
       #halamanEdit > .g-card > * { animation: fadeUp 0.4s cubic-bezier(0.25,0.46,0.45,0.94) both; }
       #halamanEdit > .g-card > #kAction { grid-column: 1; grid-row: 1; margin-bottom: 20px !important; }
       #halamanEdit > .g-card > #areaDataLama { grid-column: 1; grid-row: 2; margin-bottom: 20px !important; }
       #listEditBawah { grid-column: 1; grid-row: 3; width: 100%; }
       
-      /* Card Form Data Baru di sebelah kanan */
       #halamanEdit > .g-card > #areaDataBaru {
         grid-column: 2;
         grid-row: 1 / span 2;
@@ -269,7 +269,10 @@
     
     /* Ekspansi ekstra untuk PC layar sangat lebar */
     @media (min-width: 1200px) {
-      #halamanHarian, #halamanLapPeriode { grid-template-columns: 400px minmax(0, 1fr); gap: 40px; }
+      #halamanHarian:has(#hasilHarian:not([style*="none"])), 
+      #halamanLapPeriode:has(#hasilLapPeriode:not([style*="none"])) { 
+        grid-template-columns: 400px minmax(0, 1fr); gap: 40px; 
+      }
       #halamanEdit { grid-template-columns: 420px minmax(0, 1fr); gap: 40px; }
     }
   </style>
