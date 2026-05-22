@@ -534,7 +534,7 @@
   </div>
 
   <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbzxVyr7GObOnSLXKPPXTbC36nGAS0s161tOlsiCpAQiFLZa7UvhPEd0yZAwbcgGzY9F_w/exec";
+    const API_URL = "https://script.google.com/macros/s/AKfycbxGpS3dFeXlYSYX6NyV9unHOSIYzHLT2ik2xA-tERIutCYFoSJ8wYZtoIiuYjD76fyXGA/exec";
 
     async function apiCall(action, params = {}) {
       const payload = { action: action, ...params };
@@ -773,7 +773,7 @@
       else if(tipe === 'rekap_kop_excel') funcName = "webRekapBatchOtomatis";
       else if(tipe === 'bon') funcName = "webBatchPdfBON";
       else if(tipe === 'surat') funcName = "webBatchSuratTerimaBarangGS";
-      else if(tipe === 'rekap') funcName = "webRekapitulasexcel";
+      else if(tipe === 'rekap') funcName = "webRekapitulasiexcel";
       else if(tipe === 'po_gabungan') funcName = "webCetakPOGabungan";
       else if(tipe === 'rab_nisam') { funcName = "webCetakRabAk"; param3 = "nisam"; }
       else if(tipe === 'rab_arratibi') { funcName = "webCetakRabAk"; param3 = "arratibi"; }
