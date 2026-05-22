@@ -908,17 +908,21 @@ Mohon dicek file terlampir. ⬆️`;
        
 let jenisText = "PO";
        let targetName = item.nama.toUpperCase();
-       if(item.fileName.toLowerCase().includes("rab")) jenisText = "RAB AK";
-       else if(item.fileName.toLowerCase().includes("gabungan")) jenisText = "PO GABUNGAN";
-       else if(item.fileName.toLowerCase().includes("bon")) jenisText = "BON";
-       else if(item.fileName.toLowerCase().includes("laporan harian")) jenisText = "LAPORAN HARIAN";
+       let namaFile = item.fileName.toLowerCase();
+
+       // Deteksi jenis file supaya lebih spesifik
+       if(namaFile.includes("rab")) jenisText = "RAB";
+       else if(namaFile.includes("po ak")) jenisText = "PO AK";
+       else if(namaFile.includes("gabungan")) jenisText = "PO GABUNGAN";
+       else if(namaFile.includes("bon")) jenisText = "BON";
+       else if(namaFile.includes("laporan harian")) jenisText = "LAPORAN HARIAN";
 
        // 1. Ambil pesan dasar (dari server atau teks default)
        let pesanWA = item.pesan || `${jenisText} ${targetName}\nUntuk Menu ${tglTeks}\n\nPesanan harus diantar pada :\n*${h1Text}*\n\nMohon dicek file terlampir. ⬆️`;
 
-       // 2. Sisipkan Syarat & Ketentuan HANYA jika yang dikirim adalah PO
-       if (jenisText.includes("PO")) {
-           let syarat = `\n*SYARAT & KETENTUAN:*
+       // 2. Sisipkan Syarat & Ketentuan HANYA untuk PO biasa, PO GABUNGAN, atau PO AK (RAB lewat!)
+       if (jenisText === "PO" || jenisText === "PO GABUNGAN" || jenisText === "PO AK") {
+           let syarat = `\n\n*SYARAT & KETENTUAN:*
 - Syarat dan ketentuan berlaku berdasarkan kesepakatan yang ditandatangani bersama pada MOU.
 - Barang dinyatakan sah hanya jika diterima langsung oleh tim SPPI.
 - PO akan dianggap batal jika pengiriman tidak sesuai dengan spesifikasi.
@@ -928,7 +932,7 @@ let jenisText = "PO";
 - Penambahan bahan baku dapat dilakukan bila telah disetujui oleh Ka. SPPG, Ahli Gizi, Akuntan, serta diketahui oleh Yayasan.
 - Pemberitahuan penambahan bahan baku wajib diinformasikan sebelum pukul 10.00 WIB pada tanggal menu disalurkan. Lewat dari jam tersebut, sepenuhnya menjadi tanggung jawab penyuplai.\n\n`;
            
-           // Masukkan syarat tepat di atas kalimat "Mohon segera dicek..."
+           // Masukkan syarat tepat di atas kalimat "Mohon..."
            pesanWA = pesanWA.replace("\n\nMohon", syarat + "Mohon");
        }
 
