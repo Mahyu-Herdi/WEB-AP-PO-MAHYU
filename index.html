@@ -913,7 +913,23 @@ Mohon dicek file terlampir. ⬆️`;
        else if(item.fileName.toLowerCase().includes("bon")) jenisText = "BON";
        else if(item.fileName.toLowerCase().includes("laporan harian")) jenisText = "LAPORAN HARIAN";
 
-       const pesanWA = item.pesan || `${jenisText} ${targetName}\nUntuk Menu ${tglTeks}\n\nPesanan harus diantar pada :\n*${h1Text}*\n\nMohon dicek file terlampir. ⬆️`;
+       const pesanWA = item.pesan || `${jenisText} ${targetName}
+Untuk Menu ${tglTeks}
+
+Pesanan harus diantar pada :
+*${h1Text}*
+
+*SYARAT & KETENTUAN:*
+- Syarat dan ketentuan berlaku berdasarkan kesepakatan yang ditandatangani bersama pada MOU.
+- Barang dinyatakan sah hanya jika diterima langsung oleh tim SPPI.
+- PO akan dianggap batal jika pengiriman tidak sesuai dengan spesifikasi.
+- Pengiriman wajib disertai surat jalan tanpa mencantumkan harga.
+- Pembayaran dilakukan setelah menerima invoice berdasarkan tanda terima barang.
+- Pergantian bahan baku wajib mendapat persetujuan dari Ka. SPPG, Ahli Gizi, Akuntan, dan Yayasan.
+- Penambahan bahan baku dapat dilakukan bila telah disetujui oleh Ka. SPPG, Ahli Gizi, Akuntan, serta diketahui oleh Yayasan.
+- Pemberitahuan penambahan bahan baku wajib diinformasikan sebelum pukul 10.00 WIB pada tanggal menu disalurkan. Lewat dari jam tersebut, sepenuhnya menjadi tanggung jawab penyuplai.
+
+Mohon dicek file terlampir. ⬆️`;
 
        try {
           const byteCharacters = atob(item.base64);
