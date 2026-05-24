@@ -543,6 +543,14 @@
     </div>
   </div>
 
+<div class="section-head" style="margin-top:24px; margin-bottom:18px;">Menu Cetak Utama</div>
+        <div class="btn-cetak-row" style="grid-template-columns: 1fr;">
+          <button class="btn-cetak-item action-btn" onclick="prosesCetak('inv_sppg', this)">
+            <span style="font-size:18px;">💵</span> Cetak Invoice SPPG
+          </button>
+        </div>
+
+
   <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbxGpS3dFeXlYSYX6NyV9unHOSIYzHLT2ik2xA-tERIutCYFoSJ8wYZtoIiuYjD76fyXGA/exec";
 
@@ -788,6 +796,8 @@
       else if(tipe === 'rab_nisam') { funcName = "webCetakRabAk"; param3 = "nisam"; }
       else if(tipe === 'rab_arratibi') { funcName = "webCetakRabAk"; param3 = "arratibi"; }
       else if(tipe === 'rab_palda') { funcName = "webCetakRabAk"; param3 = "palda"; }
+      else if(tipe === 'inv_sppg') funcName = "webCetakInvSppg";
+
       apiCall(funcName, { dapur: d, tgl: t, tipe: param3 || tipe, jenisRab: param3 || tipe }).then(function(res) {
           allBtns.forEach(b => b.disabled = false);
           hideLoading();
@@ -845,7 +855,8 @@
       else if(tipe === 'rabak') { warnaTeks = "var(--c-margin-text)"; ikon = "🏢"; teksJml = "Berkas RAB AK Siap!"; }
       else if(tipe === 'pogabungan') { warnaTeks = "var(--c-sup)"; ikon = "📑"; teksJml = "PO Gabungan Siap!"; }
       else if(tipe === 'laporan') { warnaTeks = "#10B981"; ikon = "📊"; teksJml = "Laporan Siap!"; }
-      
+      else if(tipe === 'inv_sppg') { warnaTeks = "var(--c-sppg)"; ikon = "💵"; teksJml = "Invoice SPPG Siap!"; }
+
       document.getElementById('shareModalHeader').innerHTML = `<span style="color:${warnaTeks};">${ikon} ${dataArr.length} ${teksJml}</span>`;
       let html = '';
       dataArr.forEach((item, index) => {
