@@ -15,7 +15,8 @@
        PREMIUM CLAYMORPHISM & NEUMORPHISM STYLE
        ========================================= */
     :root {
-      var(--c-sppg):        #60A5FA; 
+      /* Warna bawaan tetap sama, tidak diubah */
+      --c-sppg:        #60A5FA; 
       --c-kop:         #34D399; 
       --c-sup:         #FB7185; 
       --c-margin-text: #C084FC; 
@@ -23,14 +24,15 @@
       --bg-card:  #27354A; 
       --bg-inset: #131A27; 
       
+      /* Pembaruan Bayangan: Lebih Fluffy, Tebal, dan 3D ala Claymorphism */
       --shadow-dark: rgba(11, 16, 26, 0.7); 
       --shadow-light: rgba(56, 75, 105, 0.35); 
       
       --shadow-timbul: 
         10px 10px 20px var(--shadow-dark), 
         -8px -8px 16px var(--shadow-light),
-        inset -4px -4px 10px rgba(11, 16, 26, 0.5), 
-        inset 4px 4px 10px rgba(255, 255, 255, 0.08); 
+        inset -4px -4px 10px rgba(11, 16, 26, 0.5), /* Pantulan bawah karet */
+        inset 4px 4px 10px rgba(255, 255, 255, 0.08); /* Pantulan cahaya atas */
         
       --shadow-tenggelam: 
         inset 8px 8px 16px rgba(11, 16, 26, 0.8), 
@@ -85,7 +87,7 @@
     .nav-item svg { width: 22px; height: 22px; fill: currentColor; transition: all 0.25s ease; }
     .nav-item span { font-size: 0.55rem; font-weight: 800; letter-spacing: 0.2px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; max-width: 100%;}
     .nav-item:active { transform: scale(0.88); }
-    .nav-item.active { color: #60A5FA; background: var(--bg-inset); box-shadow: var(--shadow-pressed); }
+    .nav-item.active { color: var(--c-sppg); background: var(--bg-inset); box-shadow: var(--shadow-pressed); }
     .nav-item.active svg { filter: drop-shadow(0 0 6px rgba(96, 165, 250, 0.5)); }
 
     /* Elemen Umum UI */
@@ -94,50 +96,26 @@
     .form-select:focus, .form-control:focus { outline: none; box-shadow: var(--shadow-tenggelam), 0 0 0 2px rgba(96, 165, 250, 0.3) !important; }
     .form-select option { background: var(--bg-card); color: var(--text-primary); }
     .form-control::placeholder { color: var(--text-soft); font-weight: 600; }
-    .btn-go { background: var(--bg-card); border: none; border-radius: 20px; color: #60A5FA; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 900; font-size: 0.88rem; padding: 15px; width: 100%; cursor: pointer; box-shadow: var(--shadow-btn); letter-spacing: 0.6px; transition: all 0.15s ease; }
+    .btn-go { background: var(--bg-card); border: none; border-radius: 20px; color: var(--c-sppg); font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 900; font-size: 0.88rem; padding: 15px; width: 100%; cursor: pointer; box-shadow: var(--shadow-btn); letter-spacing: 0.6px; transition: all 0.15s ease; }
     .btn-go:active { transform: scale(0.95); box-shadow: var(--shadow-pressed); }
     
-    /* Tombol Mini Hapus */
+    /* Tombol Cetak */
+    .btn-cetak-row { display: grid; grid-template-columns: 1fr 58px; gap: 14px; margin-bottom: 16px; }
+    .btn-cetak-item { background: var(--bg-card); border: none; border-radius: 20px; color: var(--text-primary); font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 0.88rem; padding: 16px; width: 100%; cursor: pointer; display: flex; align-items: center; gap: 12px; transition: all 0.2s; box-shadow: var(--shadow-btn); }
+    .btn-cetak-item:active { transform: scale(0.97); box-shadow: var(--shadow-pressed); color: var(--c-sppg); }
+    .btn-cetak-item:disabled { opacity: 0.5; pointer-events: none; box-shadow: none; }
     .btn-mini-hapus { background: var(--bg-card); border: none; border-radius: 20px; color: var(--c-sup); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; transition: 0.2s; box-shadow: var(--shadow-btn); }
     .btn-mini-hapus:active { transform: scale(0.92); box-shadow: var(--shadow-pressed); }
     .btn-mini-hapus:disabled { opacity: 0.5; pointer-events: none; }
-
-    /* --- CHECKBOX BATCH PRINT STYLE --- */
-    .chk-row { display: grid; grid-template-columns: 1fr 58px; gap: 14px; margin-bottom: 16px; }
-    .chk-label {
-      background: var(--bg-card); border: none; border-radius: 20px; padding: 16px;
-      display: flex; align-items: center; gap: 14px; cursor: pointer;
-      transition: all 0.2s ease; box-shadow: var(--shadow-timbul);
-      color: var(--text-primary); font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 0.88rem;
-    }
-    .chk-label input { display: none; }
-    .chk-box {
-      width: 24px; height: 24px; border-radius: 8px; background: var(--bg-inset);
-      box-shadow: var(--shadow-tenggelam); display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; transition: all 0.2s ease; border: 2px solid transparent;
-    }
-    .chk-box svg { width: 14px; height: 14px; fill: #60A5FA; opacity: 0; transform: scale(0.5); transition: all 0.2s cubic-bezier(0.34,1.56,0.64,1); }
-    .chk-label.checked-state { box-shadow: var(--shadow-pressed); color: #60A5FA; }
-    .chk-label.checked-state .chk-box { border-color: #60A5FA; }
-    .chk-label.checked-state .chk-box svg { opacity: 1; transform: scale(1); }
-    
-    .btn-cetak-batch {
-      background: #10B981; color: var(--bg-inset); border: none; border-radius: 20px;
-      font-weight: 900; font-size: 0.95rem; padding: 18px; width: 100%; cursor: pointer;
-      box-shadow: 4px 4px 10px rgba(11, 16, 26, 0.6), inset 2px 2px 4px rgba(255,255,255,0.4);
-      letter-spacing: 0.5px; transition: all 0.15s ease; margin-top: 14px; font-family: 'Plus Jakarta Sans', sans-serif;
-    }
-    .btn-cetak-batch:active { transform: scale(0.97); box-shadow: var(--shadow-pressed); }
-    .btn-cetak-batch:disabled { opacity: 0.5; pointer-events: none; }
     
     /* Loader & Alert iOS */
     .ios-loader-overlay, .ios-alert-overlay { position: fixed; inset: 0; background: rgba(11, 16, 26, 0.7); backdrop-filter: blur(8px); z-index: 10002; display: none; align-items: center; justify-content: center; animation: fadeIn 0.2s ease; }
     .ios-loader-box { background: var(--bg-card); padding: 32px; border-radius: 36px; text-align: center; min-width: 160px; max-width: 80%; box-shadow: var(--shadow-timbul); border: none; }
-    .spinner-ios { width: 36px; height: 36px; border: 4px solid var(--bg-inset); border-top: 4px solid #60A5FA; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; box-shadow: var(--shadow-tenggelam); }
+    .spinner-ios { width: 36px; height: 36px; border: 4px solid var(--bg-inset); border-top: 4px solid var(--c-sppg); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; box-shadow: var(--shadow-tenggelam); }
     .loader-text { color: var(--text-primary); font-weight: 800; font-size: 0.85rem; line-height: 1.4; }
     .ios-alert-box { background: var(--bg-card); width: 310px; max-height:85vh; border-radius: 36px; border: none; display: flex; flex-direction: column; box-shadow: var(--shadow-timbul); animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); overflow:hidden; }
     .ios-alert-content { padding: 26px 20px; font-size: 0.95rem; font-weight: 800; color: var(--text-primary); line-height: 1.5; border-bottom: 1px solid rgba(0,0,0,0.2); text-align: center; overflow-y:auto; }
-    .ios-alert-btn { padding: 18px; font-size: 1.05rem; font-weight: 900; color: #60A5FA; background: transparent; border: none; border-radius: 0 0 36px 36px; cursor: pointer; transition: background 0.2s; width:100%; box-shadow: none; } .ios-alert-btn:active { background: var(--bg-inset); box-shadow: var(--shadow-pressed); }
+    .ios-alert-btn { padding: 18px; font-size: 1.05rem; font-weight: 900; color: var(--c-sppg); background: transparent; border: none; border-radius: 0 0 36px 36px; cursor: pointer; transition: background 0.2s; width:100%; box-shadow: none; } .ios-alert-btn:active { background: var(--bg-inset); box-shadow: var(--shadow-pressed); }
     
     /* Layout Kartu Metrik */
     .dash-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 18px; }
@@ -416,52 +394,54 @@
           <select id="tglCetak" class="form-select"><option value="">Tanggal...</option></select>
         </div>
 
-        <div class="section-head" style="margin-top:24px; margin-bottom:18px;">Daftar Dokumen Harian</div>
+        <div class="section-head" style="margin-top:24px; margin-bottom:18px;">Menu Cetak Utama</div>
         
-        <div class="chk-row">
-          <label class="chk-label"><input type="checkbox" class="cetak-cb" value="sup" onchange="toggleCheck(this)"><div class="chk-box"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span style="font-size:18px;">🚚</span> PO Supplier</label>
-          <button class="btn-mini-hapus" onclick="prosesHapusSatu('hapus_sup')">🗑️</button>
+        <div class="btn-cetak-row">
+          <button class="btn-cetak-item action-btn" onclick="prosesCetak('sup', this)"><span style="font-size:18px;">🚚</span> PO Supplier</button>
+          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_sup', this)">🗑️</button>
         </div>
-        <div class="chk-row">
-          <label class="chk-label"><input type="checkbox" class="cetak-cb" value="kop" onchange="toggleCheck(this)"><div class="chk-box"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span style="font-size:18px;">🏪</span> PO Koperasi</label>
-          <button class="btn-mini-hapus" onclick="prosesHapusSatu('hapus_kop')">🗑️</button>
+        <div class="btn-cetak-row">
+          <button class="btn-cetak-item action-btn" onclick="prosesCetak('kop', this)"><span style="font-size:18px;">🏪</span> PO Koperasi</button>
+          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_kop', this)">🗑️</button>
         </div>
-        <div class="chk-row">
-          <label class="chk-label"><input type="checkbox" class="cetak-cb" value="bon" onchange="toggleCheck(this)"><div class="chk-box"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span style="font-size:18px;">🧾</span> Cetak BON</label>
-          <button class="btn-mini-hapus" onclick="prosesHapusSatu('hapus_bon')">🗑️</button>
+        <div class="btn-cetak-row">
+          <button class="btn-cetak-item action-btn" onclick="prosesCetak('rekap_kop_excel', this)"><span style="font-size:18px;">📊</span> PO KOP Excel</button>
+          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_rekap_kop_excel', this)">🗑️</button>
         </div>
-        <div class="chk-row">
-          <label class="chk-label"><input type="checkbox" class="cetak-cb" value="inv_sppg" onchange="toggleCheck(this)"><div class="chk-box"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span style="font-size:18px;">💵</span> Invoice SPPG</label>
-          <button class="btn-mini-hapus" onclick="prosesHapusSatu('hapus_inv_sppg')">🗑️</button>
+        <div class="btn-cetak-row">
+          <button class="btn-cetak-item action-btn" onclick="prosesCetak('bon', this)"><span style="font-size:18px;">🧾</span> Cetak BON</button>
+          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_bon', this)">🗑️</button>
         </div>
-        <div class="chk-row">
-          <label class="chk-label"><input type="checkbox" class="cetak-cb" value="surat" onchange="toggleCheck(this)"><div class="chk-box"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span style="font-size:18px;">📄</span> Surat Terima</label>
-          <button class="btn-mini-hapus" onclick="prosesHapusSatu('hapus_surat')">🗑️</button>
+        <div class="btn-cetak-row">
+          <button class="btn-cetak-item action-btn" onclick="prosesCetak('surat', this)"><span style="font-size:18px;">📄</span> Surat Terima</button>
+          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_surat', this)">🗑️</button>
         </div>
-        <div class="chk-row">
-          <label class="chk-label"><input type="checkbox" class="cetak-cb" value="po_gabungan" onchange="toggleCheck(this)"><div class="chk-box"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span style="font-size:18px;">📑</span> PO Gabungan</label>
-          <button class="btn-mini-hapus" onclick="prosesHapusSatu('hapus_po_gabungan')">🗑️</button>
+        <div class="btn-cetak-row">
+          <button class="btn-cetak-item action-btn" onclick="prosesCetak('rekap', this)"><span style="font-size:18px;">📊</span> Rekap Byar</button>
+          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_rekap', this)">🗑️</button>
         </div>
-        <div class="chk-row">
-          <label class="chk-label"><input type="checkbox" class="cetak-cb" value="laporan" onchange="toggleCheck(this)"><div class="chk-box"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span style="font-size:18px;">📊</span> Laporan Harian</label>
-          <button class="btn-mini-hapus" onclick="prosesHapusSatu('hapus_laporan')">🗑️</button>
-        </div>
-        
-        <div class="section-head" style="margin-top:28px; margin-bottom:18px;">Rekap & RAB (Auto Detect)</div>
-        <div class="chk-row">
-          <label class="chk-label"><input type="checkbox" class="cetak-cb" value="rekap_kop_excel" onchange="toggleCheck(this)"><div class="chk-box"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span style="font-size:18px;">📈</span> PO KOP Excel</label>
-          <button class="btn-mini-hapus" onclick="prosesHapusSatu('hapus_rekap_kop_excel')">🗑️</button>
-        </div>
-        <div class="chk-row">
-          <label class="chk-label"><input type="checkbox" class="cetak-cb" value="rekap" onchange="toggleCheck(this)"><div class="chk-box"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span style="font-size:18px;">📊</span> Rekap Byar</label>
-          <button class="btn-mini-hapus" onclick="prosesHapusSatu('hapus_rekap')">🗑️</button>
-        </div>
-        <div class="chk-row">
-          <label class="chk-label"><input type="checkbox" class="cetak-cb" value="rab_auto" onchange="toggleCheck(this)"><div class="chk-box"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span style="font-size:18px;">🏢</span> RAB & PO AK (Auto)</label>
-          <button class="btn-mini-hapus" onclick="prosesHapusSatu('hapus_rab_auto')">🗑️</button>
+        <div class="btn-cetak-row">
+          <button class="btn-cetak-item action-btn" onclick="prosesCetak('po_gabungan', this)"><span style="font-size:18px;">📑</span> PO Gabungan</button>
+          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_po_gabungan', this)">🗑️</button>
         </div>
 
-        <button class="btn-cetak-batch action-btn" onclick="prosesCetakBatch()">🖨️ CETAK TERPILIH</button>
+        <div class="section-head" style="margin-top:28px; margin-bottom:18px;">Menu Cetak RAB AK</div>
+        <div class="btn-cetak-row">
+          <button class="btn-cetak-item action-btn" onclick="prosesCetak('rab_nisam', this)"><span style="font-size:18px;">🏢</span> RAB Nisam</button>
+          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_rab_nisam', this)">🗑️</button>
+        </div>
+        <div class="btn-cetak-row">
+          <button class="btn-cetak-item action-btn" onclick="prosesCetak('rab_arratibi', this)"><span style="font-size:18px;">🏢</span> RAB Arratibi</button>
+          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_rab_arratibi', this)">🗑️</button>
+        </div>
+        <div class="btn-cetak-row">
+          <button class="btn-cetak-item action-btn" onclick="prosesCetak('rab_palda', this)"><span style="font-size:18px;">🏢</span> RAB Palda</button>
+          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_rab_palda', this)">🗑️</button>
+        </div>
+        <div class="btn-cetak-row">
+          <button class="btn-cetak-item action-btn" onclick="prosesCetak('inv_sppg', this)"><span style="font-size:18px;">💵</span> Cetak Invoice SPPG</button>
+          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_inv_sppg', this)">🗑️</button>
+        </div>
       </div>
     </div>
 
@@ -569,7 +549,7 @@
 
 
   <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbyTkm_N3YH10TzzynHaD6g7CAeTDZf75TOYN4EKJ7IL_4jXzj6VUIlureaTHfaf_im1/exec";
+    const API_URL = "https://script.google.com/macros/s/AKfycby-8GAQXAEYb16rdYCtAweBSfLDCVHlfA5h6choDBLeky06IG4UwCA9lviFSMm4Qff1wg/exec";
 
     async function apiCall(action, params = {}) {
       const payload = { action: action, ...params };
@@ -794,89 +774,38 @@
       });
     }
 
-    // FUNGSI GAYA UNTUK CHECKBOX
-    function toggleCheck(el) {
-       if(el.checked) el.parentElement.classList.add('checked-state');
-       else el.parentElement.classList.remove('checked-state');
-    }
-
-    // FUNGSI TOMBOL TONG SAMPAH INDIVIDU
-    function prosesHapusSatu(tipe) {
+    function prosesCetak(tipe, btnEl) {
       const d = document.getElementById('dapurCetak').value;
       const t = document.getElementById('tglCetak').value;
       if (!d || !t) { showIosAlert("Pilih Dapur & Tanggal dulu ya, Yu!"); return; }
+      const allBtns = document.querySelectorAll('.action-btn');
+      allBtns.forEach(b => b.disabled = true);
+      showLoading("Memproses Berkas...<br>Jangan ditutup ya, Yu!");
+      let funcName = ""; let param3 = null;
+      if(tipe.includes('hapus')) funcName = "webHapusBerkasDrive";
+      else if(tipe === 'sup') funcName = "webBatchPdfSuppliers";
+      else if(tipe === 'kop') funcName = "webBatchPdfKoperasi";
+      else if(tipe === 'rekap_kop_excel') funcName = "webRekapBatchOtomatis";
+      else if(tipe === 'bon') funcName = "webBatchPdfBON";
+      else if(tipe === 'surat') funcName = "webBatchSuratTerimaBarangGS";
+      else if(tipe === 'rekap') funcName = "webRekapitulasiexcel";
+      else if(tipe === 'po_gabungan') funcName = "webCetakPOGabungan";
+      else if(tipe === 'rab_nisam') { funcName = "webCetakRabAk"; param3 = "nisam"; }
+      else if(tipe === 'rab_arratibi') { funcName = "webCetakRabAk"; param3 = "arratibi"; }
+      else if(tipe === 'rab_palda') { funcName = "webCetakRabAk"; param3 = "palda"; }
+      else if(tipe === 'inv_sppg') funcName = "webCetakInvSppg";
 
-      showLoading("Menghapus berkas...<br>Tunggu bentar.");
-      apiCall("webHapusBerkasDrive", { dapur: d, tgl: t, tipe: tipe }).then(function(res) {
+      apiCall(funcName, { dapur: d, tgl: t, tipe: param3 || tipe, jenisRab: param3 || tipe }).then(function(res) {
+          allBtns.forEach(b => b.disabled = false);
           hideLoading();
           if(res.error) { showIosAlert(res.error); return; }
-          showIosAlert(res.msg);
+          if(res.tipe === 'rekap' || res.tipe === 'hapus') { showIosAlert(res.msg); } 
+          else if(res.tipe === 'surat') { tampilkanModalSurat(res); } 
+          else { tampilkanModalSharePDF(res.tipe, res.data); }
       }).catch(err => {
+          allBtns.forEach(b => b.disabled = false);
           hideLoading(); showIosAlert("Aduh, gagal konek. " + err.message);
       });
-    }
-
-    // FUNGSI CETAK BATCH BARU (SEQUENTIAL LOOPING)
-    async function prosesCetakBatch() {
-      const d = document.getElementById('dapurCetak').value;
-      const t = document.getElementById('tglCetak').value;
-      if (!d || !t) { showIosAlert("Pilih Dapur & Tanggal dulu ya, Yu!"); return; }
-
-      const checkboxes = document.querySelectorAll('.cetak-cb:checked');
-      if (checkboxes.length === 0) { showIosAlert("Centang dulu minimal satu dokumen yang mau dicetak!"); return; }
-
-      const allBtns = document.querySelectorAll('.action-btn, .cetak-cb, .btn-mini-hapus');
-      allBtns.forEach(b => b.disabled = true);
-
-      let allPdfData = [];
-      let msgs = [];
-      let suratObj = null;
-
-      try {
-        for (let i = 0; i < checkboxes.length; i++) {
-          let tipe = checkboxes[i].value;
-          showLoading(`Memproses Berkas (${i+1}/${checkboxes.length})...<br>Jangan ditutup ya!`);
-
-          let funcName = "";
-          if(tipe === 'sup') funcName = "webBatchPdfSuppliers";
-          else if(tipe === 'kop') funcName = "webBatchPdfKoperasi";
-          else if(tipe === 'rekap_kop_excel') funcName = "webRekapBatchOtomatis";
-          else if(tipe === 'bon') funcName = "webBatchPdfBON";
-          else if(tipe === 'surat') funcName = "webBatchSuratTerimaBarangGS";
-          else if(tipe === 'rekap') funcName = "webRekapitulasiexcel";
-          else if(tipe === 'po_gabungan') funcName = "webCetakPOGabungan";
-          else if(tipe === 'rab_auto') funcName = "webCetakRabAkAuto";
-          else if(tipe === 'inv_sppg') funcName = "webCetakInvSppg";
-          else if(tipe === 'laporan') funcName = "webCetakLaporanHarianGS";
-
-          let res = await apiCall(funcName, { dapur: d, tgl: t });
-
-          if(res.error) {
-            msgs.push(`❌ ${tipe.toUpperCase()}: ${res.error}`);
-          } else {
-            if (res.data) allPdfData = allPdfData.concat(res.data);
-            if (res.tipe === 'surat') suratObj = res;
-            if (res.tipe === 'rekap' || res.msg) msgs.push(`✅ ${tipe.toUpperCase()}: Berhasil!`);
-          }
-        }
-      } catch (err) {
-         msgs.push(`Koneksi putus: ${err.message}`);
-      }
-
-      allBtns.forEach(b => b.disabled = false);
-      hideLoading();
-
-      // Atur Output Modal Hasilnya
-      let ekstraInfo = msgs.length > 0 ? msgs.join('<br>') : "";
-      
-      if (allPdfData.length > 0) {
-         tampilkanModalSharePDF('batch', allPdfData, ekstraInfo);
-      } else if (suratObj) {
-         if(ekstraInfo) alert(ekstraInfo.replace(/<br>/g, '\n'));
-         tampilkanModalSurat(suratObj);
-      } else if (msgs.length > 0) {
-         showIosAlert(msgs.join('<br><br>'));
-      }
     }
 
     function showGenerateOptions() {
@@ -914,26 +843,19 @@
       });
     }
 
-    function tampilkanModalSharePDF(tipe, dataArr, ekstraInfo = "") {
+    function tampilkanModalSharePDF(tipe, dataArr) {
       if (!dataArr) return; 
       window.tempShareData = dataArr;
       let warnaTeks = "var(--c-kop)"; let ikon = "✅"; let teksJml = "PO Siap Dikirim!";
-      if(tipe === 'kop') { warnaTeks = "#60A5FA"; ikon = "📄"; teksJml = "PO Koperasi Siap!"; }
+      if(tipe === 'kop') { warnaTeks = "var(--c-sppg)"; ikon = "📄"; teksJml = "PO Koperasi Siap!"; }
       else if(tipe === 'bon') { warnaTeks = "#F59E0B"; ikon = "🧾"; teksJml = "File BON Siap!"; }
       else if(tipe === 'rabak') { warnaTeks = "var(--c-margin-text)"; ikon = "🏢"; teksJml = "Berkas RAB AK Siap!"; }
       else if(tipe === 'pogabungan') { warnaTeks = "var(--c-sup)"; ikon = "📑"; teksJml = "PO Gabungan Siap!"; }
       else if(tipe === 'laporan') { warnaTeks = "#10B981"; ikon = "📊"; teksJml = "Laporan Siap!"; }
-      else if(tipe === 'inv_sppg') { warnaTeks = "#60A5FA"; ikon = "💵"; teksJml = "Invoice SPPG Siap!"; }
-      else if(tipe === 'batch') { warnaTeks = "#10B981"; ikon = "📦"; teksJml = "Berkas Terpilih Siap!"; }
+      else if(tipe === 'inv_sppg') { warnaTeks = "var(--c-sppg)"; ikon = "💵"; teksJml = "Invoice SPPG Siap!"; }
 
       document.getElementById('shareModalHeader').innerHTML = `<span style="color:${warnaTeks};">${ikon} ${dataArr.length} ${teksJml}</span>`;
       let html = '';
-      
-      // Sisipkan info Excel / Proses non-PDF kalau ada
-      if(ekstraInfo !== "") {
-         html += `<div style="background:var(--bg-inset); padding:12px; border-radius:14px; font-size:11px; margin-bottom:14px; color:var(--text-secondary); border-left:3px solid #10B981;">${ekstraInfo}</div>`;
-      }
-
       dataArr.forEach((item, index) => {
          html += `
            <div class="share-card">
@@ -978,7 +900,7 @@ Mohon dicek file terlampir. ⬆️`;
             <p style="font-size:13px; color:var(--text-secondary); margin-bottom:24px; line-height:1.5;">
               <strong style="color:var(--text-primary);">${res.fileName}</strong><br>Berkas Siap Dikirim Ke Logistik.
             </p>
-            <a href="${res.link}" target="_blank" style="display:block; padding:16px; background:var(--bg-inset); color:#60A5FA; text-decoration:none; border-radius:20px; font-weight:800; margin-bottom:14px; box-shadow: var(--shadow-tenggelam);">Buka Spreadsheet</a>
+            <a href="${res.link}" target="_blank" style="display:block; padding:16px; background:var(--bg-inset); color:var(--c-sppg); text-decoration:none; border-radius:20px; font-weight:800; margin-bottom:14px; box-shadow: var(--shadow-tenggelam);">Buka Spreadsheet</a>
             <button onclick="navigator.clipboard.writeText(decodeURIComponent('${encodedMsg}')).catch(e=>console.log(e)); window.open('https://wa.me/?text=${encodedMsg}', '_blank')" style="display:block; width:100%; padding:16px; background:var(--c-kop); color:var(--bg-inset); border:none; border-radius:20px; font-weight:900; cursor:pointer; box-shadow: 4px 4px 10px rgba(11, 16, 26, 0.6), inset 2px 2px 4px rgba(255,255,255,0.4);">Kirim ke WhatsApp</button>
           </div>
        `;
@@ -1002,7 +924,7 @@ Mohon dicek file terlampir. ⬆️`;
           h1Text = `${hariArr[d.getDay()]}, ${d.getDate()} ${blnArr[d.getMonth()]} ${d.getFullYear()}`;
        }
        
-       let jenisText = "PO";
+let jenisText = "PO";
        let targetName = item.nama.toUpperCase();
        let namaFile = item.fileName.toLowerCase();
 
@@ -1012,7 +934,6 @@ Mohon dicek file terlampir. ⬆️`;
        else if(namaFile.includes("gabungan")) jenisText = "PO GABUNGAN";
        else if(namaFile.includes("bon")) jenisText = "BON";
        else if(namaFile.includes("laporan harian")) jenisText = "LAPORAN HARIAN";
-       else if(namaFile.includes("inv")) jenisText = "INVOICE";
 
        // 1. Ambil pesan dasar (dari server atau teks default)
        let pesanWA = item.pesan || `${jenisText} ${targetName}\nUntuk Menu ${tglTeks}\n\nPesanan harus diantar pada :\n*${h1Text}*\n\nMohon dicek file terlampir. ⬆️`;
