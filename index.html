@@ -624,7 +624,7 @@
   </div>
 
   <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbzw6HhIfu-UxZndH3_WXy4hKaUeHMo_43nnhNhvWY2FpcozibVfXuDR9xZTyrpA4jfSqw/exec";
+    const API_URL = "https://script.google.com/macros/s/AKfycbwwwq-Fa7-_byiLUAY5ZG1QXzI2_yq1wAHHpL16Qq9MgCKdr_-MX5UI7enspblw2YgY/exec";
 
     async function apiCall(action, params = {}) {
       const payload = { action: action, ...params };
@@ -1323,7 +1323,7 @@ Mohon dicek file terlampir. ⬆️`;
 
       showLoading("Menyimpan data massal...<br>Jangan di-refresh ya!");
 
-      apiCall('simpanBulkPO', payload).then(function(res) {
+      apiCall('simpanBulkPO', { data: payload }).then(function(res) {
         hideLoading();
         showIosAlert(res.msg);
         if(res.status === 'success') {
