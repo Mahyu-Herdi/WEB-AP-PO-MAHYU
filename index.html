@@ -7,10 +7,52 @@
   <base target="_top">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
+  
   <style>
+    /* =========================================
+       TEMA KHUSUS INPUT BULK PO (HP & PC)
+       ========================================= */
+    .bulk-grid { display: grid; gap: 14px; }
+    .bulk-step label { font-size:0.75rem; font-weight:900; color:var(--c-sppg); margin-bottom:8px; display:block; text-transform:uppercase; letter-spacing:1px; }
+    .bulk-nav-btn { display:grid; grid-template-columns: 64px 1fr; gap:10px; margin-top:10px; }
+    textarea.bulk-area { resize: none; font-size:0.75rem; white-space: pre; overflow-wrap: normal; overflow-x: auto; line-height: 1.6; }
+    
+    .mobile-only { display: block; }
+    .pc-only { display: none; }
+    
+    /* Layout HP: Tampil satu-satu (Step-by-step) */
+    @media (max-width: 799px) {
+       .bulk-step { display: none; }
+       .bulk-step.active-step { display: block; animation: fadeUp 0.3s; }
+       .bulk-grid { display: block; }
+    }
+    
+    /* Layout PC: Tampil sejajar kiri ke kanan (Grid) */
+    @media (min-width: 800px) {
+       .bulk-grid { grid-template-columns: repeat(7, 1fr); align-items: start; }
+       .bulk-step { display: block !important; }
+       .mobile-only { display: none !important; }
+       .pc-only { display: block; margin-top: 10px; font-size: 0.7rem; color: var(--text-muted); font-weight: 800; text-align: center; }
+       textarea.bulk-area { height: 250px !important; }
+
+       /* REVISI GRID HALAMAN EDIT AGAR BULK PO ADA DI ATAS */
+       #halamanEdit > .g-card > #kBulkSection { grid-column: 1 / -1; grid-row: 1; margin-bottom: 28px; }
+       #halamanEdit > .g-card > #kAction { grid-column: 1; grid-row: 2; margin-bottom: 20px !important; }
+       #halamanEdit > .g-card > #areaDataLama { grid-column: 1; grid-row: 3; margin-bottom: 20px !important; }
+       #listEditBawah { grid-column: 1; grid-row: 4; width: 100%; }
+       #halamanEdit > .g-card > #areaDataBaru { grid-column: 2; grid-row: 2 / span 2; }
+       #halamanEdit > .g-card > button { grid-column: 2; grid-row: 4; margin-top: 24px !important; }
+    }
+
+    /* Card Preview Khusus Input Massal */
+    .bulk-preview-card { background: var(--bg-card); border-radius: 20px; padding: 18px; margin-bottom: 14px; box-shadow: var(--shadow-timbul); border-left: 4px solid var(--c-sppg); }
+    .bpc-title { font-weight: 900; font-size: 1rem; color: var(--text-primary); margin-bottom: 8px; }
+    .bpc-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+    .bpc-box { background: var(--bg-inset); padding: 8px; border-radius: 12px; text-align: center; box-shadow: var(--shadow-tenggelam); }
+    .bpc-lbl { font-size: 0.55rem; color: var(--text-muted); font-weight: 900; text-transform: uppercase; }
+    .bpc-val { font-size: 0.85rem; color: var(--text-primary); font-weight: 900; }
+
     /* =========================================
        PREMIUM CLAYMORPHISM & NEUMORPHISM STYLE
        ========================================= */
@@ -458,6 +500,38 @@
 
     <div id="halamanEdit" style="display:none;">
       <div class="g-card fade-up">
+        
+        <div id="kBulkSection">
+          <div class="section-head" style="margin-top:0;">📦 1. INPUT BULK PO (MASAL)</div>
+          <div style="background:var(--bg-inset); padding:20px; border-radius:24px; box-shadow:var(--shadow-tenggelam);">
+            
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px; margin-bottom:18px;">
+              <select id="bulkDapur" class="form-select"><option value="">Dapur...</option></select>
+              <input type="date" id="bulkTanggal" class="form-control">
+            </div>
+
+            <div id="bulkStepWrapper" class="bulk-grid">
+               <div class="bulk-step active-step" id="stepBarang"><label>📦 NAMA BARANG</label><textarea id="bBarang" class="form-control bulk-area" rows="8" placeholder="Paste NAMA BARANG..."></textarea><button class="btn-go mobile-only" style="margin-top:10px;" onclick="nextBulkStep('stepQty')">Lanjut: QTY ➡️</button><div class="pc-only">Kolom Nama Barang</div></div>
+               <div class="bulk-step" id="stepQty"><label>⚖️ QTY (JUMLAH)</label><textarea id="bQty" class="form-control bulk-area" rows="8" placeholder="Paste QTY..."></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft);" onclick="nextBulkStep('stepBarang')">⬅️</button><button class="btn-go" onclick="nextBulkStep('stepSat')">Lanjut: SATUAN ➡️</button></div><div class="pc-only">Kolom QTY</div></div>
+               <div class="bulk-step" id="stepSat"><label>📏 SATUAN</label><textarea id="bSat" class="form-control bulk-area" rows="8" placeholder="Paste SATUAN..."></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft);" onclick="nextBulkStep('stepQty')">⬅️</button><button class="btn-go" onclick="nextBulkStep('stepSppg')">Lanjut: HARGA SPPG ➡️</button></div><div class="pc-only">Kolom Satuan</div></div>
+               <div class="bulk-step" id="stepSppg"><label>💵 HARGA SPPG</label><textarea id="bSppg" class="form-control bulk-area" rows="8" placeholder="Paste Harga SPPG..."></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft);" onclick="nextBulkStep('stepSat')">⬅️</button><button class="btn-go" onclick="nextBulkStep('stepKop')">Lanjut: HARGA KOP ➡️</button></div><div class="pc-only">Kolom Hrg SPPG</div></div>
+               <div class="bulk-step" id="stepKop"><label>🏪 HARGA KOP</label><textarea id="bKop" class="form-control bulk-area" rows="8" placeholder="Paste Harga KOP..."></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft);" onclick="nextBulkStep('stepSppg')">⬅️</button><button class="btn-go" onclick="nextBulkStep('stepSup')">Lanjut: HARGA SUP ➡️</button></div><div class="pc-only">Kolom Hrg KOP</div></div>
+               <div class="bulk-step" id="stepSup"><label>🚚 HARGA SUP</label><textarea id="bSup" class="form-control bulk-area" rows="8" placeholder="Paste Harga SUP..."></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft);" onclick="nextBulkStep('stepKop')">⬅️</button><button class="btn-go" onclick="nextBulkStep('stepKet')">Lanjut: KET ➡️</button></div><div class="pc-only">Kolom Hrg SUP</div></div>
+               <div class="bulk-step" id="stepKet"><label>📝 KETERANGAN</label><textarea id="bKet" class="form-control bulk-area" rows="8" placeholder="Paste Keterangan..."></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft);" onclick="nextBulkStep('stepSup')">⬅️</button><button class="btn-go" onclick="previewBulkData()" style="background:#10B981; color:var(--bg-inset);">🔍 PREVIEW</button></div><div class="pc-only">Kolom Keterangan</div></div>
+            </div>
+            
+            <button class="btn-go pc-only" style="margin-top:24px; background:#10B981; color:var(--bg-inset); box-shadow: 4px 4px 10px rgba(11, 16, 26, 0.6), inset 2px 2px 4px rgba(255,255,255,0.4);" onclick="previewBulkData()">🔍 CEK PREVIEW & LENGKAPI SUPPLIER</button>
+          </div>
+
+          <div id="bulkPreviewArea" style="display:none;" class="fade-up">
+             <div class="section-head" style="margin-top:32px;">Verifikasi & Isi Supplier</div>
+             <div id="bulkListPreview"></div>
+             <button class="btn-go" style="margin-top:24px;" onclick="eksekusiSimpanBulk()">💾 SIMPAN SEMUA KE DATABASE</button>
+          </div>
+
+          <div style="margin-top:40px; margin-bottom: 24px; border-bottom: 2px dashed rgba(255,255,255,0.08);"></div>
+          <div class="section-head" style="margin-top:0;">✏️ 2. KELOLA / EDIT ITEM (SATUAN)</div>
+        </div>
         <select id="kAction" class="form-select" onchange="gantiModeKelola()" style="margin-bottom:24px;">
           <option value="edit">✏️ Edit Data / Ganti Tanggal</option>
           <option value="tambah">➕ Tambah Item Baru</option>
@@ -519,7 +593,9 @@
       <datalist id="listBarangMaster"></datalist>
     </div>
 
-  </div> <div class="bottom-nav" id="mainNav">
+  </div> 
+
+  <div class="bottom-nav" id="mainNav">
     <div class="nav-item active" id="btnHarian" onclick="showHarian()"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><span>Home</span></div>
     <div class="nav-item" id="btnLaporan" onclick="showLaporan()"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg><span>Lap Har</span></div>
     <div class="nav-item" id="btnLapPeriode" onclick="showLapPeriode()"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg><span>Periode</span></div>
@@ -546,7 +622,6 @@
       <button class="ios-alert-btn" style="background:var(--bg-inset); color:var(--c-sup);" onclick="tutupShareModal()">Tutup</button>
     </div>
   </div>
-
 
   <script>
     const API_URL = "https://script.google.com/macros/s/AKfycby-8GAQXAEYb16rdYCtAweBSfLDCVHlfA5h6choDBLeky06IG4UwCA9lviFSMm4Qff1wg/exec";
@@ -587,7 +662,13 @@
     function showLapPeriode()  { resetNav(); document.getElementById('halamanLapPeriode').style.display='block';  document.getElementById('btnLapPeriode').classList.add('active'); }
     function showCetak()       { resetNav(); document.getElementById('halamanCetak').style.display='block';       document.getElementById('btnCetak').classList.add('active'); }
     function showBarang()      { resetNav(); document.getElementById('halamanBarang').style.display='block';      document.getElementById('btnBarang').classList.add('active'); }
-    function showEdit()        { resetNav(); document.getElementById('halamanEdit').style.display='block';        document.getElementById('btnEdit').classList.add('active'); gantiModeKelola(); }
+    function showEdit() { 
+        resetNav(); 
+        document.getElementById('halamanEdit').style.display='block'; 
+        document.getElementById('btnEdit').classList.add('active'); 
+        gantiModeKelola(); 
+        nextBulkStep('stepBarang'); 
+    }
     function showMaster()      { resetNav(); document.getElementById('halamanMaster').style.display='block';      document.getElementById('btnMaster').classList.add('active'); }
 
     window.onload = function() {
@@ -650,6 +731,7 @@
           document.getElementById('dapurBarang').innerHTML = optD;
           document.getElementById('dapurLapPer').innerHTML = optD;
           document.getElementById('dapurCetak').innerHTML = '<option value="">Pilih Dapur...</option>' + optD;
+          document.getElementById('bulkDapur').innerHTML = '<option value="">Pilih Dapur...</option>' + optD;
           let optT = res.tanggal.map(t => `<option value="${t.asli}">${t.tampilan}</option>`).join('');
           document.getElementById('tanggal').innerHTML = optT;
           document.getElementById('tglCetak').innerHTML = '<option value="">Pilih Tanggal...</option>' + optT;
@@ -924,7 +1006,7 @@ Mohon dicek file terlampir. ⬆️`;
           h1Text = `${hariArr[d.getDay()]}, ${d.getDate()} ${blnArr[d.getMonth()]} ${d.getFullYear()}`;
        }
        
-let jenisText = "PO";
+       let jenisText = "PO";
        let targetName = item.nama.toUpperCase();
        let namaFile = item.fileName.toLowerCase();
 
@@ -1143,6 +1225,118 @@ let jenisText = "PO";
         if(!res || !res.length) { document.getElementById('hasilBarang').innerHTML = '<div class="empty-state">Tidak ada riwayat harga.</div>'; return; } 
         let html = ''; let lastPrices = null; res.forEach(it => { let uSppg = it.qty > 0 ? Math.round(it.tSppg / it.qty) : 0; let uKop = it.qty > 0 ? Math.round(it.tKop / it.qty) : 0; let uSup = it.qty > 0 ? Math.round(it.tSup / it.qty) : 0; let currentPrices = `${uSppg}-${uKop}-${uSup}`; if (currentPrices !== lastPrices) { html += `<div class="tgl-group" style="margin-left:0;">📅 ${it.tanggal}</div><div class="item-glass fade-up"><div class="item-top"><div class="item-name">${it.barang}</div><div class="qty-badge">${String(it.qty).replace('.', ',')} ${it.sat}</div></div><div class="price-row pr-sppg"><div class="pr-left"><div class="pr-label">SPPG</div><div class="pr-unit">Harga Satuan</div></div><div class="pr-val">Rp ${uSppg.toLocaleString('id-ID')}</div></div><div class="price-row pr-kop"><div class="pr-left"><div class="pr-label">KOP</div><div class="pr-unit">Harga Satuan</div></div><div class="pr-val">Rp ${uKop.toLocaleString('id-ID')}</div></div><div class="price-row pr-sup"><div class="pr-left"><div class="pr-label">SUP</div><div class="pr-unit">Harga Satuan</div></div><div class="pr-val">Rp ${uSup.toLocaleString('id-ID')}</div></div></div>`; lastPrices = currentPrices; } }); if (html === '') { html = '<div class="empty-state">Tidak ada perubahan harga.</div>'; } document.getElementById('hasilBarang').innerHTML = html; 
       }); 
+    }
+
+    // =========================================
+    // FUNGSI KHUSUS BULK PO (MASAL)
+    // =========================================
+    
+    window.bulkDataTemp = [];
+
+    function nextBulkStep(targetId) {
+      document.querySelectorAll('.bulk-step').forEach(el => el.classList.remove('active-step'));
+      document.getElementById(targetId).classList.add('active-step');
+    }
+
+    function ambilArrayDariTextarea(id) {
+      let val = document.getElementById(id).value.trim();
+      if(!val) return [];
+      return val.split('\n').map(v => v.trim());
+    }
+
+    function previewBulkData() {
+      const d = document.getElementById('bulkDapur').value;
+      const t = document.getElementById('bulkTanggal').value;
+      if (!d || !t) return showIosAlert("Pilih Dapur & Tanggal dulu ya Yu!");
+
+      const arrBarang = ambilArrayDariTextarea('bBarang');
+      if(arrBarang.length === 0) return showIosAlert("Kolom Nama Barang kosong!");
+
+      const arrQty = ambilArrayDariTextarea('bQty');
+      const arrSat = ambilArrayDariTextarea('bSat');
+      const arrSppg = ambilArrayDariTextarea('bSppg');
+      const arrKop = ambilArrayDariTextarea('bKop');
+      const arrSup = ambilArrayDariTextarea('bSup');
+      const arrKet = ambilArrayDariTextarea('bKet');
+
+      window.bulkDataTemp = [];
+      let html = "";
+
+      for(let i=0; i<arrBarang.length; i++) {
+        let barang = arrBarang[i] || "";
+        if(barang === "") continue;
+
+        let qty = arrQty[i] || "0";
+        let sat = arrSat[i] || "";
+        let sppg = arrSppg[i] ? cleanRupiah(arrSppg[i]) : "";
+        let kop = arrKop[i] ? cleanRupiah(arrKop[i]) : "";
+        let sup = arrSup[i] ? cleanRupiah(arrSup[i]) : "";
+        let ket = arrKet[i] || "";
+
+        window.bulkDataTemp.push({
+          barang: barang, qty: qty, sat: sat, 
+          tSppg: sppg, tKop: kop, tSup: sup, ket: ket, supplier: ""
+        });
+
+        html += `
+          <div class="bulk-preview-card">
+             <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+               <div class="bpc-title">${i+1}. ${barang}</div>
+               <div style="font-size:0.8rem; font-weight:900; color:var(--c-margin-text);">${qty} ${sat}</div>
+             </div>
+             <div class="bpc-grid">
+               <div class="bpc-box"><div class="bpc-lbl">SPPG</div><div class="bpc-val">${sppg ? formatRupiah(sppg) : '-'}</div></div>
+               <div class="bpc-box"><div class="bpc-lbl">KOP</div><div class="bpc-val">${kop ? formatRupiah(kop) : '-'}</div></div>
+               <div class="bpc-box"><div class="bpc-lbl">SUP</div><div class="bpc-val">${sup ? formatRupiah(sup) : '-'}</div></div>
+             </div>
+             <div style="margin-top:12px;">
+               <label style="font-size:0.65rem; color:var(--text-muted); font-weight:900;">NAMA SUPPLIER:</label>
+               <input type="text" class="form-control bulk-sup-input" data-index="${i}" placeholder="Ketik nama supplier..." style="padding:10px 14px;">
+             </div>
+          </div>
+        `;
+      }
+
+      document.getElementById('bulkListPreview').innerHTML = html;
+      document.getElementById('bulkPreviewArea').style.display = 'block';
+      document.getElementById('bulkPreviewArea').scrollIntoView({behavior: "smooth"});
+    }
+
+    function eksekusiSimpanBulk() {
+      const supInputs = document.querySelectorAll('.bulk-sup-input');
+      let adaYangKosong = false;
+
+      supInputs.forEach(input => {
+        let idx = input.getAttribute('data-index');
+        let val = input.value.trim();
+        window.bulkDataTemp[idx].supplier = val;
+        if(val === "") adaYangKosong = true;
+      });
+
+      if(adaYangKosong) return showIosAlert("Eits, ada Nama Supplier yang belum diisi tuh. Cek lagi ya!");
+
+      const payload = {
+        dapur: document.getElementById('bulkDapur').value,
+        tanggal: document.getElementById('bulkTanggal').value,
+        items: window.bulkDataTemp
+      };
+
+      showLoading("Menyimpan data massal...<br>Jangan di-refresh ya!");
+
+      apiCall('simpanBulkPO', payload).then(function(res) {
+        hideLoading();
+        showIosAlert(res.msg);
+        if(res.status === 'success') {
+          document.querySelectorAll('.bulk-area').forEach(el => el.value = "");
+          document.getElementById('bulkPreviewArea').style.display = 'none';
+          window.bulkDataTemp = [];
+          nextBulkStep('stepBarang');
+          window.scrollTo(0,0);
+        }
+      }).catch(function(err) {
+        hideLoading();
+        showIosAlert("Waduh, gagal kirim data. Cek koneksi ya!");
+      });
     }
   </script>
 </body>
