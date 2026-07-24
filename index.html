@@ -57,7 +57,6 @@
        PREMIUM CLAYMORPHISM & NEUMORPHISM STYLE
        ========================================= */
     :root {
-      color-scheme: dark; /* Memaksa scrollbar bawaan, menu option, dan kalender pop-up jadi gelap! */
       /* Warna bawaan tetap sama, tidak diubah */
       --c-sppg:        #60A5FA; 
       --c-kop:         #34D399; 
@@ -135,56 +134,7 @@
 
     /* Elemen Umum UI */
     .g-card { background: var(--bg-card); border: none; border-radius: 30px; padding: 22px; margin-bottom: 18px; box-shadow: var(--shadow-timbul); position: relative; overflow: hidden; }
-    .form-select, .form-control { 
-      background: var(--bg-inset) !important; 
-      border: 1px solid rgba(0, 0, 0, 0.3) !important; 
-      border-radius: 20px !important; 
-      color: var(--text-primary) !important; 
-      font-family: 'Plus Jakarta Sans', sans-serif; 
-      font-weight: 800; 
-      font-size: 0.88rem; 
-      padding: 15px 18px; 
-      -webkit-appearance: none; 
-      -moz-appearance: none;
-      appearance: none;
-      transition: all 0.2s ease; 
-      width: 100%; 
-      box-shadow: var(--shadow-tenggelam) !important; 
-      color-scheme: dark; /* Penting untuk popup kalender & dropdown asli di HP agar bertema gelap */
-    }
-    
-    /* Indikator Panah Custom Dropdown */
-    .form-select {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2360A5FA' stroke-width='3'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19.5 8.25l-7.5 7.5-7.5-7.5'/%3E%3C/svg%3E") !important;
-      background-repeat: no-repeat !important;
-      background-position: right 18px center !important;
-      background-size: 16px !important;
-      padding-right: 48px !important;
-    }
-    
-    /* Indikator Kalender Custom pada Input Tanggal */
-    .form-control[type="date"] {
-      position: relative;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2360A5FA' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5' /%3E%3C/svg%3E") !important;
-      background-repeat: no-repeat !important;
-      background-position: right 18px center !important;
-      background-size: 20px !important;
-      padding-right: 48px !important;
-    }
-    .form-control[type="date"]::-webkit-calendar-picker-indicator {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      width: auto;
-      height: auto;
-      background: transparent !important;
-      color: transparent !important;
-      cursor: pointer;
-      opacity: 0;
-    }
-    
+    .form-select, .form-control { background: var(--bg-inset) !important; border: 1px solid rgba(0, 0, 0, 0.3) !important; border-radius: 20px !important; color: var(--text-primary) !important; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 0.88rem; padding: 15px 18px; -webkit-appearance: none; transition: all 0.2s ease; width: 100%; box-shadow: var(--shadow-tenggelam) !important; }
     .form-select:focus, .form-control:focus { outline: none; box-shadow: var(--shadow-tenggelam), 0 0 0 2px rgba(96, 165, 250, 0.3) !important; }
     .form-select option { background: var(--bg-card); color: var(--text-primary); }
     .form-control::placeholder { color: var(--text-soft); font-weight: 600; }
@@ -368,8 +318,6 @@
       #halamanEdit { grid-template-columns: 420px minmax(0, 1fr); gap: 40px; }
     }
   </style>
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <style>.icon-emoji { width: 1.1em; height: 1.1em; vertical-align: middle; display: inline-block; stroke-width: 2.5px; }</style>
 </head>
 <body>
 
@@ -405,9 +353,9 @@
       </div>
       <div id="hasilHarian" style="display:none;">
         <div class="dash-grid">
-          <div class="metric-card mc-sppg dash-full"><div class="m-label"><i data-lucide='circle-dollar-sign' class='icon-emoji'></i> Total SPPG</div><div class="m-val" id="totSppgHar">0</div></div>
-          <div class="metric-card mc-kop"><div class="m-label"><i data-lucide='store' class='icon-emoji'></i> Total KOP</div><div class="m-val" id="totKopHar">0</div></div>
-          <div class="metric-card mc-sup"><div class="m-label"><i data-lucide='truck' class='icon-emoji'></i> Total SUP</div><div class="m-val" id="totSupHar">0</div></div>
+          <div class="metric-card mc-sppg dash-full"><div class="m-label">💰 Total SPPG</div><div class="m-val" id="totSppgHar">0</div></div>
+          <div class="metric-card mc-kop"><div class="m-label">🏪 Total KOP</div><div class="m-val" id="totKopHar">0</div></div>
+          <div class="metric-card mc-sup"><div class="m-label">🚚 Total SUP</div><div class="m-val" id="totSupHar">0</div></div>
           <div class="metric-card mc-kop"><div class="m-label">Mrg KOP</div><div class="m-val" id="marKopHar">0</div></div>
           <div class="metric-card mc-sup"><div class="m-label">Mrg YYN</div><div class="m-val" id="marYynHar">0</div></div>
         </div>
@@ -418,7 +366,7 @@
     <div id="halamanLaporan" style="display:none;">
       <div id="pesanLaporan" class="empty-state">Tekan "GO" di menu Harian dulu ya, Yu!<br>Laporan otomatis muncul di sini.</div>
       <div id="laporanCard" style="display:none;" class="g-card fade-up">
-        <div class="lap-header"><div class="lap-dapur"><i data-lucide='utensils' class='icon-emoji'></i> <span id="lapDapur"></span></div><div class="lap-tanggal-badge" id="lapTanggal"></div></div>
+        <div class="lap-header"><div class="lap-dapur">🍽️ <span id="lapDapur"></span></div><div class="lap-tanggal-badge" id="lapTanggal"></div></div>
         <div class="menu-row">Menu: <span id="lapMenu"></span></div>
         <div class="pagu-card"><div class="pagu-label">Pagu Harian</div><div class="pagu-val" id="lapPagu">0</div></div>
         <div class="section-head">Pengeluaran PO</div>
@@ -437,7 +385,7 @@
           <div class="tm-row"><div class="tm-total-label">Total Margin</div><div class="tm-total-val" id="lapTotMrg">0</div></div>
           <div class="tm-row" style="margin-top:8px;"><div class="tm-label">Persentase Margin</div><div class="tm-persen-val" id="lapPersen">0%</div></div>
         </div>
-        <button id="btnGenerateLap" class="btn-go" onclick="showGenerateOptions()" style="margin-top:24px; background:#10B981; color:var(--bg-inset);"><i data-lucide='printer' class='icon-emoji'></i> SIMPAN LAPORAN</button>
+        <button id="btnGenerateLap" class="btn-go" onclick="showGenerateOptions()" style="margin-top:24px; background:#10B981; color:var(--bg-inset);">🖨️ SIMPAN LAPORAN</button>
       </div>
     </div>
 
@@ -454,7 +402,7 @@
       </div>
       <div id="hasilLapPeriode" style="display:none;">
         <div class="g-card fade-up">
-          <div class="lap-header"><div class="lap-dapur"><i data-lucide='utensils' class='icon-emoji'></i> <span id="lapPerDapur"></span></div><div class="periode-badge"><i data-lucide='calendar' class='icon-emoji'></i> <span id="lapPerRange"></span></div></div>
+          <div class="lap-header"><div class="lap-dapur">🍽️ <span id="lapPerDapur"></span></div><div class="periode-badge">📆 <span id="lapPerRange"></span></div></div>
           <div class="pagu-grid">
             <div class="pagu-mini full"><div class="pagu-label">Total SPPG Periode</div><div class="pagu-val" id="lapPerTotSppg">0</div></div>
             <div class="pagu-mini"><div class="pagu-label" style="font-size:0.6rem;">Total KOP</div><div class="pagu-val" style="font-size:1.2rem;" id="lapPerTotKop">0</div></div>
@@ -491,50 +439,50 @@
         <div class="section-head" style="margin-top:24px; margin-bottom:18px;">Menu Cetak Utama</div>
         
         <div class="btn-cetak-row">
-          <button class="btn-cetak-item action-btn" onclick="prosesCetak('sup', this)"><span style="font-size:18px;"><i data-lucide='truck' class='icon-emoji'></i></span> PO Supplier</button>
-          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_sup', this)"><i data-lucide='trash-2' class='icon-emoji'></i></button>
+          <button class="btn-cetak-item action-btn" onclick="prosesCetak('sup', this)"><span style="font-size:18px;">🚚</span> PO Supplier</button>
+          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_sup', this)">🗑️</button>
         </div>
         <div class="btn-cetak-row">
-          <button class="btn-cetak-item action-btn" onclick="prosesCetak('kop', this)"><span style="font-size:18px;"><i data-lucide='store' class='icon-emoji'></i></span> PO Koperasi</button>
-          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_kop', this)"><i data-lucide='trash-2' class='icon-emoji'></i></button>
+          <button class="btn-cetak-item action-btn" onclick="prosesCetak('kop', this)"><span style="font-size:18px;">🏪</span> PO Koperasi</button>
+          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_kop', this)">🗑️</button>
         </div>
         <div class="btn-cetak-row">
-          <button class="btn-cetak-item action-btn" onclick="prosesCetak('rekap_kop_excel', this)"><span style="font-size:18px;"><i data-lucide='bar-chart-3' class='icon-emoji'></i></span> PO KOP Excel</button>
-          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_rekap_kop_excel', this)"><i data-lucide='trash-2' class='icon-emoji'></i></button>
+          <button class="btn-cetak-item action-btn" onclick="prosesCetak('rekap_kop_excel', this)"><span style="font-size:18px;">📊</span> PO KOP Excel</button>
+          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_rekap_kop_excel', this)">🗑️</button>
         </div>
         <div class="btn-cetak-row">
-          <button class="btn-cetak-item action-btn" onclick="prosesCetak('bon', this)"><span style="font-size:18px;"><i data-lucide='receipt' class='icon-emoji'></i></span> Cetak BON</button>
-          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_bon', this)"><i data-lucide='trash-2' class='icon-emoji'></i></button>
+          <button class="btn-cetak-item action-btn" onclick="prosesCetak('bon', this)"><span style="font-size:18px;">🧾</span> Cetak BON</button>
+          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_bon', this)">🗑️</button>
         </div>
         <div class="btn-cetak-row">
-          <button class="btn-cetak-item action-btn" onclick="prosesCetak('surat', this)"><span style="font-size:18px;"><i data-lucide='file-text' class='icon-emoji'></i></span> Surat Terima</button>
-          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_surat', this)"><i data-lucide='trash-2' class='icon-emoji'></i></button>
+          <button class="btn-cetak-item action-btn" onclick="prosesCetak('surat', this)"><span style="font-size:18px;">📄</span> Surat Terima</button>
+          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_surat', this)">🗑️</button>
         </div>
         <div class="btn-cetak-row">
-          <button class="btn-cetak-item action-btn" onclick="prosesCetak('rekap', this)"><span style="font-size:18px;"><i data-lucide='bar-chart-3' class='icon-emoji'></i></span> Rekap Byar</button>
-          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_rekap', this)"><i data-lucide='trash-2' class='icon-emoji'></i></button>
+          <button class="btn-cetak-item action-btn" onclick="prosesCetak('rekap', this)"><span style="font-size:18px;">📊</span> Rekap Byar</button>
+          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_rekap', this)">🗑️</button>
         </div>
         <div class="btn-cetak-row">
-          <button class="btn-cetak-item action-btn" onclick="prosesCetak('po_gabungan', this)"><span style="font-size:18px;"><i data-lucide='files' class='icon-emoji'></i></span> PO Gabungan</button>
-          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_po_gabungan', this)"><i data-lucide='trash-2' class='icon-emoji'></i></button>
+          <button class="btn-cetak-item action-btn" onclick="prosesCetak('po_gabungan', this)"><span style="font-size:18px;">📑</span> PO Gabungan</button>
+          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_po_gabungan', this)">🗑️</button>
         </div>
 
         <div class="section-head" style="margin-top:28px; margin-bottom:18px;">Menu Cetak RAB AK</div>
         <div class="btn-cetak-row">
-          <button class="btn-cetak-item action-btn" onclick="prosesCetak('rab_nisam', this)"><span style="font-size:18px;"><i data-lucide='building-2' class='icon-emoji'></i></span> RAB Nisam</button>
-          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_rab_nisam', this)"><i data-lucide='trash-2' class='icon-emoji'></i></button>
+          <button class="btn-cetak-item action-btn" onclick="prosesCetak('rab_nisam', this)"><span style="font-size:18px;">🏢</span> RAB Nisam</button>
+          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_rab_nisam', this)">🗑️</button>
         </div>
         <div class="btn-cetak-row">
-          <button class="btn-cetak-item action-btn" onclick="prosesCetak('rab_arratibi', this)"><span style="font-size:18px;"><i data-lucide='building-2' class='icon-emoji'></i></span> RAB Arratibi</button>
-          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_rab_arratibi', this)"><i data-lucide='trash-2' class='icon-emoji'></i></button>
+          <button class="btn-cetak-item action-btn" onclick="prosesCetak('rab_arratibi', this)"><span style="font-size:18px;">🏢</span> RAB Arratibi</button>
+          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_rab_arratibi', this)">🗑️</button>
         </div>
         <div class="btn-cetak-row">
-          <button class="btn-cetak-item action-btn" onclick="prosesCetak('rab_palda', this)"><span style="font-size:18px;"><i data-lucide='building-2' class='icon-emoji'></i></span> RAB Palda</button>
-          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_rab_palda', this)"><i data-lucide='trash-2' class='icon-emoji'></i></button>
+          <button class="btn-cetak-item action-btn" onclick="prosesCetak('rab_palda', this)"><span style="font-size:18px;">🏢</span> RAB Palda</button>
+          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_rab_palda', this)">🗑️</button>
         </div>
         <div class="btn-cetak-row">
-          <button class="btn-cetak-item action-btn" onclick="prosesCetak('inv_sppg', this)"><span style="font-size:18px;"><i data-lucide='banknote' class='icon-emoji'></i></span> Cetak Invoice SPPG</button>
-          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_inv_sppg', this)"><i data-lucide='trash-2' class='icon-emoji'></i></button>
+          <button class="btn-cetak-item action-btn" onclick="prosesCetak('inv_sppg', this)"><span style="font-size:18px;">💵</span> Cetak Invoice SPPG</button>
+          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_inv_sppg', this)">🗑️</button>
         </div>
       </div>
     </div>
@@ -554,7 +502,7 @@
       <div class="g-card fade-up">
         
         <div id="kBulkSection">
-          <div class="section-head" style="margin-top:0;"><i data-lucide='package' class='icon-emoji'></i> 1. INPUT BULK PO (MASAL)</div>
+          <div class="section-head" style="margin-top:0;">📦 1. INPUT BULK PO (MASAL)</div>
           <div style="background:var(--bg-inset); padding:20px; border-radius:24px; box-shadow:var(--shadow-tenggelam);">
             
             <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px; margin-bottom:18px;">
@@ -563,31 +511,31 @@
             </div>
 
             <div id="bulkStepWrapper" class="bulk-grid">
-               <div class="bulk-step active-step" id="stepBarang"><label><i data-lucide='package' class='icon-emoji'></i> NAMA BARANG</label><textarea id="bBarang" class="form-control bulk-area" rows="8" placeholder="Paste NAMA BARANG..."></textarea><button class="btn-go mobile-only" style="margin-top:10px;" onclick="nextBulkStep('stepQty')">Lanjut: QTY <i data-lucide='arrow-right' class='icon-emoji'></i></button><div class="pc-only">Kolom Nama Barang</div></div>
-               <div class="bulk-step" id="stepQty"><label><i data-lucide='scale' class='icon-emoji'></i> QTY (JUMLAH)</label><textarea id="bQty" class="form-control bulk-area" rows="8" placeholder="Paste QTY..."></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft);" onclick="nextBulkStep('stepBarang')"><i data-lucide='arrow-left' class='icon-emoji'></i></button><button class="btn-go" onclick="nextBulkStep('stepSat')">Lanjut: SATUAN <i data-lucide='arrow-right' class='icon-emoji'></i></button></div><div class="pc-only">Kolom QTY</div></div>
-               <div class="bulk-step" id="stepSat"><label><i data-lucide='ruler' class='icon-emoji'></i> SATUAN</label><textarea id="bSat" class="form-control bulk-area" rows="8" placeholder="Paste SATUAN..."></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft);" onclick="nextBulkStep('stepQty')"><i data-lucide='arrow-left' class='icon-emoji'></i></button><button class="btn-go" onclick="nextBulkStep('stepSppg')">Lanjut: HARGA SPPG <i data-lucide='arrow-right' class='icon-emoji'></i></button></div><div class="pc-only">Kolom Satuan</div></div>
-               <div class="bulk-step" id="stepSppg"><label><i data-lucide='banknote' class='icon-emoji'></i> HARGA SPPG</label><textarea id="bSppg" class="form-control bulk-area" rows="8" placeholder="Paste Harga SPPG..."></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft);" onclick="nextBulkStep('stepSat')"><i data-lucide='arrow-left' class='icon-emoji'></i></button><button class="btn-go" onclick="nextBulkStep('stepKop')">Lanjut: HARGA KOP <i data-lucide='arrow-right' class='icon-emoji'></i></button></div><div class="pc-only">Kolom Hrg SPPG</div></div>
-               <div class="bulk-step" id="stepKop"><label><i data-lucide='store' class='icon-emoji'></i> HARGA KOP</label><textarea id="bKop" class="form-control bulk-area" rows="8" placeholder="Paste Harga KOP..."></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft);" onclick="nextBulkStep('stepSppg')"><i data-lucide='arrow-left' class='icon-emoji'></i></button><button class="btn-go" onclick="nextBulkStep('stepSup')">Lanjut: HARGA SUP <i data-lucide='arrow-right' class='icon-emoji'></i></button></div><div class="pc-only">Kolom Hrg KOP</div></div>
-               <div class="bulk-step" id="stepSup"><label><i data-lucide='truck' class='icon-emoji'></i> HARGA SUP</label><textarea id="bSup" class="form-control bulk-area" rows="8" placeholder="Paste Harga SUP..."></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft);" onclick="nextBulkStep('stepKop')"><i data-lucide='arrow-left' class='icon-emoji'></i></button><button class="btn-go" onclick="nextBulkStep('stepKet')">Lanjut: KET <i data-lucide='arrow-right' class='icon-emoji'></i></button></div><div class="pc-only">Kolom Hrg SUP</div></div>
-               <div class="bulk-step" id="stepKet"><label><i data-lucide='clipboard-edit' class='icon-emoji'></i> KETERANGAN</label><textarea id="bKet" class="form-control bulk-area" rows="8" placeholder="Paste Keterangan..."></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft);" onclick="nextBulkStep('stepSup')"><i data-lucide='arrow-left' class='icon-emoji'></i></button><button class="btn-go" onclick="previewBulkData()" style="background:#10B981; color:var(--bg-inset);"><i data-lucide='search' class='icon-emoji'></i> PREVIEW</button></div><div class="pc-only">Kolom Keterangan</div></div>
+               <div class="bulk-step active-step" id="stepBarang"><label>📦 NAMA BARANG</label><textarea id="bBarang" class="form-control bulk-area" rows="8" placeholder="Paste NAMA BARANG..."></textarea><button class="btn-go mobile-only" style="margin-top:10px;" onclick="nextBulkStep('stepQty')">Lanjut: QTY ➡️</button><div class="pc-only">Kolom Nama Barang</div></div>
+               <div class="bulk-step" id="stepQty"><label>⚖️ QTY (JUMLAH)</label><textarea id="bQty" class="form-control bulk-area" rows="8" placeholder="Paste QTY..."></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft);" onclick="nextBulkStep('stepBarang')">⬅️</button><button class="btn-go" onclick="nextBulkStep('stepSat')">Lanjut: SATUAN ➡️</button></div><div class="pc-only">Kolom QTY</div></div>
+               <div class="bulk-step" id="stepSat"><label>📏 SATUAN</label><textarea id="bSat" class="form-control bulk-area" rows="8" placeholder="Paste SATUAN..."></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft);" onclick="nextBulkStep('stepQty')">⬅️</button><button class="btn-go" onclick="nextBulkStep('stepSppg')">Lanjut: HARGA SPPG ➡️</button></div><div class="pc-only">Kolom Satuan</div></div>
+               <div class="bulk-step" id="stepSppg"><label>💵 HARGA SPPG</label><textarea id="bSppg" class="form-control bulk-area" rows="8" placeholder="Paste Harga SPPG..."></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft);" onclick="nextBulkStep('stepSat')">⬅️</button><button class="btn-go" onclick="nextBulkStep('stepKop')">Lanjut: HARGA KOP ➡️</button></div><div class="pc-only">Kolom Hrg SPPG</div></div>
+               <div class="bulk-step" id="stepKop"><label>🏪 HARGA KOP</label><textarea id="bKop" class="form-control bulk-area" rows="8" placeholder="Paste Harga KOP..."></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft);" onclick="nextBulkStep('stepSppg')">⬅️</button><button class="btn-go" onclick="nextBulkStep('stepSup')">Lanjut: HARGA SUP ➡️</button></div><div class="pc-only">Kolom Hrg KOP</div></div>
+               <div class="bulk-step" id="stepSup"><label>🚚 HARGA SUP</label><textarea id="bSup" class="form-control bulk-area" rows="8" placeholder="Paste Harga SUP..."></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft);" onclick="nextBulkStep('stepKop')">⬅️</button><button class="btn-go" onclick="nextBulkStep('stepKet')">Lanjut: KET ➡️</button></div><div class="pc-only">Kolom Hrg SUP</div></div>
+               <div class="bulk-step" id="stepKet"><label>📝 KETERANGAN</label><textarea id="bKet" class="form-control bulk-area" rows="8" placeholder="Paste Keterangan..."></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft);" onclick="nextBulkStep('stepSup')">⬅️</button><button class="btn-go" onclick="previewBulkData()" style="background:#10B981; color:var(--bg-inset);">🔍 PREVIEW</button></div><div class="pc-only">Kolom Keterangan</div></div>
             </div>
             
-            <button class="btn-go pc-only" style="margin-top:24px; background:#10B981; color:var(--bg-inset); box-shadow: 4px 4px 10px rgba(11, 16, 26, 0.6), inset 2px 2px 4px rgba(255,255,255,0.4);" onclick="previewBulkData()"><i data-lucide='search' class='icon-emoji'></i> CEK PREVIEW & LENGKAPI SUPPLIER</button>
+            <button class="btn-go pc-only" style="margin-top:24px; background:#10B981; color:var(--bg-inset); box-shadow: 4px 4px 10px rgba(11, 16, 26, 0.6), inset 2px 2px 4px rgba(255,255,255,0.4);" onclick="previewBulkData()">🔍 CEK PREVIEW & LENGKAPI SUPPLIER</button>
           </div>
 
           <div id="bulkPreviewArea" style="display:none;" class="fade-up">
              <div class="section-head" style="margin-top:32px;">Verifikasi & Isi Supplier</div>
              <div id="bulkListPreview"></div>
-             <button class="btn-go" style="margin-top:24px;" onclick="eksekusiSimpanBulk()"><i data-lucide='save' class='icon-emoji'></i> SIMPAN SEMUA KE DATABASE</button>
+             <button class="btn-go" style="margin-top:24px;" onclick="eksekusiSimpanBulk()">💾 SIMPAN SEMUA KE DATABASE</button>
           </div>
 
           <div style="margin-top:40px; margin-bottom: 24px; border-bottom: 2px dashed rgba(255,255,255,0.08);"></div>
-          <div class="section-head" style="margin-top:0;"><i data-lucide='pencil' class='icon-emoji'></i> 2. KELOLA / EDIT ITEM (SATUAN)</div>
+          <div class="section-head" style="margin-top:0;">✏️ 2. KELOLA / EDIT ITEM (SATUAN)</div>
         </div>
         <select id="kAction" class="form-select" onchange="gantiModeKelola()" style="margin-bottom:24px;">
-          <option value="edit"><i data-lucide='pencil' class='icon-emoji'></i> Edit Data / Ganti Tanggal</option>
-          <option value="tambah"><i data-lucide='plus' class='icon-emoji'></i> Tambah Item Baru</option>
-          <option value="hapus"><i data-lucide='trash-2' class='icon-emoji'></i> Hapus Item</option>
+          <option value="edit">✏️ Edit Data / Ganti Tanggal</option>
+          <option value="tambah">➕ Tambah Item Baru</option>
+          <option value="hapus">🗑️ Hapus Item</option>
         </select>
 
         <div id="areaDataLama" style="background:var(--bg-inset); padding:24px; border-radius:26px; margin-bottom:24px; box-shadow:var(--shadow-tenggelam);">
@@ -669,7 +617,7 @@
 
   <div id="shareModal" class="ios-alert-overlay" style="z-index:10000; padding:15px;">
     <div class="ios-alert-box" style="width:100%; max-width:400px; padding:0;">
-      <div id="shareModalHeader" style="padding:22px; font-weight:900; font-size:16px; text-align:center; border-bottom:1px solid rgba(255,255,255,0.05);"><i data-lucide='check-circle-2' class='icon-emoji'></i> File Siap!</div>
+      <div id="shareModalHeader" style="padding:22px; font-weight:900; font-size:16px; text-align:center; border-bottom:1px solid rgba(255,255,255,0.05);">✅ File Siap!</div>
       <div id="shareModalContent" class="ios-alert-content" style="background:var(--bg-card); padding:20px; text-align:left; max-height:60vh;"></div>
       <button class="ios-alert-btn" style="background:var(--bg-inset); color:var(--c-sup);" onclick="tutupShareModal()">Tutup</button>
     </div>
@@ -778,10 +726,6 @@
 
     function initApp() {
       apiCall('getFilterData').then(res => {
-          if (!res || !res.dapur || !res.tanggal) {
-              showIosAlert("Data dari server tidak valid. Cek konfigurasi spreadsheet Anda!");
-              return;
-          }
           let optD = res.dapur.map(d => `<option value="${d}">${d}</option>`).join('');
           document.getElementById('dapur').innerHTML = optD;
           document.getElementById('dapurBarang').innerHTML = optD;
@@ -791,13 +735,8 @@
           let optT = res.tanggal.map(t => `<option value="${t.asli}">${t.tampilan}</option>`).join('');
           document.getElementById('tanggal').innerHTML = optT;
           document.getElementById('tglCetak').innerHTML = '<option value="">Pilih Tanggal...</option>' + optT;
-      }).catch(err => {
-          console.error("Failed loading filters:", err);
-          showIosAlert("Gagal terhubung ke Google Sheets API!<br>Harap periksa koneksi internet atau status link Google Script Web App Anda.");
       });
-      apiCall('getInitMasterBarang').then(initMasterData).catch(err => {
-          console.error("Failed loading master barang:", err);
-      });
+      apiCall('getInitMasterBarang').then(initMasterData);
       const hargaIds = ['mHargaSPPG', 'mHargaKoperasi', 'mHargaSupplier'];
       hargaIds.forEach(id => {
         const el = document.getElementById(id);
@@ -955,12 +894,12 @@
       const d = document.getElementById('lapDapur').innerText;
       const t = document.getElementById('lapTanggal').innerText;
       
-      document.getElementById('shareModalHeader').innerHTML = `<span style="color:#10B981;"><i data-lucide='bar-chart-3' class='icon-emoji'></i> Opsi Simpan Laporan</span>`;
+      document.getElementById('shareModalHeader').innerHTML = `<span style="color:#10B981;">📊 Opsi Simpan Laporan</span>`;
       document.getElementById('shareModalContent').innerHTML = `
         <div style="text-align:center; padding:10px;">
           <p style="font-size:13px; color:var(--text-secondary); margin-bottom:24px;">Silakan pilih format penyimpanan laporan untuk <br><strong>${d} (${t})</strong></p>
-          <button onclick="copyLaporanWA()" style="display:block; width:100%; padding:16px; background:var(--bg-inset); color:#34D399; border:none; border-radius:20px; font-weight:800; margin-bottom:14px; box-shadow: var(--shadow-tenggelam);"><i data-lucide='smartphone' class='icon-emoji'></i> Salin Format WhatsApp</button>
-          <button onclick="cetakLaporanPDFResmi()" style="display:block; width:100%; padding:16px; background:#10B981; color:var(--bg-inset); border:none; border-radius:20px; font-weight:900; box-shadow: 4px 4px 10px rgba(11, 16, 26, 0.6), inset 2px 2px 4px rgba(255,255,255,0.4);"><i data-lucide='file-text' class='icon-emoji'></i> Cetak PDF Resmi</button>
+          <button onclick="copyLaporanWA()" style="display:block; width:100%; padding:16px; background:var(--bg-inset); color:#34D399; border:none; border-radius:20px; font-weight:800; margin-bottom:14px; box-shadow: var(--shadow-tenggelam);">📲 Salin Format WhatsApp</button>
+          <button onclick="cetakLaporanPDFResmi()" style="display:block; width:100%; padding:16px; background:#10B981; color:var(--bg-inset); border:none; border-radius:20px; font-weight:900; box-shadow: 4px 4px 10px rgba(11, 16, 26, 0.6), inset 2px 2px 4px rgba(255,255,255,0.4);">📄 Cetak PDF Resmi</button>
         </div>
       `;
       document.getElementById('shareModal').style.display = 'flex';
@@ -982,20 +921,20 @@
       const waText = `SPPG      	:	${d}\nTgl            	:	${t}\nJmI tem   	:	${lastItemCount} item\n-----------------------------------------------------------------		\nPAGU        	:	${p}\n-----------------------------------------------------------------		\n\`PO SPPG\`   	:	${sppg}\nSISA PAGU  	:	${sisa.includes('-') ? sisa : '+ ' + sisa}\n-----------------------------------------------------------------		\n\`PO KOPR\`    	:	${kopr}\n\`PO SUPLY\`  	:	${suply}\n-----------------------------------------------------------------		\nMRG KOP - SPPG         	:	${mrgK}\nMRG YYN - SUPLY        	:	${mrgY}\n-----------------------------------------------------------------		\nTOTAL MRG         	:	${totM}\n-----------------------------------------------------------------		\n\`Persentase Margin\`	:	${prsn}`;
 
       navigator.clipboard.writeText(waText).then(() => {
-        showIosAlert("<i data-lucide='check-circle-2' class='icon-emoji'></i> Format laporan sudah disalin! <br>Tinggal tempel (paste) ke WhatsApp Bos.");
+        showIosAlert("✅ Format laporan sudah disalin! <br>Tinggal tempel (paste) ke WhatsApp Bos.");
       });
     }
 
     function tampilkanModalSharePDF(tipe, dataArr) {
       if (!dataArr) return; 
       window.tempShareData = dataArr;
-      let warnaTeks = "var(--c-kop)"; let ikon = "<i data-lucide='check-circle-2' class='icon-emoji'></i>"; let teksJml = "PO Siap Dikirim!";
-      if(tipe === 'kop') { warnaTeks = "var(--c-sppg)"; ikon = "<i data-lucide='file-text' class='icon-emoji'></i>"; teksJml = "PO Koperasi Siap!"; }
-      else if(tipe === 'bon') { warnaTeks = "#F59E0B"; ikon = "<i data-lucide='receipt' class='icon-emoji'></i>"; teksJml = "File BON Siap!"; }
-      else if(tipe === 'rabak') { warnaTeks = "var(--c-margin-text)"; ikon = "<i data-lucide='building-2' class='icon-emoji'></i>"; teksJml = "Berkas RAB AK Siap!"; }
-      else if(tipe === 'pogabungan') { warnaTeks = "var(--c-sup)"; ikon = "<i data-lucide='files' class='icon-emoji'></i>"; teksJml = "PO Gabungan Siap!"; }
-      else if(tipe === 'laporan') { warnaTeks = "#10B981"; ikon = "<i data-lucide='bar-chart-3' class='icon-emoji'></i>"; teksJml = "Laporan Siap!"; }
-      else if(tipe === 'inv_sppg') { warnaTeks = "var(--c-sppg)"; ikon = "<i data-lucide='banknote' class='icon-emoji'></i>"; teksJml = "Invoice SPPG Siap!"; }
+      let warnaTeks = "var(--c-kop)"; let ikon = "✅"; let teksJml = "PO Siap Dikirim!";
+      if(tipe === 'kop') { warnaTeks = "var(--c-sppg)"; ikon = "📄"; teksJml = "PO Koperasi Siap!"; }
+      else if(tipe === 'bon') { warnaTeks = "#F59E0B"; ikon = "🧾"; teksJml = "File BON Siap!"; }
+      else if(tipe === 'rabak') { warnaTeks = "var(--c-margin-text)"; ikon = "🏢"; teksJml = "Berkas RAB AK Siap!"; }
+      else if(tipe === 'pogabungan') { warnaTeks = "var(--c-sup)"; ikon = "📑"; teksJml = "PO Gabungan Siap!"; }
+      else if(tipe === 'laporan') { warnaTeks = "#10B981"; ikon = "📊"; teksJml = "Laporan Siap!"; }
+      else if(tipe === 'inv_sppg') { warnaTeks = "var(--c-sppg)"; ikon = "💵"; teksJml = "Invoice SPPG Siap!"; }
 
       document.getElementById('shareModalHeader').innerHTML = `<span style="color:${warnaTeks};">${ikon} ${dataArr.length} ${teksJml}</span>`;
       let html = '';
@@ -1006,7 +945,7 @@
                <div class="share-nama">${item.nama}</div>
                <div class="share-file">${item.fileName}</div>
              </div>
-             <button id="btnShare-${index}" class="btn-wa-share" onclick="shareSatuFile(${index})"><i data-lucide='smartphone' class='icon-emoji'></i> Share</button>
+             <button id="btnShare-${index}" class="btn-wa-share" onclick="shareSatuFile(${index})">📲 Share</button>
            </div>
          `;
       });
@@ -1036,7 +975,7 @@ Pesanan harus diantar pada :
 
 Mohon dicek file terlampir. ⬆️`;
 
-       document.getElementById('shareModalHeader').innerHTML = `<span style="color:var(--text-primary); font-size:18px;"><i data-lucide='sparkles' class='icon-emoji'></i> File Siap!</span>`;
+       document.getElementById('shareModalHeader').innerHTML = `<span style="color:var(--text-primary); font-size:18px;">✨ File Siap!</span>`;
        let encodedMsg = encodeURIComponent(pesanWA);
        document.getElementById('shareModalContent').innerHTML = `
           <div style="text-align:center; padding:10px;">
@@ -1111,11 +1050,11 @@ Mohon dicek file terlampir. ⬆️`;
              navigator.clipboard.writeText(pesanWA).catch(e => console.log("Clipboard error: ", e));
              
              let oldText = btn.innerHTML;
-             btn.innerHTML = "<i data-lucide='hourglass' class='icon-emoji'></i> WA...";
+             btn.innerHTML = "⏳ WA...";
              
              navigator.share(shareData)
                 .then(() => {
-                   btn.innerHTML = "<i data-lucide='check-circle-2' class='icon-emoji'></i> Selesai"; 
+                   btn.innerHTML = "✅ Selesai"; 
                    btn.style.backgroundColor = "var(--bg-card)"; 
                    btn.style.color = "var(--c-kop)"; 
                    btn.style.boxShadow = "var(--shadow-tenggelam)"; 
@@ -1131,7 +1070,7 @@ Mohon dicek file terlampir. ⬆️`;
              const a = document.createElement('a'); a.style.display = 'none'; a.href = url; a.download = item.fileName;
              document.body.appendChild(a); a.click(); window.URL.revokeObjectURL(url);
              
-             btn.innerHTML = "<i data-lucide='arrow-down' class='icon-emoji'></i> Downloaded"; 
+             btn.innerHTML = "⬇️ Downloaded"; 
              btn.style.backgroundColor = "var(--bg-card)"; 
              btn.style.color = "var(--text-soft)"; 
              btn.style.boxShadow = "var(--shadow-tenggelam)"; 
@@ -1191,7 +1130,7 @@ Mohon dicek file terlampir. ⬆️`;
           <div class="item-glass fade-up" style="cursor:pointer;" onclick="pilihItemEdit('${safeItem}')">
             <div class="item-top">
               <div class="item-name">${it.barang}</div>
-              <div class="qty-badge" style="color:var(--text-primary);"><i data-lucide='pencil' class='icon-emoji'></i> Edit</div>
+              <div class="qty-badge" style="color:var(--text-primary);">✏️ Edit</div>
             </div>
             <div style="font-size:0.85rem; font-weight:800; color:var(--text-secondary); margin-bottom:14px;">
               Qty: <span style="color:var(--c-margin-text); font-weight:900;">${String(it.qty).replace('.', ',')} ${it.sat}</span> | Supplier: <b style="color:var(--text-primary);">${it.supplier || '-'}</b>
@@ -1244,7 +1183,7 @@ Mohon dicek file terlampir. ⬆️`;
     
     function toggleLaci(id, suffix) { const body = document.getElementById('body-' + suffix + '-' + id); const header = document.getElementById('laci-header-' + suffix + '-' + id); if (body.style.display === 'block') { body.style.display = 'none'; header.classList.remove('active-laci'); } else { body.style.display = 'block'; header.classList.add('active-laci'); } }
     
-    function bikinLaciHTML(groupedData, suffix) { let html = ''; Object.keys(groupedData).sort().forEach((s, index) => { let supData = groupedData[s]; supData.list.sort((a, b) => { let tglA = a.sortDateInt || 0, tglB = b.sortDateInt || 0; if (tglA !== tglB) return tglA - tglB; return (a.barang||"").localeCompare(b.barang||""); }); html += `<div class="laci-item"><div class="laci-header" id="laci-header-${suffix}-${index}" onclick="toggleLaci(${index},'${suffix}')"><div class="sup-name"><span class="sup-icon"><i data-lucide='package' class='icon-emoji'></i></span>${s}</div><div class="sub-grid-3"><div class="sub-box sb-sppg"><div class="sub-lbl">SPPG</div><div class="sub-val">${Math.round(supData.tp).toLocaleString('id-ID')}</div></div><div class="sub-box sb-kop"><div class="sub-lbl">KOP</div><div class="sub-val">${Math.round(supData.tk).toLocaleString('id-ID')}</div></div><div class="sub-box sb-sup"><div class="sub-lbl">SUP</div><div class="sub-val">${Math.round(supData.ts).toLocaleString('id-ID')}</div></div></div></div><div id="body-${suffix}-${index}" class="laci-body">`; let currentTgl = ""; supData.list.forEach(it => { let uSppg = it.qty > 0 ? Math.round(it.tSppg/it.qty).toLocaleString('id-ID') : 0; let uKop  = it.qty > 0 ? Math.round(it.tKop/it.qty).toLocaleString('id-ID')  : 0; let uSup  = it.qty > 0 ? Math.round(it.tSup/it.qty).toLocaleString('id-ID')  : 0; let tS = Math.round(it.tSppg).toLocaleString('id-ID'); let tK = Math.round(it.tKop).toLocaleString('id-ID'); let tU = Math.round(it.tSup).toLocaleString('id-ID'); if (suffix === 'rek' && it.tanggal && it.tanggal !== currentTgl) { html += `<div class="tgl-group"><i data-lucide='calendar' class='icon-emoji'></i> ${it.tanggal}</div>`; currentTgl = it.tanggal; } html += `<div class="item-glass fade-up"><div class="item-top"><div class="item-name">${it.barang}</div><div class="qty-badge">${String(it.qty).replace('.', ',')} ${it.sat}</div></div><div class="price-row pr-sppg"><div class="pr-left"><div class="pr-label">SPPG</div><div class="pr-unit">${uSppg}/${it.sat}</div></div><div class="pr-val">${tS}</div></div><div class="price-row pr-kop"><div class="pr-left"><div class="pr-label">KOP</div><div class="pr-unit">${uKop}/${it.sat}</div></div><div class="pr-val">${tK}</div></div><div class="price-row pr-sup"><div class="pr-left"><div class="pr-label">SUP</div><div class="pr-unit">${uSup}/${it.sat}</div></div><div class="pr-val">${tU}</div></div></div>`; }); html += `</div></div>`; }); return html; }
+    function bikinLaciHTML(groupedData, suffix) { let html = ''; Object.keys(groupedData).sort().forEach((s, index) => { let supData = groupedData[s]; supData.list.sort((a, b) => { let tglA = a.sortDateInt || 0, tglB = b.sortDateInt || 0; if (tglA !== tglB) return tglA - tglB; return (a.barang||"").localeCompare(b.barang||""); }); html += `<div class="laci-item"><div class="laci-header" id="laci-header-${suffix}-${index}" onclick="toggleLaci(${index},'${suffix}')"><div class="sup-name"><span class="sup-icon">📦</span>${s}</div><div class="sub-grid-3"><div class="sub-box sb-sppg"><div class="sub-lbl">SPPG</div><div class="sub-val">${Math.round(supData.tp).toLocaleString('id-ID')}</div></div><div class="sub-box sb-kop"><div class="sub-lbl">KOP</div><div class="sub-val">${Math.round(supData.tk).toLocaleString('id-ID')}</div></div><div class="sub-box sb-sup"><div class="sub-lbl">SUP</div><div class="sub-val">${Math.round(supData.ts).toLocaleString('id-ID')}</div></div></div></div><div id="body-${suffix}-${index}" class="laci-body">`; let currentTgl = ""; supData.list.forEach(it => { let uSppg = it.qty > 0 ? Math.round(it.tSppg/it.qty).toLocaleString('id-ID') : 0; let uKop  = it.qty > 0 ? Math.round(it.tKop/it.qty).toLocaleString('id-ID')  : 0; let uSup  = it.qty > 0 ? Math.round(it.tSup/it.qty).toLocaleString('id-ID')  : 0; let tS = Math.round(it.tSppg).toLocaleString('id-ID'); let tK = Math.round(it.tKop).toLocaleString('id-ID'); let tU = Math.round(it.tSup).toLocaleString('id-ID'); if (suffix === 'rek' && it.tanggal && it.tanggal !== currentTgl) { html += `<div class="tgl-group">📅 ${it.tanggal}</div>`; currentTgl = it.tanggal; } html += `<div class="item-glass fade-up"><div class="item-top"><div class="item-name">${it.barang}</div><div class="qty-badge">${String(it.qty).replace('.', ',')} ${it.sat}</div></div><div class="price-row pr-sppg"><div class="pr-left"><div class="pr-label">SPPG</div><div class="pr-unit">${uSppg}/${it.sat}</div></div><div class="pr-val">${tS}</div></div><div class="price-row pr-kop"><div class="pr-left"><div class="pr-label">KOP</div><div class="pr-unit">${uKop}/${it.sat}</div></div><div class="pr-val">${tK}</div></div><div class="price-row pr-sup"><div class="pr-left"><div class="pr-label">SUP</div><div class="pr-unit">${uSup}/${it.sat}</div></div><div class="pr-val">${tU}</div></div></div>`; }); html += `</div></div>`; }); return html; }
     
     function cariData() { 
       const d = document.getElementById('dapur').value; const t = document.getElementById('tanggal').value; const tTeks = document.getElementById('tanggal').options[document.getElementById('tanggal').selectedIndex].text; 
@@ -1272,7 +1211,7 @@ Mohon dicek file terlampir. ⬆️`;
         document.getElementById('lapPerDapur').innerText = d; document.getElementById('lapPerRange').innerText = `${fmt(t1)} – ${fmt(t2)}`; document.getElementById('lapPerTotSppg').innerText = `Rp ${Math.round(gSppg).toLocaleString('id-ID')}`; document.getElementById('lapPerTotKop').innerText = `Rp ${Math.round(gKop).toLocaleString('id-ID')}`; document.getElementById('lapPerTotSup').innerText = `Rp ${Math.round(gSup).toLocaleString('id-ID')}`; document.getElementById('lapPerPoSppg').innerText = `Rp ${Math.round(gSppg).toLocaleString('id-ID')}`; document.getElementById('lapPerPoKop').innerText = `Rp ${Math.round(gKop).toLocaleString('id-ID')}`; document.getElementById('lapPerPoSup').innerText = `Rp ${Math.round(gSup).toLocaleString('id-ID')}`; document.getElementById('lapPerMrgKop').innerText = `Rp ${Math.round(gMrgKop).toLocaleString('id-ID')}`; document.getElementById('lapPerMrgYyn').innerText = `Rp ${Math.round(gMrgYyn).toLocaleString('id-ID')}`; document.getElementById('lapPerTmKop').innerText = `Rp ${Math.round(gMrgKop).toLocaleString('id-ID')}`; document.getElementById('lapPerTmYyn').innerText = `Rp ${Math.round(gMrgYyn).toLocaleString('id-ID')}`; document.getElementById('lapPerTotMrg').innerText = `Rp ${Math.round(gTotMrg).toLocaleString('id-ID')}`; document.getElementById('lapPerPersen').innerText = `${gPersen}%`; 
         let perTgl = {}; res.items.forEach(it => { let tgl = it.tanggal || 'Tanpa Tanggal'; if (!perTgl[tgl]) perTgl[tgl] = { sppg:0, kop:0, sup:0, menu:'', list:[], sortKey: it.sortDateInt||0 }; perTgl[tgl].sppg += it.tSppg; perTgl[tgl].kop += it.tKop; perTgl[tgl].sup += it.tSup; if (it.menu) perTgl[tgl].menu = it.menu; perTgl[tgl].list.push(it); }); let tglKeys = Object.keys(perTgl).sort((a,b) => (perTgl[a].sortKey||0) - (perTgl[b].sortKey||0)); document.getElementById('lapPerJmlHari').innerText = tglKeys.length + ' hari'; 
         let html = ''; tglKeys.forEach((tgl, idx) => { let h = perTgl[tgl]; let mKop = h.sppg - h.kop; let mYyn = h.kop - h.sup; let totM = mKop + mYyn; let prs = h.sppg > 0 ? ((totM/h.sppg)*100).toFixed(1).replace('.',',') : '0'; let grouped = {}; h.list.forEach(it => { let s = it.supplier || 'TANPA SUPPLIER'; if (!grouped[s]) grouped[s] = { sppg:0, kop:0, sup:0, list:[] }; grouped[s].sppg += it.tSppg; grouped[s].kop += it.tKop; grouped[s].sup += it.tSup; grouped[s].list.push(it); }); 
-        let detailHTML = ''; Object.keys(grouped).sort().forEach(sup => { let sg = grouped[sup]; detailHTML += `<div style="margin-bottom:14px; background: transparent; border-radius: 20px; padding: 6px; border: none;"><div style="position: sticky; top: 10px; z-index: 5; font-size:0.85rem; font-weight:900; margin-bottom: 14px; display:flex; align-items:center; gap:10px; padding: 14px; border-radius: 18px; background: var(--bg-card); box-shadow: var(--shadow-timbul);"><span style="color:var(--text-primary); font-weight:900;"><i data-lucide='package' class='icon-emoji'></i> ${sup}</span></div><div style="padding: 0 4px; border-left: 2px dashed rgba(255,255,255,0.1); margin-left: 10px;">`; sg.list.forEach(it => { let uS = it.qty>0 ? Math.round(it.tSppg/it.qty).toLocaleString('id-ID') : 0; let uK = it.qty>0 ? Math.round(it.tKop/it.qty).toLocaleString('id-ID')  : 0; let uU = it.qty>0 ? Math.round(it.tSup/it.qty).toLocaleString('id-ID')  : 0; detailHTML += `<div class="item-glass" style="margin-bottom:14px;"><div class="item-top"><div class="item-name">${it.barang}</div><div class="qty-badge">${String(it.qty).replace('.', ',')} ${it.sat}</div></div><div class="price-row pr-sppg"><div class="pr-left"><div class="pr-label">SPPG</div><div class="pr-unit">${uS}/${it.sat}</div></div><div class="pr-val">${Math.round(it.tSppg).toLocaleString('id-ID')}</div></div><div class="price-row pr-kop"><div class="pr-left"><div class="pr-label">KOP</div><div class="pr-unit">${uK}/${it.sat}</div></div><div class="pr-val">${Math.round(it.tKop).toLocaleString('id-ID')}</div></div><div class="price-row pr-sup"><div class="pr-left"><div class="pr-label">SUP</div><div class="pr-unit">${uU}/${it.sat}</div></div><div class="pr-val">${Math.round(it.tSup).toLocaleString('id-ID')}</div></div></div>`; }); let smK = sg.sppg-sg.kop; let smY = sg.kop-sg.sup; detailHTML += `<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;margin-top:16px;"><div class="price-row pr-kop" style="margin-top:0;"><div class="pr-left"><div class="pr-label" style="font-size:0.7rem;">Mrg KOP</div></div><div class="pr-val" style="font-size:0.95rem;">${Math.round(smK).toLocaleString('id-ID')}</div></div><div class="price-row pr-sup" style="margin-top:0;"><div class="pr-left"><div class="pr-label" style="font-size:0.7rem;">Mrg YYN</div></div><div class="pr-val" style="font-size:0.95rem;">${Math.round(smY).toLocaleString('id-ID')}</div></div></div></div></div>`; }); detailHTML += `<div class="section-head" style="margin:24px 0 14px; color: var(--text-muted);">Laporan Keuangan Hari Ini</div><div class="price-row pr-sppg" style="margin-top:0;"><div class="pr-left"><div class="pr-label">Total SPPG</div></div><div class="pr-val">Rp ${Math.round(h.sppg).toLocaleString('id-ID')}</div></div><div class="price-row pr-kop" style="margin-top:10px;"><div class="pr-left"><div class="pr-label">PO Koperasi</div></div><div class="pr-val">Rp ${Math.round(h.kop).toLocaleString('id-ID')}</div></div><div class="price-row pr-sup" style="margin-top:10px;"><div class="pr-left"><div class="pr-label">PO Supplier</div></div><div class="pr-val">Rp ${Math.round(h.sup).toLocaleString('id-ID')}</div></div><div class="total-margin-card" style="margin-top:16px;"><div class="tm-row"><div class="tm-label">Margin KOP</div><div class="tm-val">Rp ${Math.round(mKop).toLocaleString('id-ID')}</div></div><div class="tm-row"><div class="tm-label">Margin YYN</div><div class="tm-val">Rp ${Math.round(mYyn).toLocaleString('id-ID')}</div></div><div class="tm-divider"></div><div class="tm-row"><div class="tm-total-label">Total Margin</div><div class="tm-total-val">Rp ${Math.round(totM).toLocaleString('id-ID')}</div></div><div class="tm-row" style="margin-top:8px;"><div class="tm-label">Persentase</div><div class="tm-persen-val">${prs}%</div></div></div>`; html += `<div class="hari-card" id="haricard-${idx}" onclick="toggleHariCard(${idx})"><div class="hari-card-header"><div class="hari-tgl"><i data-lucide='calendar' class='icon-emoji'></i> ${tgl}</div><div class="hari-menu-badge">${h.menu || '-'}</div></div><div class="hari-mini-grid"><div class="hari-mini-box sub-box sb-sppg"><div class="sub-lbl">SPPG</div><div class="sub-val">${Math.round(h.sppg).toLocaleString('id-ID')}</div></div><div class="hari-mini-box sub-box sb-kop"><div class="sub-lbl">KOP</div><div class="sub-val">${Math.round(h.kop).toLocaleString('id-ID')}</div></div><div class="hari-mini-box sub-box sb-sup"><div class="sub-lbl">SUP</div><div class="sub-val">${Math.round(h.sup).toLocaleString('id-ID')}</div></div></div><div class="hari-margin-strip"><div class="hms-label">Total Margin</div><div class="hms-val">Rp ${Math.round(totM).toLocaleString('id-ID')}</div><div class="hms-label" style="margin-left:14px;">Persen</div><div class="hms-val">${prs}%</div></div><div class="hari-detail" onclick="event.stopPropagation()">${detailHTML}</div></div>`; }); document.getElementById('lapPerListHari').innerHTML = html; 
+        let detailHTML = ''; Object.keys(grouped).sort().forEach(sup => { let sg = grouped[sup]; detailHTML += `<div style="margin-bottom:14px; background: transparent; border-radius: 20px; padding: 6px; border: none;"><div style="position: sticky; top: 10px; z-index: 5; font-size:0.85rem; font-weight:900; margin-bottom: 14px; display:flex; align-items:center; gap:10px; padding: 14px; border-radius: 18px; background: var(--bg-card); box-shadow: var(--shadow-timbul);"><span style="color:var(--text-primary); font-weight:900;">📦 ${sup}</span></div><div style="padding: 0 4px; border-left: 2px dashed rgba(255,255,255,0.1); margin-left: 10px;">`; sg.list.forEach(it => { let uS = it.qty>0 ? Math.round(it.tSppg/it.qty).toLocaleString('id-ID') : 0; let uK = it.qty>0 ? Math.round(it.tKop/it.qty).toLocaleString('id-ID')  : 0; let uU = it.qty>0 ? Math.round(it.tSup/it.qty).toLocaleString('id-ID')  : 0; detailHTML += `<div class="item-glass" style="margin-bottom:14px;"><div class="item-top"><div class="item-name">${it.barang}</div><div class="qty-badge">${String(it.qty).replace('.', ',')} ${it.sat}</div></div><div class="price-row pr-sppg"><div class="pr-left"><div class="pr-label">SPPG</div><div class="pr-unit">${uS}/${it.sat}</div></div><div class="pr-val">${Math.round(it.tSppg).toLocaleString('id-ID')}</div></div><div class="price-row pr-kop"><div class="pr-left"><div class="pr-label">KOP</div><div class="pr-unit">${uK}/${it.sat}</div></div><div class="pr-val">${Math.round(it.tKop).toLocaleString('id-ID')}</div></div><div class="price-row pr-sup"><div class="pr-left"><div class="pr-label">SUP</div><div class="pr-unit">${uU}/${it.sat}</div></div><div class="pr-val">${Math.round(it.tSup).toLocaleString('id-ID')}</div></div></div>`; }); let smK = sg.sppg-sg.kop; let smY = sg.kop-sg.sup; detailHTML += `<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;margin-top:16px;"><div class="price-row pr-kop" style="margin-top:0;"><div class="pr-left"><div class="pr-label" style="font-size:0.7rem;">Mrg KOP</div></div><div class="pr-val" style="font-size:0.95rem;">${Math.round(smK).toLocaleString('id-ID')}</div></div><div class="price-row pr-sup" style="margin-top:0;"><div class="pr-left"><div class="pr-label" style="font-size:0.7rem;">Mrg YYN</div></div><div class="pr-val" style="font-size:0.95rem;">${Math.round(smY).toLocaleString('id-ID')}</div></div></div></div></div>`; }); detailHTML += `<div class="section-head" style="margin:24px 0 14px; color: var(--text-muted);">Laporan Keuangan Hari Ini</div><div class="price-row pr-sppg" style="margin-top:0;"><div class="pr-left"><div class="pr-label">Total SPPG</div></div><div class="pr-val">Rp ${Math.round(h.sppg).toLocaleString('id-ID')}</div></div><div class="price-row pr-kop" style="margin-top:10px;"><div class="pr-left"><div class="pr-label">PO Koperasi</div></div><div class="pr-val">Rp ${Math.round(h.kop).toLocaleString('id-ID')}</div></div><div class="price-row pr-sup" style="margin-top:10px;"><div class="pr-left"><div class="pr-label">PO Supplier</div></div><div class="pr-val">Rp ${Math.round(h.sup).toLocaleString('id-ID')}</div></div><div class="total-margin-card" style="margin-top:16px;"><div class="tm-row"><div class="tm-label">Margin KOP</div><div class="tm-val">Rp ${Math.round(mKop).toLocaleString('id-ID')}</div></div><div class="tm-row"><div class="tm-label">Margin YYN</div><div class="tm-val">Rp ${Math.round(mYyn).toLocaleString('id-ID')}</div></div><div class="tm-divider"></div><div class="tm-row"><div class="tm-total-label">Total Margin</div><div class="tm-total-val">Rp ${Math.round(totM).toLocaleString('id-ID')}</div></div><div class="tm-row" style="margin-top:8px;"><div class="tm-label">Persentase</div><div class="tm-persen-val">${prs}%</div></div></div>`; html += `<div class="hari-card" id="haricard-${idx}" onclick="toggleHariCard(${idx})"><div class="hari-card-header"><div class="hari-tgl">📅 ${tgl}</div><div class="hari-menu-badge">${h.menu || '-'}</div></div><div class="hari-mini-grid"><div class="hari-mini-box sub-box sb-sppg"><div class="sub-lbl">SPPG</div><div class="sub-val">${Math.round(h.sppg).toLocaleString('id-ID')}</div></div><div class="hari-mini-box sub-box sb-kop"><div class="sub-lbl">KOP</div><div class="sub-val">${Math.round(h.kop).toLocaleString('id-ID')}</div></div><div class="hari-mini-box sub-box sb-sup"><div class="sub-lbl">SUP</div><div class="sub-val">${Math.round(h.sup).toLocaleString('id-ID')}</div></div></div><div class="hari-margin-strip"><div class="hms-label">Total Margin</div><div class="hms-val">Rp ${Math.round(totM).toLocaleString('id-ID')}</div><div class="hms-label" style="margin-left:14px;">Persen</div><div class="hms-val">${prs}%</div></div><div class="hari-detail" onclick="event.stopPropagation()">${detailHTML}</div></div>`; }); document.getElementById('lapPerListHari').innerHTML = html; 
       }); 
     }
     
@@ -1284,7 +1223,7 @@ Mohon dicek file terlampir. ⬆️`;
       document.getElementById('hasilBarang').innerHTML = `<div class="loading-wrap"><div class="spinner-glass"></div>Mencari riwayat harga...</div>`; 
       apiCall('getHargaBarang', { dapur: d, barang: b }).then(function(res) { 
         if(!res || !res.length) { document.getElementById('hasilBarang').innerHTML = '<div class="empty-state">Tidak ada riwayat harga.</div>'; return; } 
-        let html = ''; let lastPrices = null; res.forEach(it => { let uSppg = it.qty > 0 ? Math.round(it.tSppg / it.qty) : 0; let uKop = it.qty > 0 ? Math.round(it.tKop / it.qty) : 0; let uSup = it.qty > 0 ? Math.round(it.tSup / it.qty) : 0; let currentPrices = `${uSppg}-${uKop}-${uSup}`; if (currentPrices !== lastPrices) { html += `<div class="tgl-group" style="margin-left:0;"><i data-lucide='calendar' class='icon-emoji'></i> ${it.tanggal}</div><div class="item-glass fade-up"><div class="item-top"><div class="item-name">${it.barang}</div><div class="qty-badge">${String(it.qty).replace('.', ',')} ${it.sat}</div></div><div class="price-row pr-sppg"><div class="pr-left"><div class="pr-label">SPPG</div><div class="pr-unit">Harga Satuan</div></div><div class="pr-val">Rp ${uSppg.toLocaleString('id-ID')}</div></div><div class="price-row pr-kop"><div class="pr-left"><div class="pr-label">KOP</div><div class="pr-unit">Harga Satuan</div></div><div class="pr-val">Rp ${uKop.toLocaleString('id-ID')}</div></div><div class="price-row pr-sup"><div class="pr-left"><div class="pr-label">SUP</div><div class="pr-unit">Harga Satuan</div></div><div class="pr-val">Rp ${uSup.toLocaleString('id-ID')}</div></div></div>`; lastPrices = currentPrices; } }); if (html === '') { html = '<div class="empty-state">Tidak ada perubahan harga.</div>'; } document.getElementById('hasilBarang').innerHTML = html; 
+        let html = ''; let lastPrices = null; res.forEach(it => { let uSppg = it.qty > 0 ? Math.round(it.tSppg / it.qty) : 0; let uKop = it.qty > 0 ? Math.round(it.tKop / it.qty) : 0; let uSup = it.qty > 0 ? Math.round(it.tSup / it.qty) : 0; let currentPrices = `${uSppg}-${uKop}-${uSup}`; if (currentPrices !== lastPrices) { html += `<div class="tgl-group" style="margin-left:0;">📅 ${it.tanggal}</div><div class="item-glass fade-up"><div class="item-top"><div class="item-name">${it.barang}</div><div class="qty-badge">${String(it.qty).replace('.', ',')} ${it.sat}</div></div><div class="price-row pr-sppg"><div class="pr-left"><div class="pr-label">SPPG</div><div class="pr-unit">Harga Satuan</div></div><div class="pr-val">Rp ${uSppg.toLocaleString('id-ID')}</div></div><div class="price-row pr-kop"><div class="pr-left"><div class="pr-label">KOP</div><div class="pr-unit">Harga Satuan</div></div><div class="pr-val">Rp ${uKop.toLocaleString('id-ID')}</div></div><div class="price-row pr-sup"><div class="pr-left"><div class="pr-label">SUP</div><div class="pr-unit">Harga Satuan</div></div><div class="pr-val">Rp ${uSup.toLocaleString('id-ID')}</div></div></div>`; lastPrices = currentPrices; } }); if (html === '') { html = '<div class="empty-state">Tidak ada perubahan harga.</div>'; } document.getElementById('hasilBarang').innerHTML = html; 
       }); 
     }
 
@@ -1384,7 +1323,7 @@ Mohon dicek file terlampir. ⬆️`;
 
       showLoading("Menyimpan data massal...<br>Jangan di-refresh ya!");
 
-      apiCall('simpanBulkPO', { data: payload }).then(function(res) { // <i data-lucide='check-circle-2' class='icon-emoji'></i> SUDAH DIPERBAIKI DI SINI
+      apiCall('simpanBulkPO', { data: payload }).then(function(res) { // ✅ SUDAH DIPERBAIKI DI SINI
         hideLoading();
         showIosAlert(res.msg);
         if(res.status === 'success') {
@@ -1400,24 +1339,5 @@ Mohon dicek file terlampir. ⬆️`;
       });
     }
   </script>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      lucide.createIcons();
-      const observer = new MutationObserver(function(mutations) {
-        let shouldUpdate = false;
-        mutations.forEach(function(mutation) {
-          if (mutation.addedNodes.length > 0) {
-            shouldUpdate = true;
-          }
-        });
-        if (shouldUpdate) {
-          lucide.createIcons();
-        }
-      });
-      observer.observe(document.body, { childList: true, subtree: true });
-    });
-  </script>
 </body>
-
 </html>
