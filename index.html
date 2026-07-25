@@ -707,9 +707,21 @@
           <div class="section-head" style="margin-top:0;"><svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="margin-right:6px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg> 1. INPUT PO MASAL / SATUAN</div>
           <div style="background:var(--bg-inset); padding:20px; border-radius:24px; box-shadow:var(--shadow-tenggelam);">
             
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px; margin-bottom:18px;">
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px; margin-bottom:14px;">
               <select id="bulkDapur" class="form-select"><option value="">Dapur...</option></select>
               <input type="date" id="bulkTanggal" class="form-control" readonly>
+            </div>
+
+            <!-- Fields for Nama Menu and Nominal Pagu -->
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px; margin-bottom:18px;">
+              <div>
+                <label style="font-size:0.7rem; color:var(--text-muted); font-weight:800; display:block; margin-bottom:4px;">NAMA MENU (OPSIONAL)</label>
+                <input type="text" id="inputNamaMenu" class="form-control" placeholder="Ketik nama menu hari ini...">
+              </div>
+              <div>
+                <label style="font-size:0.7rem; color:var(--text-muted); font-weight:800; display:block; margin-bottom:4px;">NOMINAL PAGU (OPSIONAL)</label>
+                <input type="text" inputmode="numeric" id="inputNominalPagu" class="form-control" placeholder="Rp 0" oninput="formatInpRupiah(this)">
+              </div>
             </div>
 
             <div style="display:flex; background:var(--bg-card); padding:4px; border-radius:18px; margin-bottom:18px; box-shadow:var(--shadow-tenggelam);">
@@ -2291,10 +2303,19 @@ Mohon dicek file terlampir.`;
                  </button>
                </div>
              </div>
-             <div class="bpc-grid">
-               <div class="bpc-box"><div class="bpc-lbl">SPPG</div><div class="bpc-val">${sppgVal ? 'Rp ' + Math.round(sppgVal).toLocaleString('id-ID') : '-'}</div></div>
-               <div class="bpc-box"><div class="bpc-lbl">KOP</div><div class="bpc-val">${kopVal ? 'Rp ' + Math.round(kopVal).toLocaleString('id-ID') : '-'}</div></div>
-               <div class="bpc-box"><div class="bpc-lbl">SUP</div><div class="bpc-val">${supVal ? 'Rp ' + Math.round(supVal).toLocaleString('id-ID') : '-'}</div></div>
+             <div class="bpc-grid" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 12px;">
+               <div class="bpc-box" style="padding: 6px 8px; display: flex; flex-direction: column; justify-content: space-between; gap: 4px; background: var(--bg-inset); border-radius: 12px; text-align: center; box-shadow: var(--shadow-tenggelam);">
+                 <div class="bpc-lbl" style="font-size: 0.55rem; color: var(--c-sppg); font-weight: 900; text-transform: uppercase;">SPPG</div>
+                 <input type="text" inputmode="numeric" class="bulk-preview-price-input" id="pSppg-${i}" value="${sppgVal || ''}" oninput="updateBulkPreviewField(${i}, 'tSppg', this)" style="width: 100%; text-align: center; font-size: 0.82rem; font-weight: 900; padding: 4px; border: 1px solid rgba(96,165,250,0.25); border-radius: 8px; background: rgba(0,0,0,0.2); color: var(--c-sppg); outline: none; box-shadow: var(--shadow-tenggelam);">
+               </div>
+               <div class="bpc-box" style="padding: 6px 8px; display: flex; flex-direction: column; justify-content: space-between; gap: 4px; background: var(--bg-inset); border-radius: 12px; text-align: center; box-shadow: var(--shadow-tenggelam);">
+                 <div class="bpc-lbl" style="font-size: 0.55rem; color: var(--c-kop); font-weight: 900; text-transform: uppercase;">KOP</div>
+                 <input type="text" inputmode="numeric" class="bulk-preview-price-input" id="pKop-${i}" value="${kopVal || ''}" oninput="updateBulkPreviewField(${i}, 'tKop', this)" style="width: 100%; text-align: center; font-size: 0.82rem; font-weight: 900; padding: 4px; border: 1px solid rgba(52,211,153,0.25); border-radius: 8px; background: rgba(0,0,0,0.2); color: var(--c-kop); outline: none; box-shadow: var(--shadow-tenggelam);">
+               </div>
+               <div class="bpc-box" style="padding: 6px 8px; display: flex; flex-direction: column; justify-content: space-between; gap: 4px; background: var(--bg-inset); border-radius: 12px; text-align: center; box-shadow: var(--shadow-tenggelam);">
+                 <div class="bpc-lbl" style="font-size: 0.55rem; color: var(--c-sup); font-weight: 900; text-transform: uppercase;">SUP</div>
+                 <input type="text" inputmode="numeric" class="bulk-preview-price-input" id="pSup-${i}" value="${supVal || ''}" oninput="updateBulkPreviewField(${i}, 'tSup', this)" style="width: 100%; text-align: center; font-size: 0.82rem; font-weight: 900; padding: 4px; border: 1px solid rgba(251,113,133,0.25); border-radius: 8px; background: rgba(0,0,0,0.2); color: var(--c-sup); outline: none; box-shadow: var(--shadow-tenggelam);">
+               </div>
              </div>
              <div style="margin-top:12px;">
                <label style="font-size:0.65rem; color:var(--text-muted); font-weight:900;">NAMA SUPPLIER:</label>
@@ -2307,6 +2328,43 @@ Mohon dicek file terlampir.`;
       document.getElementById('bulkListPreview').innerHTML = html;
       document.getElementById('bulkPreviewArea').style.display = 'block';
       document.getElementById('bulkPreviewArea').scrollIntoView({behavior: "smooth"});
+    }
+
+    function updateBulkPreviewField(index, field, inputEl) {
+      if (!window.bulkDataTemp || !window.bulkDataTemp[index]) return;
+      
+      let rawVal = inputEl.value;
+      let cleanVal = rawVal.replace(/[^0-9]/g, '');
+      
+      // Update element value to prevent any text input on the fly
+      inputEl.value = cleanVal;
+      
+      // Update values in temporary data
+      window.bulkDataTemp[index][field] = cleanVal;
+      
+      // If SPPG is updated, automatically update default KOP and SUP (unless user has overridden them)
+      if (field === 'tSppg') {
+        let sppgNum = Number(cleanVal) || 0;
+        if (sppgNum > 0) {
+          let kopVal = Math.round(sppgNum * 0.92);
+          let supVal = Math.round(sppgNum * 0.90);
+          
+          window.bulkDataTemp[index].tKop = kopVal.toString();
+          window.bulkDataTemp[index].tSup = supVal.toString();
+          
+          const kopInput = document.getElementById(`pKop-${index}`);
+          const supInput = document.getElementById(`pSup-${index}`);
+          if (kopInput) kopInput.value = kopVal;
+          if (supInput) supInput.value = supVal;
+        } else {
+          window.bulkDataTemp[index].tKop = '';
+          window.bulkDataTemp[index].tSup = '';
+          const kopInput = document.getElementById(`pKop-${index}`);
+          const supInput = document.getElementById(`pSup-${index}`);
+          if (kopInput) kopInput.value = '';
+          if (supInput) supInput.value = '';
+        }
+      }
     }
 
     function nextBulkStep(targetId) {
@@ -2379,6 +2437,8 @@ Mohon dicek file terlampir.`;
       const payload = {
         dapur: document.getElementById('bulkDapur').value,
         tanggal: document.getElementById('bulkTanggal').value,
+        namaMenu: document.getElementById('inputNamaMenu').value.trim(),
+        nominalPagu: cleanRupiah(document.getElementById('inputNominalPagu').value),
         items: window.bulkDataTemp
       };
 
@@ -2389,6 +2449,8 @@ Mohon dicek file terlampir.`;
         showIosAlert(res.msg);
         if(res.status === 'success') {
           document.querySelectorAll('.bulk-area').forEach(el => el.value = "");
+          document.getElementById('inputNamaMenu').value = "";
+          document.getElementById('inputNominalPagu').value = "";
           document.getElementById('bulkPreviewArea').style.display = 'none';
           window.bulkDataTemp = [];
           nextBulkStep('stepBarang');
