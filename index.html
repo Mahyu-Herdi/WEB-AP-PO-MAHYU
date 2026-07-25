@@ -46,7 +46,7 @@
     }
 
     /* Card Preview Khusus Input Massal */
-    .bulk-preview-card { background: var(--bg-card); border-radius: 20px; padding: 18px; margin-bottom: 14px; box-shadow: var(--shadow-timbul); border-left: 4px solid var(--c-sppg); }
+    .bulk-preview-card { background: var(--bg-card); border-radius: 20px; padding: 18px; margin-bottom: 14px; box-shadow: var(--shadow-timbul); }
     .bpc-title { font-weight: 900; font-size: 1rem; color: var(--text-primary); margin-bottom: 8px; }
     .bpc-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 12px; }
     .bpc-box { background: var(--bg-inset); padding: 8px; border-radius: 12px; text-align: center; box-shadow: var(--shadow-tenggelam); }
@@ -112,6 +112,114 @@
     }
     input, select, textarea { min-width: 0; max-width: 100%; }
 
+    /* Container Utama Responsif HP, Tablet & PC */
+    .app-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* Top Brand Header (Informatif & Elegan) */
+    .top-brand-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--bg-card);
+      border-radius: 24px;
+      padding: 14px 20px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-timbul);
+      transition: all 0.3s ease;
+    }
+    .brand-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-icon {
+      width: 42px;
+      height: 42px;
+      background: var(--bg-inset);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--c-sppg);
+      box-shadow: var(--shadow-tenggelam);
+    }
+    .brand-title {
+      font-weight: 900;
+      font-size: 1rem;
+      color: var(--text-primary);
+      letter-spacing: 0.5px;
+      line-height: 1.2;
+    }
+    .brand-sub {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+    .brand-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--bg-inset);
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--text-secondary);
+      box-shadow: var(--shadow-tenggelam);
+    }
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10B981;
+      box-shadow: 0 0 8px #10B981;
+    }
+
+    /* Layout Pencarian Filter Home */
+    .search-filter-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    /* Layout Cetak Grid */
+    .cetak-section-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    /* Layout Form Custom */
+    .single-po-grid-2, .single-po-grid-3, .master-price-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    @media (min-width: 640px) {
+      .search-filter-grid {
+        grid-template-columns: 1fr 1fr auto;
+        gap: 14px;
+      }
+      .search-filter-grid button {
+        min-width: 140px;
+      }
+      .cetak-section-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+      .single-po-grid-2 {
+        grid-template-columns: 1fr 1fr;
+      }
+      .single-po-grid-3, .master-price-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
     /* Navigasi */
     .bottom-nav {
       position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%);
@@ -135,6 +243,22 @@
     /* Elemen Umum UI */
     .g-card { background: var(--bg-card); border: none; border-radius: 30px; padding: 22px; margin-bottom: 18px; box-shadow: var(--shadow-timbul); position: relative; overflow: hidden; }
     .form-select, .form-control { background: var(--bg-inset) !important; border: 1px solid rgba(0, 0, 0, 0.3) !important; border-radius: 20px !important; color: var(--text-primary) !important; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 0.88rem; padding: 15px 18px; -webkit-appearance: none; transition: all 0.2s ease; width: 100%; box-shadow: var(--shadow-tenggelam) !important; }
+    .form-select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2360A5FA'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E") !important;
+      background-repeat: no-repeat !important;
+      background-position: right 14px center !important;
+      background-size: 18px !important;
+      padding-right: 40px !important;
+      cursor: pointer;
+    }
+    input[type="date"].form-control {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2360A5FA'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z'%3E%3C/path%3E%3C/svg%3E") !important;
+      background-repeat: no-repeat !important;
+      background-position: right 14px center !important;
+      background-size: 18px !important;
+      padding-right: 40px !important;
+      cursor: pointer;
+    }
     .form-select:focus, .form-control:focus { outline: none; box-shadow: var(--shadow-tenggelam), 0 0 0 2px rgba(96, 165, 250, 0.3) !important; }
     .form-select option { background: var(--bg-card); color: var(--text-primary); }
     .form-control::placeholder { color: var(--text-soft); font-weight: 600; }
@@ -186,7 +310,7 @@
     .sb-kop .sub-lbl { color: var(--text-muted); } .sb-kop .sub-val { color: var(--c-kop); } 
     .sb-sup .sub-lbl { color: var(--text-muted); } .sb-sup .sub-val { color: var(--c-sup); }
     .sub-val { font-size: 0.9rem; font-weight: 900; letter-spacing: -0.3px; word-break: break-word; }
-    .laci-body { display: none; padding: 18px 8px 8px; border-left: 4px solid var(--bg-inset); margin-left: 16px; margin-top: 10px; border-radius: 0 0 0 18px; }
+    .laci-body { display: none; padding: 18px 8px 8px; margin-top: 10px; }
     .item-glass { background: var(--bg-card); border: none; border-radius: 26px; padding: 22px; margin-bottom: 20px; box-shadow: var(--shadow-timbul); transition: all 0.2s ease; }
     .item-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
     .item-name { font-weight: 900; font-size: 1.05rem; color: var(--text-primary); line-height: 1.35; flex: 1; word-break: break-word; }
@@ -207,8 +331,8 @@
     .menu-row { font-size: 0.8rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 20px; background: var(--bg-inset); padding: 14px; border-radius: 16px; box-shadow: var(--shadow-tenggelam);} .menu-row span { color: var(--text-primary); font-weight: 900; }
     .pagu-card { background: var(--bg-card); border: none; border-radius: 28px; padding: 24px; text-align: center; margin-bottom: 20px; box-shadow: var(--shadow-timbul); }
     .pagu-label { font-size: 0.7rem; font-weight: 900; color: var(--text-muted); letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 8px; } .pagu-val { font-size: 1.8rem; font-weight: 900; color: var(--c-sppg); letter-spacing: -0.5px; word-break: break-word; }
-    .sisa-ok { border-left: 4px solid var(--c-kop); } .sisa-ok .pr-val { color: var(--c-kop) !important; }
-    .sisa-over { border-left: 4px solid var(--c-sup); } .sisa-over .pr-val  { color: var(--c-sup) !important; }
+    .sisa-ok .pr-val { color: var(--c-kop) !important; }
+    .sisa-over .pr-val { color: var(--c-sup) !important; }
     .total-margin-card { background: var(--bg-inset); border: none; border-radius: 24px; padding: 22px; margin-top: 20px; box-shadow: var(--shadow-tenggelam); }
     .tm-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; } .tm-label { font-size: 0.8rem; font-weight: 900; color: var(--text-secondary); } .tm-val { font-size: 1.1rem; font-weight: 900; color: var(--text-primary); }
     .tm-divider { height: 2px; border-radius: 2px; background: rgba(0,0,0,0.3); box-shadow: 0 1px 1px rgba(255,255,255,0.05); margin: 14px 0; } .tm-total-label { font-size: 0.8rem; font-weight: 900; color: var(--text-muted); } .tm-total-val  { font-size: 1.3rem; font-weight: 900; color: var(--c-kop); } .tm-persen-val { font-size: 1.6rem; font-weight: 900; color: var(--c-margin-text); letter-spacing: -0.5px; }
@@ -341,213 +465,342 @@
       </div>
   </div>
 
-  <div id="mainApp" style="display:block;">
+  <div class="app-container">
+    <div id="mainApp" style="display:block;">
 
-    <div id="halamanHarian">
-      <div class="g-card fade-up">
-        <div style="display:grid; grid-template-columns: 1fr 1fr auto; gap:12px;">
-          <select id="dapur" class="form-select"><option>Dapur...</option></select>
-          <select id="tanggal" class="form-select"><option>Tanggal...</option></select>
-          <button onclick="cariData()" class="btn-go" style="width:64px; border-radius:20px;">GO</button>
+      <div class="top-brand-bar fade-up">
+        <div class="brand-left">
+          <div class="brand-icon">
+            <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+          </div>
+          <div>
+            <div class="brand-title">SISTEM PURCHASE ORDER</div>
+            <div class="brand-sub">Pengadaan Bahan Baku & Laporan Keuangan</div>
+          </div>
+        </div>
+        <div class="brand-badge" id="appModeBadge">
+          <span class="badge-dot" id="appModeDot"></span>
+          <span id="appModeText">Viewer Mode</span>
         </div>
       </div>
+
+      <div id="halamanHarian">
+        <div class="g-card fade-up">
+          <div style="font-size:0.75rem; font-weight:900; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:12px; display:flex; align-items:center; gap:6px;">
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+            PILIH DAPUR & TANGGAL PO
+          </div>
+          <div class="search-filter-grid">
+            <div>
+              <label style="font-size:0.68rem; font-weight:800; color:var(--text-soft); display:block; margin-bottom:4px;">1. LOKASI DAPUR</label>
+              <select id="dapur" class="form-select"><option>Dapur...</option></select>
+            </div>
+            <div>
+              <label style="font-size:0.68rem; font-weight:800; color:var(--text-soft); display:block; margin-bottom:4px;">2. TANGGAL PO</label>
+              <select id="tanggal" class="form-select"><option>Tanggal...</option></select>
+            </div>
+            <div style="display:flex; align-items:flex-end;">
+              <button onclick="cariData()" class="btn-go" style="display:flex; align-items:center; justify-content:center; gap:8px;">
+                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg> TAMPILKAN PO
+              </button>
+            </div>
+          </div>
+        </div>
       <div id="hasilHarian" style="display:none;">
         <div class="dash-grid">
-          <div class="metric-card mc-sppg dash-full"><div class="m-label">💰 Total SPPG</div><div class="m-val" id="totSppgHar">0</div></div>
-          <div class="metric-card mc-kop"><div class="m-label">🏪 Total KOP</div><div class="m-val" id="totKopHar">0</div></div>
-          <div class="metric-card mc-sup"><div class="m-label">🚚 Total SUP</div><div class="m-val" id="totSupHar">0</div></div>
+          <div class="metric-card mc-sppg dash-full"><div class="m-label"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="display:inline-block; vertical-align:middle; margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Total SPPG</div><div class="m-val" id="totSppgHar">0</div></div>
+          <div class="metric-card mc-kop"><div class="m-label"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="display:inline-block; vertical-align:middle; margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg> Total KOP</div><div class="m-val" id="totKopHar">0</div></div>
+          <div class="metric-card mc-sup"><div class="m-label"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="display:inline-block; vertical-align:middle; margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 17a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4zM3 9h10l3 5h5v4h-2a3 3 0 01-6 0H9a3 3 0 01-6 0H1V9z"/></svg> Total SUP</div><div class="m-val" id="totSupHar">0</div></div>
           <div class="metric-card mc-kop"><div class="m-label">Mrg KOP</div><div class="m-val" id="marKopHar">0</div></div>
           <div class="metric-card mc-sup"><div class="m-label">Mrg YYN</div><div class="m-val" id="marYynHar">0</div></div>
+        </div>
+
+        <div style="margin-top:16px; margin-bottom:12px;">
+          <div style="position:relative; display:flex; align-items:center;">
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="position:absolute; left:16px; color:var(--text-muted); pointer-events:none;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <input type="text" id="inputSearchHarian" oninput="renderHarianWithFilter()" placeholder="Cari supplier, nama barang, atau harga..." class="form-control" style="padding-left:44px; padding-right:40px; border-radius:18px; font-size:0.88rem; background:var(--bg-card); color:var(--text-primary); box-shadow:var(--shadow-timbul);">
+            <button id="btnClearSearchHarian" onclick="clearSearchHarian()" style="display:none; position:absolute; right:12px; background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:1.2rem; line-height:1; padding:4px;">&times;</button>
+          </div>
         </div>
       </div>
       <div id="tempatHasil"></div>
     </div>
 
     <div id="halamanLaporan" style="display:none;">
-      <div id="pesanLaporan" class="empty-state">Tekan "GO" di menu Harian dulu ya, Yu!<br>Laporan otomatis muncul di sini.</div>
-      <div id="laporanCard" style="display:none;" class="g-card fade-up">
-        <div class="lap-header"><div class="lap-dapur">🍽️ <span id="lapDapur"></span></div><div class="lap-tanggal-badge" id="lapTanggal"></div></div>
-        <div class="menu-row">Menu: <span id="lapMenu"></span></div>
-        <div class="pagu-card"><div class="pagu-label">Pagu Harian</div><div class="pagu-val" id="lapPagu">0</div></div>
-        <div class="section-head">Pengeluaran PO</div>
-        <div class="price-row pr-sppg"><div class="pr-left"><div class="pr-label">Total SPPG</div></div><div class="pr-val" id="lapPoSppg">0</div></div>
-        <div class="price-row pr-kop"><div class="pr-left"><div class="pr-label">PO Koperasi</div></div><div class="pr-val" id="lapPoKop">0</div></div>
-        <div class="price-row pr-sup"><div class="pr-left"><div class="pr-label">PO Supplier</div></div><div class="pr-val" id="lapPoSup">0</div></div>
-        <div class="section-head" style="margin-top:20px;">Sisa Anggaran</div>
-        <div class="price-row pr-neutral" id="bgSisaPagu" style="border-left:4px solid var(--c-kop);"><div class="pr-left"><div class="pr-label" id="textSisaPagu" style="color:var(--text-muted);">Sisa Pagu</div></div><div class="pr-val" id="lapSisaPagu">0</div></div>
-        <div class="section-head" style="margin-top:20px;">Margin Keuangan</div>
-        <div class="price-row pr-kop"><div class="pr-left"><div class="pr-label">Margin KOP</div><div class="pr-unit">SPPG − KOP</div></div><div class="pr-val" id="lapMrgKop">0</div></div>
-        <div class="price-row pr-sup"><div class="pr-left"><div class="pr-label">Margin YYN</div><div class="pr-unit">KOP − SUP</div></div><div class="pr-val" id="lapMrgYyn">0</div></div>
-        <div class="total-margin-card" style="margin-top:20px;">
-          <div class="tm-row"><div class="tm-label">Margin KOP</div><div class="tm-val" id="lapTmKop">0</div></div>
-          <div class="tm-row"><div class="tm-label">Margin YYN</div><div class="tm-val" id="lapTmYyn">0</div></div>
-          <div class="tm-divider"></div>
-          <div class="tm-row"><div class="tm-total-label">Total Margin</div><div class="tm-total-val" id="lapTotMrg">0</div></div>
-          <div class="tm-row" style="margin-top:8px;"><div class="tm-label">Persentase Margin</div><div class="tm-persen-val" id="lapPersen">0%</div></div>
-        </div>
-        <button id="btnGenerateLap" class="btn-go" onclick="showGenerateOptions()" style="margin-top:24px; background:#10B981; color:var(--bg-inset);">🖨️ SIMPAN LAPORAN</button>
+      <div style="display:flex; background:var(--bg-inset); padding:4px; border-radius:18px; margin-bottom:18px; box-shadow:var(--shadow-tenggelam);">
+        <button id="tabSubLapHarian" onclick="switchSubLaporan('harian')" class="sub-tab-btn" style="flex:1; padding:10px; border-radius:14px; font-weight:800; font-size:0.82rem; border:none; cursor:pointer; background:var(--bg-card); color:var(--text-primary); box-shadow:var(--shadow-timbul); transition:all 0.2s; display:flex; align-items:center; justify-content:center; gap:6px;">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg> Laporan Harian
+        </button>
+        <button id="tabSubLapPeriode" onclick="switchSubLaporan('periode')" class="sub-tab-btn" style="flex:1; padding:10px; border-radius:14px; font-weight:800; font-size:0.82rem; border:none; cursor:pointer; background:transparent; color:var(--text-muted); transition:all 0.2s; display:flex; align-items:center; justify-content:center; gap:6px;">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg> Laporan Periode
+        </button>
       </div>
-    </div>
 
-    <div id="halamanLapPeriode" style="display:none;">
-      <div class="g-card fade-up">
-        <div style="display:flex; flex-direction:column; gap:14px;">
-          <select id="dapurLapPer" class="form-select"><option>Dapur...</option></select>
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
-            <input type="date" id="tglMulaiLap" class="form-control">
-            <input type="date" id="tglSelesaiLap" class="form-control">
+      <div id="subSecLapHarian" style="display:block;">
+        <div id="pesanLaporan" class="empty-state">Tekan "GO" di menu Home dulu ya, Yu!<br>Laporan otomatis muncul di sini.</div>
+        <div id="laporanCard" style="display:none;" class="g-card fade-up">
+          <div class="lap-header"><div class="lap-dapur"><svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="display:inline-block; vertical-align:middle; margin-right:6px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg><span id="lapDapur"></span></div><div class="lap-tanggal-badge" id="lapTanggal"></div></div>
+          <div class="menu-row">Menu: <span id="lapMenu"></span></div>
+          <div class="pagu-card"><div class="pagu-label">Pagu Harian</div><div class="pagu-val" id="lapPagu">0</div></div>
+          <div class="section-head">Pengeluaran PO</div>
+          <div class="price-row pr-sppg"><div class="pr-left"><div class="pr-label">Total SPPG</div></div><div class="pr-val" id="lapPoSppg">0</div></div>
+          <div class="price-row pr-kop"><div class="pr-left"><div class="pr-label">PO Koperasi</div></div><div class="pr-val" id="lapPoKop">0</div></div>
+          <div class="price-row pr-sup"><div class="pr-left"><div class="pr-label">PO Supplier</div></div><div class="pr-val" id="lapPoSup">0</div></div>
+          <div class="section-head" style="margin-top:20px;">Sisa Anggaran</div>
+          <div class="price-row pr-neutral" id="bgSisaPagu"><div class="pr-left"><div class="pr-label" id="textSisaPagu" style="color:var(--text-muted);">Sisa Pagu</div></div><div class="pr-val" id="lapSisaPagu">0</div></div>
+          <div class="section-head" style="margin-top:20px;">Margin Keuangan</div>
+          <div class="price-row pr-kop"><div class="pr-left"><div class="pr-label">Margin KOP</div><div class="pr-unit">SPPG − KOP</div></div><div class="pr-val" id="lapMrgKop">0</div></div>
+          <div class="price-row pr-sup"><div class="pr-left"><div class="pr-label">Margin YYN</div><div class="pr-unit">KOP − SUP</div></div><div class="pr-val" id="lapMrgYyn">0</div></div>
+          <div class="total-margin-card" style="margin-top:20px;">
+            <div class="tm-row"><div class="tm-label">Margin KOP</div><div class="tm-val" id="lapTmKop">0</div></div>
+            <div class="tm-row"><div class="tm-label">Margin YYN</div><div class="tm-val" id="lapTmYyn">0</div></div>
+            <div class="tm-divider"></div>
+            <div class="tm-row"><div class="tm-total-label">Total Margin Utama</div><div class="tm-total-val" id="lapTotMrg">0</div></div>
+            <div class="tm-row" style="margin-top:8px;"><div class="tm-label">Persentase Total Margin</div><div class="tm-persen-val" id="lapPersen">0%</div></div>
+            
+            <div style="margin-top:14px; padding-top:14px; border-top:1px dashed rgba(255,255,255,0.08); display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+              <div style="background:var(--bg-card); padding:12px; border-radius:16px; box-shadow:var(--shadow-timbul);">
+                <div style="font-size:0.65rem; font-weight:900; color:var(--text-muted); text-transform:uppercase; margin-bottom:4px;">Bagian KOP</div>
+                <div style="font-size:1.1rem; font-weight:900; color:var(--c-kop);" id="lapPrsKop">0%</div>
+                <div style="font-size:0.65rem; font-weight:700; color:var(--text-soft);" id="lapPrsKopPorsi">0% dr Total Margin</div>
+              </div>
+              <div style="background:var(--bg-card); padding:12px; border-radius:16px; box-shadow:var(--shadow-timbul);">
+                <div style="font-size:0.65rem; font-weight:900; color:var(--text-muted); text-transform:uppercase; margin-bottom:4px;">Bagian YYN</div>
+                <div style="font-size:1.1rem; font-weight:900; color:var(--c-sup);" id="lapPrsYyn">0%</div>
+                <div style="font-size:0.65rem; font-weight:700; color:var(--text-soft);" id="lapPrsYynPorsi">0% dr Total Margin</div>
+              </div>
+            </div>
           </div>
-          <button onclick="cariLapPeriode()" class="btn-go" style="margin-top: 8px;">BUAT LAPORAN PERIODE</button>
+          <button id="btnGenerateLap" class="btn-go" onclick="showGenerateOptions()" style="margin-top:24px; background:#10B981; color:var(--bg-inset); display:flex; align-items:center; justify-content:center; gap:8px;"><svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg> SIMPAN LAPORAN</button>
         </div>
       </div>
-      <div id="hasilLapPeriode" style="display:none;">
+
+      <div id="subSecLapPeriode" style="display:none;">
         <div class="g-card fade-up">
-          <div class="lap-header"><div class="lap-dapur">🍽️ <span id="lapPerDapur"></span></div><div class="periode-badge">📆 <span id="lapPerRange"></span></div></div>
-          <div class="pagu-grid">
-            <div class="pagu-mini full"><div class="pagu-label">Total SPPG Periode</div><div class="pagu-val" id="lapPerTotSppg">0</div></div>
-            <div class="pagu-mini"><div class="pagu-label" style="font-size:0.6rem;">Total KOP</div><div class="pagu-val" style="font-size:1.2rem;" id="lapPerTotKop">0</div></div>
-            <div class="pagu-mini"><div class="pagu-label" style="font-size:0.6rem;">Total SUP</div><div class="pagu-val" style="font-size:1.2rem;" id="lapPerTotSup">0</div></div>
-          </div>
-          <div class="section-head">Pengeluaran PO Kumulatif</div>
-          <div class="price-row pr-sppg"><div class="pr-left"><div class="pr-label">Total SPPG</div></div><div class="pr-val" id="lapPerPoSppg">0</div></div>
-          <div class="price-row pr-kop"><div class="pr-left"><div class="pr-label">PO Koperasi</div></div><div class="pr-val" id="lapPerPoKop">0</div></div>
-          <div class="price-row pr-sup"><div class="pr-left"><div class="pr-label">PO Supplier</div></div><div class="pr-val" id="lapPerPoSup">0</div></div>
-          <div class="section-head" style="margin-top:20px;">Margin Keuangan Periode</div>
-          <div class="price-row pr-kop"><div class="pr-left"><div class="pr-label">Margin KOP</div><div class="pr-unit">SPPG − KOP</div></div><div class="pr-val" id="lapPerMrgKop">0</div></div>
-          <div class="price-row pr-sup"><div class="pr-left"><div class="pr-label">Margin YYN</div><div class="pr-unit">KOP − SUP</div></div><div class="pr-val" id="lapPerMrgYyn">0</div></div>
-          <div class="total-margin-card" style="margin-top:20px;">
-            <div class="tm-row"><div class="tm-label">Margin KOP</div><div class="tm-val" id="lapPerTmKop">0</div></div>
-            <div class="tm-row"><div class="tm-label">Margin YYN</div><div class="tm-val" id="lapPerTmYyn">0</div></div>
-            <div class="tm-divider"></div>
-            <div class="tm-row"><div class="tm-total-label">Total Margin Periode</div><div class="tm-total-val" id="lapPerTotMrg">0</div></div>
-            <div class="tm-row" style="margin-top:8px;"><div class="tm-label">Persentase Margin</div><div class="tm-persen-val" id="lapPerPersen">0%</div></div>
+          <div style="display:flex; flex-direction:column; gap:14px;">
+            <select id="dapurLapPer" class="form-select"><option>Dapur...</option></select>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+              <input type="date" id="tglMulaiLap" class="form-control" readonly>
+              <input type="date" id="tglSelesaiLap" class="form-control" readonly>
+            </div>
+            <button onclick="cariLapPeriode()" class="btn-go" style="margin-top: 8px;">BUAT LAPORAN PERIODE</button>
           </div>
         </div>
-        <div class="section-head" style="margin:8px 2px 14px;">Breakdown Per Hari<span class="hari-count-badge" id="lapPerJmlHari"></span></div>
-        <div id="lapPerListHari"></div>
+        <div id="hasilLapPeriode" style="display:none; margin-top:16px;">
+          <div class="g-card fade-up">
+            <div class="lap-header"><div class="lap-dapur"><svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="display:inline-block; vertical-align:middle; margin-right:6px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg><span id="lapPerDapur"></span></div><div class="periode-badge"><svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="display:inline-block; vertical-align:middle; margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span id="lapPerRange"></span></div></div>
+            <div class="pagu-grid">
+              <div class="pagu-mini full"><div class="pagu-label">Total SPPG Periode</div><div class="pagu-val" id="lapPerTotSppg">0</div></div>
+              <div class="pagu-mini"><div class="pagu-label" style="font-size:0.6rem;">Total KOP</div><div class="pagu-val" style="font-size:1.2rem;" id="lapPerTotKop">0</div></div>
+              <div class="pagu-mini"><div class="pagu-label" style="font-size:0.6rem;">Total SUP</div><div class="pagu-val" style="font-size:1.2rem;" id="lapPerTotSup">0</div></div>
+            </div>
+            <div class="section-head">Pengeluaran PO Kumulatif</div>
+            <div class="price-row pr-sppg"><div class="pr-left"><div class="pr-label">Total SPPG</div></div><div class="pr-val" id="lapPerPoSppg">0</div></div>
+            <div class="price-row pr-kop"><div class="pr-left"><div class="pr-label">PO Koperasi</div></div><div class="pr-val" id="lapPerPoKop">0</div></div>
+            <div class="price-row pr-sup"><div class="pr-left"><div class="pr-label">PO Supplier</div></div><div class="pr-val" id="lapPerPoSup">0</div></div>
+            <div class="section-head" style="margin-top:20px;">Margin Keuangan Periode</div>
+            <div class="price-row pr-kop"><div class="pr-left"><div class="pr-label">Margin KOP</div><div class="pr-unit">SPPG − KOP</div></div><div class="pr-val" id="lapPerMrgKop">0</div></div>
+            <div class="price-row pr-sup"><div class="pr-left"><div class="pr-label">Margin YYN</div><div class="pr-unit">KOP − SUP</div></div><div class="pr-val" id="lapPerMrgYyn">0</div></div>
+            <div class="total-margin-card" style="margin-top:20px;">
+              <div class="tm-row"><div class="tm-label">Margin KOP</div><div class="tm-val" id="lapPerTmKop">0</div></div>
+              <div class="tm-row"><div class="tm-label">Margin YYN</div><div class="tm-val" id="lapPerTmYyn">0</div></div>
+              <div class="tm-divider"></div>
+              <div class="tm-row"><div class="tm-total-label">Total Margin Periode Utama</div><div class="tm-total-val" id="lapPerTotMrg">0</div></div>
+              <div class="tm-row" style="margin-top:8px;"><div class="tm-label">Persentase Total Margin</div><div class="tm-persen-val" id="lapPerPersen">0%</div></div>
+              
+              <div style="margin-top:14px; padding-top:14px; border-top:1px dashed rgba(255,255,255,0.08); display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                <div style="background:var(--bg-card); padding:12px; border-radius:16px; box-shadow:var(--shadow-timbul);">
+                  <div style="font-size:0.65rem; font-weight:900; color:var(--text-muted); text-transform:uppercase; margin-bottom:4px;">Bagian KOP</div>
+                  <div style="font-size:1.1rem; font-weight:900; color:var(--c-kop);" id="lapPerPrsKop">0%</div>
+                  <div style="font-size:0.65rem; font-weight:700; color:var(--text-soft);" id="lapPerPrsKopPorsi">0% dr Total Margin</div>
+                </div>
+                <div style="background:var(--bg-card); padding:12px; border-radius:16px; box-shadow:var(--shadow-timbul);">
+                  <div style="font-size:0.65rem; font-weight:900; color:var(--text-muted); text-transform:uppercase; margin-bottom:4px;">Bagian YYN</div>
+                  <div style="font-size:1.1rem; font-weight:900; color:var(--c-sup);" id="lapPerPrsYyn">0%</div>
+                  <div style="font-size:0.65rem; font-weight:700; color:var(--text-soft);" id="lapPerPrsYynPorsi">0% dr Total Margin</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="section-head" style="margin:8px 2px 14px;">Breakdown Per Hari<span class="hari-count-badge" id="lapPerJmlHari"></span></div>
+          <div id="lapPerListHari"></div>
+        </div>
       </div>
     </div>
 
     <div id="halamanCetak" style="display:none;">
       <div class="g-card fade-up">
         <div style="font-size:0.8rem; font-weight:900; color:var(--text-muted); margin-bottom:16px; text-transform:uppercase;">Pilih Target Cetak / Hapus</div>
-        <div style="display:flex; flex-direction:column; gap:14px; margin-bottom:24px;">
-          <select id="dapurCetak" class="form-select"><option value="">Dapur...</option></select>
-          <select id="tglCetak" class="form-select"><option value="">Tanggal...</option></select>
+        <div class="single-po-grid-2" style="margin-bottom:24px;">
+          <div>
+            <label style="font-size:0.68rem; font-weight:800; color:var(--text-soft); display:block; margin-bottom:4px;">1. LOKASI DAPUR</label>
+            <select id="dapurCetak" class="form-select"><option value="">Dapur...</option></select>
+          </div>
+          <div>
+            <label style="font-size:0.68rem; font-weight:800; color:var(--text-soft); display:block; margin-bottom:4px;">2. TANGGAL PO</label>
+            <select id="tglCetak" class="form-select"><option value="">Tanggal...</option></select>
+          </div>
         </div>
 
         <div class="section-head" style="margin-top:24px; margin-bottom:18px;">Menu Cetak Utama</div>
         
-        <div class="btn-cetak-row">
-          <button class="btn-cetak-item action-btn" onclick="prosesCetak('sup', this)"><span style="font-size:18px;">🚚</span> PO Supplier</button>
-          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_sup', this)">🗑️</button>
-        </div>
-        <div class="btn-cetak-row">
-          <button class="btn-cetak-item action-btn" onclick="prosesCetak('kop', this)"><span style="font-size:18px;">🏪</span> PO Koperasi</button>
-          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_kop', this)">🗑️</button>
-        </div>
-        <div class="btn-cetak-row">
-          <button class="btn-cetak-item action-btn" onclick="prosesCetak('rekap_kop_excel', this)"><span style="font-size:18px;">📊</span> PO KOP Excel</button>
-          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_rekap_kop_excel', this)">🗑️</button>
-        </div>
-        <div class="btn-cetak-row">
-          <button class="btn-cetak-item action-btn" onclick="prosesCetak('bon', this)"><span style="font-size:18px;">🧾</span> Cetak BON</button>
-          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_bon', this)">🗑️</button>
-        </div>
-        <div class="btn-cetak-row">
-          <button class="btn-cetak-item action-btn" onclick="prosesCetak('surat', this)"><span style="font-size:18px;">📄</span> Surat Terima</button>
-          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_surat', this)">🗑️</button>
-        </div>
-        <div class="btn-cetak-row">
-          <button class="btn-cetak-item action-btn" onclick="prosesCetak('rekap', this)"><span style="font-size:18px;">📊</span> Rekap Byar</button>
-          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_rekap', this)">🗑️</button>
-        </div>
-        <div class="btn-cetak-row">
-          <button class="btn-cetak-item action-btn" onclick="prosesCetak('po_gabungan', this)"><span style="font-size:18px;">📑</span> PO Gabungan</button>
-          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_po_gabungan', this)">🗑️</button>
+        <div class="cetak-section-grid">
+          <div class="btn-cetak-row">
+            <button class="btn-cetak-item action-btn" onclick="prosesCetak('sup', this)"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 17a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4zM3 9h10l3 5h5v4h-2a3 3 0 01-6 0H9a3 3 0 01-6 0H1V9z"/></svg> PO Supplier</button>
+            <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_sup', this)"><svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+          </div>
+          <div class="btn-cetak-row">
+            <button class="btn-cetak-item action-btn" onclick="prosesCetak('kop', this)"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg> PO Koperasi</button>
+            <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_kop', this)"><svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+          </div>
+          <div class="btn-cetak-row">
+            <button class="btn-cetak-item action-btn" onclick="prosesCetak('rekap_kop_excel', this)"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg> PO KOP Excel</button>
+            <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_rekap_kop_excel', this)"><svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+          </div>
+          <div class="btn-cetak-row">
+            <button class="btn-cetak-item action-btn" onclick="prosesCetak('bon', this)"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg> Cetak BON</button>
+            <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_bon', this)"><svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+          </div>
+          <div class="btn-cetak-row">
+            <button class="btn-cetak-item action-btn" onclick="prosesCetak('surat', this)"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg> Surat Terima</button>
+            <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_surat', this)"><svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+          </div>
+          <div class="btn-cetak-row">
+            <button class="btn-cetak-item action-btn" onclick="prosesCetak('rekap', this)"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg> Rekap Byar</button>
+            <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_rekap', this)"><svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+          </div>
+          <div class="btn-cetak-row">
+            <button class="btn-cetak-item action-btn" onclick="prosesCetak('po_gabungan', this)"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"/></svg> PO Gabungan</button>
+            <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_po_gabungan', this)"><svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+          </div>
         </div>
 
         <div class="section-head" style="margin-top:28px; margin-bottom:18px;">Menu Cetak RAB AK</div>
-        <div class="btn-cetak-row">
-          <button class="btn-cetak-item action-btn" onclick="prosesCetak('rab_nisam', this)"><span style="font-size:18px;">🏢</span> RAB Nisam</button>
-          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_rab_nisam', this)">🗑️</button>
-        </div>
-        <div class="btn-cetak-row">
-          <button class="btn-cetak-item action-btn" onclick="prosesCetak('rab_arratibi', this)"><span style="font-size:18px;">🏢</span> RAB Arratibi</button>
-          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_rab_arratibi', this)">🗑️</button>
-        </div>
-        <div class="btn-cetak-row">
-          <button class="btn-cetak-item action-btn" onclick="prosesCetak('rab_palda', this)"><span style="font-size:18px;">🏢</span> RAB Palda</button>
-          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_rab_palda', this)">🗑️</button>
-        </div>
-        <div class="btn-cetak-row">
-          <button class="btn-cetak-item action-btn" onclick="prosesCetak('inv_sppg', this)"><span style="font-size:18px;">💵</span> Cetak Invoice SPPG</button>
-          <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_inv_sppg', this)">🗑️</button>
-        </div>
-      </div>
-    </div>
-
-    <div id="halamanBarang" style="display:none;">
-      <div class="g-card fade-up">
-        <div style="display:flex; flex-direction:column; gap:14px;">
-          <select id="dapurBarang" class="form-select"><option>Dapur...</option></select>
-          <input type="text" id="namaBarang" class="form-control" placeholder="Ketik nama barang (misal: Beras)...">
-          <button onclick="cariHargaBarang()" class="btn-go" style="margin-top:8px;">CEK HISTORI HARGA</button>
+        <div class="cetak-section-grid">
+          <div class="btn-cetak-row">
+            <button class="btn-cetak-item action-btn" onclick="prosesCetak('rab_nisam', this)"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0h5m-5 0V9m0 0h2m-2 0H8m2 0v12"/></svg> RAB Nisam</button>
+            <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_rab_nisam', this)"><svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+          </div>
+          <div class="btn-cetak-row">
+            <button class="btn-cetak-item action-btn" onclick="prosesCetak('rab_arratibi', this)"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0h5m-5 0V9m0 0h2m-2 0H8m2 0v12"/></svg> RAB Arratibi</button>
+            <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_rab_arratibi', this)"><svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+          </div>
+          <div class="btn-cetak-row">
+            <button class="btn-cetak-item action-btn" onclick="prosesCetak('rab_palda', this)"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0h5m-5 0V9m0 0h2m-2 0H8m2 0v12"/></svg> RAB Palda</button>
+            <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_rab_palda', this)"><svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+          </div>
+          <div class="btn-cetak-row">
+            <button class="btn-cetak-item action-btn" onclick="prosesCetak('inv_sppg', this)"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Cetak Invoice SPPG</button>
+            <button class="btn-mini-hapus action-btn" onclick="prosesCetak('hapus_inv_sppg', this)"><svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+          </div>
         </div>
       </div>
-      <div id="hasilBarang"></div>
     </div>
 
     <div id="halamanEdit" style="display:none;">
       <div class="g-card fade-up">
-        
-        <div id="kBulkSection">
-          <div class="section-head" style="margin-top:0;">📦 1. INPUT BULK PO (MASAL)</div>
+         <div id="kBulkSection">
+          <div class="section-head" style="margin-top:0;"><svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="margin-right:6px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg> 1. INPUT PO MASAL / SATUAN</div>
           <div style="background:var(--bg-inset); padding:20px; border-radius:24px; box-shadow:var(--shadow-tenggelam);">
             
             <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px; margin-bottom:18px;">
               <select id="bulkDapur" class="form-select"><option value="">Dapur...</option></select>
-              <input type="date" id="bulkTanggal" class="form-control">
+              <input type="date" id="bulkTanggal" class="form-control" readonly>
             </div>
 
-            <div id="bulkStepWrapper" class="bulk-grid">
-               <div class="bulk-step active-step" id="stepBarang"><label>📦 NAMA BARANG</label><textarea id="bBarang" class="form-control bulk-area" rows="8" placeholder="Paste NAMA BARANG..."></textarea><button class="btn-go mobile-only" style="margin-top:10px;" onclick="nextBulkStep('stepQty')">Lanjut: QTY ➡️</button><div class="pc-only">Kolom Nama Barang</div></div>
-               <div class="bulk-step" id="stepQty"><label>⚖️ QTY (JUMLAH)</label><textarea id="bQty" class="form-control bulk-area" rows="8" placeholder="Paste QTY..."></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft);" onclick="nextBulkStep('stepBarang')">⬅️</button><button class="btn-go" onclick="nextBulkStep('stepSat')">Lanjut: SATUAN ➡️</button></div><div class="pc-only">Kolom QTY</div></div>
-               <div class="bulk-step" id="stepSat"><label>📏 SATUAN</label><textarea id="bSat" class="form-control bulk-area" rows="8" placeholder="Paste SATUAN..."></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft);" onclick="nextBulkStep('stepQty')">⬅️</button><button class="btn-go" onclick="nextBulkStep('stepSppg')">Lanjut: HARGA SPPG ➡️</button></div><div class="pc-only">Kolom Satuan</div></div>
-               <div class="bulk-step" id="stepSppg"><label>💵 HARGA SPPG</label><textarea id="bSppg" class="form-control bulk-area" rows="8" placeholder="Paste Harga SPPG..."></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft);" onclick="nextBulkStep('stepSat')">⬅️</button><button class="btn-go" onclick="nextBulkStep('stepKop')">Lanjut: HARGA KOP ➡️</button></div><div class="pc-only">Kolom Hrg SPPG</div></div>
-               <div class="bulk-step" id="stepKop"><label>🏪 HARGA KOP</label><textarea id="bKop" class="form-control bulk-area" rows="8" placeholder="Paste Harga KOP..."></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft);" onclick="nextBulkStep('stepSppg')">⬅️</button><button class="btn-go" onclick="nextBulkStep('stepSup')">Lanjut: HARGA SUP ➡️</button></div><div class="pc-only">Kolom Hrg KOP</div></div>
-               <div class="bulk-step" id="stepSup"><label>🚚 HARGA SUP</label><textarea id="bSup" class="form-control bulk-area" rows="8" placeholder="Paste Harga SUP..."></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft);" onclick="nextBulkStep('stepKop')">⬅️</button><button class="btn-go" onclick="nextBulkStep('stepKet')">Lanjut: KET ➡️</button></div><div class="pc-only">Kolom Hrg SUP</div></div>
-               <div class="bulk-step" id="stepKet"><label>📝 KETERANGAN</label><textarea id="bKet" class="form-control bulk-area" rows="8" placeholder="Paste Keterangan..."></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft);" onclick="nextBulkStep('stepSup')">⬅️</button><button class="btn-go" onclick="previewBulkData()" style="background:#10B981; color:var(--bg-inset);">🔍 PREVIEW</button></div><div class="pc-only">Kolom Keterangan</div></div>
+            <div style="display:flex; background:var(--bg-card); padding:4px; border-radius:18px; margin-bottom:18px; box-shadow:var(--shadow-tenggelam);">
+              <button id="btnModePoText" onclick="switchModePo('text')" type="button" class="sub-tab-btn" style="flex:1; padding:10px; border-radius:14px; font-weight:800; font-size:0.8rem; border:none; cursor:pointer; background:var(--bg-inset); color:var(--text-primary); box-shadow:var(--shadow-timbul); transition:all 0.2s; display:flex; align-items:center; justify-content:center; gap:6px;">
+                <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg> Paste Text Masal
+              </button>
+              <button id="btnModePoSingle" onclick="switchModePo('single')" type="button" class="sub-tab-btn" style="flex:1; padding:10px; border-radius:14px; font-weight:800; font-size:0.8rem; border:none; cursor:pointer; background:transparent; color:var(--text-muted); transition:all 0.2s; display:flex; align-items:center; justify-content:center; gap:6px;">
+                <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Input Satu per Satu
+              </button>
             </div>
-            
-            <button class="btn-go pc-only" style="margin-top:24px; background:#10B981; color:var(--bg-inset); box-shadow: 4px 4px 10px rgba(11, 16, 26, 0.6), inset 2px 2px 4px rgba(255,255,255,0.4);" onclick="previewBulkData()">🔍 CEK PREVIEW & LENGKAPI SUPPLIER</button>
-          </div>
+
+            <div id="areaPoText" style="display:block;">
+              <div id="bulkStepWrapper" class="bulk-grid">
+                 <div class="bulk-step active-step" id="stepBarang"><label><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="vertical-align:middle; margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg> NAMA BARANG</label><textarea id="bBarang" class="form-control bulk-area" rows="8" placeholder="Paste NAMA BARANG..."></textarea><button class="btn-go mobile-only" style="margin-top:10px; display:flex; align-items:center; justify-content:center; gap:6px;" onclick="nextBulkStep('stepQty')">Lanjut: QTY <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></button><div class="pc-only">Kolom Nama Barang</div></div>
+                 <div class="bulk-step" id="stepQty"><label><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="vertical-align:middle; margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 18h12l3-18H3z"/></svg> QTY (JUMLAH)</label><textarea id="bQty" class="form-control bulk-area" rows="8" placeholder="Paste QTY..."></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft); display:flex; align-items:center; justify-content:center;" onclick="nextBulkStep('stepBarang')"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg></button><button class="btn-go" style="display:flex; align-items:center; justify-content:center; gap:6px;" onclick="nextBulkStep('stepSat')">Lanjut: SATUAN <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></button></div><div class="pc-only">Kolom QTY</div></div>
+                 <div class="bulk-step" id="stepSat"><label><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="vertical-align:middle; margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg> SATUAN</label><textarea id="bSat" class="form-control bulk-area" rows="8" placeholder="Paste SATUAN..."></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft); display:flex; align-items:center; justify-content:center;" onclick="nextBulkStep('stepQty')"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg></button><button class="btn-go" style="display:flex; align-items:center; justify-content:center; gap:6px;" onclick="nextBulkStep('stepSppg')">Lanjut: HARGA SPPG <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></button></div><div class="pc-only">Kolom Satuan</div></div>
+                 <div class="bulk-step" id="stepSppg"><label><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="vertical-align:middle; margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> HARGA SPPG</label><textarea id="bSppg" class="form-control bulk-area" rows="8" placeholder="Paste Harga SPPG..."></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft); display:flex; align-items:center; justify-content:center;" onclick="nextBulkStep('stepSat')"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg></button><button class="btn-go" style="display:flex; align-items:center; justify-content:center; gap:6px;" onclick="nextBulkStep('stepKop')">Lanjut: HARGA KOP <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></button></div><div class="pc-only">Kolom Hrg SPPG</div></div>
+                 <div class="bulk-step" id="stepKop"><label><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="vertical-align:middle; margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg> HARGA KOP</label><textarea id="bKop" class="form-control bulk-area" rows="8" placeholder="Paste Harga KOP..."></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft); display:flex; align-items:center; justify-content:center;" onclick="nextBulkStep('stepSppg')"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg></button><button class="btn-go" style="display:flex; align-items:center; justify-content:center; gap:6px;" onclick="nextBulkStep('stepSup')">Lanjut: HARGA SUP <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></button></div><div class="pc-only">Kolom Hrg KOP</div></div>
+                 <div class="bulk-step" id="stepSup"><label><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="vertical-align:middle; margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 17a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4zM3 9h10l3 5h5v4h-2a3 3 0 01-6 0H9a3 3 0 01-6 0H1V9z"/></svg> HARGA SUP</label><textarea id="bSup" class="form-control bulk-area" rows="8" placeholder="Paste Harga SUP..."></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft); display:flex; align-items:center; justify-content:center;" onclick="nextBulkStep('stepKop')"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg></button><button class="btn-go" style="display:flex; align-items:center; justify-content:center; gap:6px;" onclick="nextBulkStep('stepKet')">Lanjut: KET <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></button></div><div class="pc-only">Kolom Hrg SUP</div></div>
+                 <div class="bulk-step" id="stepKet"><label><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="vertical-align:middle; margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg> KETERANGAN</label><textarea id="bKet" class="form-control bulk-area" rows="8" placeholder="Paste Keterangan..."></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft); display:flex; align-items:center; justify-content:center;" onclick="nextBulkStep('stepSup')"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg></button><button class="btn-go" onclick="previewBulkData()" style="background:#10B981; color:var(--bg-inset); display:flex; align-items:center; justify-content:center; gap:6px;"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg> PREVIEW</button></div><div class="pc-only">Kolom Keterangan</div></div>
+              </div>
+              <button class="btn-go pc-only" style="margin-top:24px; background:#10B981; color:var(--bg-inset); box-shadow: 4px 4px 10px rgba(11, 16, 26, 0.6), inset 2px 2px 4px rgba(255,255,255,0.4); display:flex; align-items:center; justify-content:center; gap:8px;" onclick="previewBulkData()"><svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg> CEK PREVIEW & LENGKAPI SUPPLIER</button>
+            </div>
+
+            <div id="areaPoSingle" style="display:none;">
+              <div style="display:flex; flex-direction:column; gap:12px;">
+                <div>
+                  <label style="font-size:0.7rem; color:var(--text-muted); font-weight:800; display:block; margin-bottom:4px;">NAMA BARANG *</label>
+                  <input type="text" id="sNamaBarang" list="listBarangEdit" class="form-control" placeholder="Ketik nama barang (misal: Beras)...">
+                </div>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+                  <div>
+                    <label style="font-size:0.7rem; color:var(--text-muted); font-weight:800; display:block; margin-bottom:4px;">QTY *</label>
+                    <input type="text" inputmode="decimal" id="sQty" class="form-control" placeholder="Jumlah (misal: 10)">
+                  </div>
+                  <div>
+                    <label style="font-size:0.7rem; color:var(--text-muted); font-weight:800; display:block; margin-bottom:4px;">SATUAN *</label>
+                    <input type="text" id="sSatuan" class="form-control" placeholder="Satuan (kg, pcs, dll)">
+                  </div>
+                </div>
+                <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px;">
+                  <div>
+                    <label style="font-size:0.65rem; color:var(--text-muted); font-weight:800; display:block; margin-bottom:4px;">HARGA SPPG</label>
+                    <input type="text" inputmode="numeric" id="sHrgSppg" class="form-control" placeholder="Rp 0" oninput="formatInpRupiah(this)">
+                  </div>
+                  <div>
+                    <label style="font-size:0.65rem; color:var(--text-muted); font-weight:800; display:block; margin-bottom:4px;">HARGA KOP</label>
+                    <input type="text" inputmode="numeric" id="sHrgKop" class="form-control" placeholder="Rp 0" oninput="formatInpRupiah(this)">
+                  </div>
+                  <div>
+                    <label style="font-size:0.65rem; color:var(--text-muted); font-weight:800; display:block; margin-bottom:4px;">HARGA SUP</label>
+                    <input type="text" inputmode="numeric" id="sHrgSup" class="form-control" placeholder="Rp 0" oninput="formatInpRupiah(this)">
+                  </div>
+                </div>
+                <div>
+                  <label style="font-size:0.7rem; color:var(--text-muted); font-weight:800; display:block; margin-bottom:4px;">NAMA SUPPLIER</label>
+                  <input type="text" id="sSupplier" class="form-control" placeholder="Nama Supplier (misal: Toko Beras Jaya)...">
+                </div>
+                <div>
+                  <label style="font-size:0.7rem; color:var(--text-muted); font-weight:800; display:block; margin-bottom:4px;">KETERANGAN (OPSIONAL)</label>
+                  <input type="text" id="sKet" class="form-control" placeholder="Keterangan tambahan...">
+                </div>
+                <button type="button" class="btn-go" onclick="tambahSingleItemPo()" style="margin-top:6px; background:var(--c-kop); color:var(--bg-inset); display:flex; align-items:center; justify-content:center; gap:6px;">
+                  <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg> TAMBAH ITEM KE DAFTAR PO
+                </button>
+              </div>
+            </div>
+
+           </div>        </div>
 
           <div id="bulkPreviewArea" style="display:none;" class="fade-up">
              <div class="section-head" style="margin-top:32px;">Verifikasi & Isi Supplier</div>
              <div id="bulkListPreview"></div>
-             <button class="btn-go" style="margin-top:24px;" onclick="eksekusiSimpanBulk()">💾 SIMPAN SEMUA KE DATABASE</button>
+             <button class="btn-go" style="margin-top:24px; display:flex; align-items:center; justify-content:center; gap:8px;" onclick="eksekusiSimpanBulk()"><svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg> SIMPAN SEMUA KE DATABASE</button>
           </div>
 
           <div style="margin-top:40px; margin-bottom: 24px; border-bottom: 2px dashed rgba(255,255,255,0.08);"></div>
-          <div class="section-head" style="margin-top:0;">✏️ 2. KELOLA / EDIT ITEM (SATUAN)</div>
+          <div class="section-head" style="margin-top:0;"><svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="margin-right:6px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg> 2. KELOLA / EDIT ITEM (SATUAN)</div>
         </div>
         <select id="kAction" class="form-select" onchange="gantiModeKelola()" style="margin-bottom:24px;">
-          <option value="edit">✏️ Edit Data / Ganti Tanggal</option>
-          <option value="tambah">➕ Tambah Item Baru</option>
-          <option value="hapus">🗑️ Hapus Item</option>
+          <option value="edit">Edit Data / Ganti Tanggal</option>
+          <option value="tambah">Tambah Item Baru</option>
+          <option value="hapus">Hapus Item</option>
         </select>
 
         <div id="areaDataLama" style="background:var(--bg-inset); padding:24px; border-radius:26px; margin-bottom:24px; box-shadow:var(--shadow-tenggelam);">
           <div style="font-size:0.8rem; font-weight:900; color:var(--text-muted); margin-bottom:14px;">TARGET DATA (CARI)</div>
-          <input type="date" id="kTglLama" class="form-control" style="margin-bottom:14px;" onchange="fetchDropdownEdit(this.value); loadDaftarEdit();">
+          <input type="date" id="kTglLama" class="form-control" style="margin-bottom:14px;" readonly onchange="fetchDropdownEdit(this.value); loadDaftarEdit();">
           <input type="text" id="kDapurLama" list="listDapurEdit" class="form-control" placeholder="Dapur..." style="margin-bottom:14px;" onchange="loadDaftarEdit()">
           <input type="text" id="kBarangLama" list="listBarangEdit" class="form-control" placeholder="Nama Barang...">
         </div>
 
         <div id="areaDataBaru">
           <div style="font-size:0.8rem; font-weight:900; color:var(--text-muted); margin-bottom:14px;">DETAIL DATA BARU (Kosongkan jika tidak diubah)</div>
-          <input type="date" id="kTglBaru" class="form-control" style="margin-bottom:14px;">
+          <input type="date" id="kTglBaru" class="form-control" style="margin-bottom:14px;" readonly>
           <input type="text" id="kDapurBaru" list="listDapurEdit" class="form-control" placeholder="Dapur..." style="margin-bottom:14px;">
           <input type="text" id="kBarangBaru" list="listBarangEdit" class="form-control" placeholder="Nama Barang..." style="margin-bottom:14px;">
           
@@ -575,33 +828,48 @@
 
     <div id="halamanMaster" style="display:none;">
       <div class="g-card fade-up">
-        <div class="section-head" style="margin-top:0;">1. Pilih Lokasi Dapur</div>
-        <select id="mDapur" class="form-select" style="margin-bottom:24px;" onchange="checkDapurMaster()">
+        <div class="section-head" style="margin-top:0; display:flex; align-items:center; gap:8px;">
+          <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color:var(--text-primary);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-10 4h6v2H9V7zm-2 2h-2V7h2v2zm10 8H7v-2h10v2zm0-4H7v-2h10v2z"/></svg>
+          Master Barang & Histori Harga
+        </div>
+
+        <div class="section-head" style="margin-top:16px;">1. Pilih Lokasi Dapur</div>
+        <select id="mDapur" class="form-select" style="margin-bottom:20px;" onchange="checkDapurMaster()">
           <option value="">Pilih Dapur Master...</option>
         </select>
-        <div class="section-head">2. Detail Barang</div>
-        <input type="text" id="mNamaBarang" list="listBarangMaster" class="form-control" disabled placeholder="Ketik nama barang..." oninput="checkBarangMaster()" style="margin-bottom:14px;">
-        <div id="mStatusBadge" style="display:none; font-size: 0.75rem; font-weight: 900; padding: 10px 16px; border-radius: 16px; width: fit-content; margin-bottom: 24px; box-shadow: var(--shadow-tenggelam);"></div>
+
+        <div class="section-head">2. Detail Nama Barang</div>
+        <input type="text" id="mNamaBarang" list="listBarangMaster" class="form-control" disabled placeholder="Ketik nama barang (misal: Beras)..." oninput="checkBarangMaster()" style="margin-bottom:14px;">
+        <div id="mStatusBadge" style="display:none; font-size: 0.75rem; font-weight: 900; padding: 10px 16px; border-radius: 16px; width: fit-content; margin-bottom: 20px; box-shadow: var(--shadow-tenggelam);"></div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:24px;">
+          <button type="button" class="btn-go" onclick="cariHargaBarang()" style="background:var(--bg-inset); color:var(--c-kop); font-size:0.82rem; padding:14px 10px; display:flex; align-items:center; justify-content:center; gap:6px; box-shadow:var(--shadow-tenggelam);">
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg> Cek Histori Harga
+          </button>
+          <button class="btn-go" id="btnSimpanMaster" onclick="konfirmasiSimpanMaster()" style="opacity: 0.5; pointer-events: none; font-size:0.82rem; padding:14px 10px; display:flex; align-items:center; justify-content:center; gap:6px;">
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg> Simpan Master
+          </button>
+        </div>
+
         <div class="section-head">3. Harga Satuan Master</div>
-        <div style="display:flex; flex-direction:column; gap:14px; margin-bottom: 28px;">
+        <div style="display:flex; flex-direction:column; gap:14px; margin-bottom: 20px;">
           <input type="text" id="mHargaSPPG" class="form-control" disabled placeholder="Harga SPPG (Rp 0)">
           <input type="text" id="mHargaKoperasi" class="form-control" disabled placeholder="Harga Koperasi (Rp 0)">
           <input type="text" id="mHargaSupplier" class="form-control" disabled placeholder="Harga Supplier (Rp 0)">
         </div>
-        <button class="btn-go" id="btnSimpanMaster" onclick="konfirmasiSimpanMaster()" style="opacity: 0.5; pointer-events: none;">SIMPAN MASTER DATA</button>
       </div>
+
+      <div id="hasilBarang" style="margin-top:20px;"></div>
       <datalist id="listBarangMaster"></datalist>
     </div>
-
-  </div> 
+  </div>
+</div>
 
   <div class="bottom-nav" id="mainNav">
     <div class="nav-item active" id="btnHarian" onclick="showHarian()"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><span>Home</span></div>
-    <div class="nav-item" id="btnLaporan" onclick="showLaporan()"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg><span>Lap Har</span></div>
-    <div class="nav-item" id="btnLapPeriode" onclick="showLapPeriode()"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg><span>Periode</span></div>
+    <div class="nav-item" id="btnLaporan" onclick="showLaporan()"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg><span>Laporan</span></div>
     
     <div class="nav-item admin-only" id="btnCetak" onclick="showCetak()" style="display:none;"><svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg><span>Cetak</span></div>
-    <div class="nav-item admin-only" id="btnBarang" onclick="showBarang()" style="display:none;"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg><span>Cari</span></div>
     <div class="nav-item admin-only" id="btnEdit" onclick="showEdit()" style="display:none;"><svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.995.995 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg><span>Edit</span></div>
     <div class="nav-item admin-only" id="btnMaster" onclick="showMaster()" style="display:none;"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-10 4h6v2H9V7zm-2 2h-2V7h2v2zm10 8H7v-2h10v2zm0-4H7v-2h10v2z"/></svg><span>Master</span></div>
 
@@ -609,17 +877,93 @@
   </div>
 
   <div id="iosAlert" class="ios-alert-overlay" style="z-index:10001;">
-    <div class="ios-alert-box" style="width:300px;">
-      <div id="iosAlertText" class="ios-alert-content" style="border-bottom:0; padding-bottom:14px;">Pesan di sini</div>
+    <div class="ios-alert-box" style="width:310px;">
+      <div id="iosAlertText" class="ios-alert-content" style="border-bottom:0; padding-bottom:18px;">Pesan di sini</div>
       <button class="ios-alert-btn" style="border-top:1px solid rgba(255,255,255,0.05);" onclick="closeIosAlert()">OK</button>
+    </div>
+  </div>
+
+  <div id="iosConfirm" class="ios-alert-overlay" style="z-index:10003;">
+    <div class="ios-alert-box" style="width:320px;">
+      <div id="iosConfirmText" class="ios-alert-content" style="border-bottom:1px solid rgba(255,255,255,0.05); padding:24px 20px 20px;">
+        Konfirmasi
+      </div>
+      <div style="display:grid; grid-template-columns: 1fr 1fr; border-top:1px solid rgba(255,255,255,0.05);">
+        <button id="iosConfirmBtnCancel" class="ios-alert-btn" style="color:var(--text-soft); border-right:1px solid rgba(255,255,255,0.05); border-radius:0 0 0 36px;">Batal</button>
+        <button id="iosConfirmBtnOk" class="ios-alert-btn" style="color:var(--c-sup); border-radius:0 0 36px 0;">Ya, Lanjutkan</button>
+      </div>
     </div>
   </div>
 
   <div id="shareModal" class="ios-alert-overlay" style="z-index:10000; padding:15px;">
     <div class="ios-alert-box" style="width:100%; max-width:400px; padding:0;">
-      <div id="shareModalHeader" style="padding:22px; font-weight:900; font-size:16px; text-align:center; border-bottom:1px solid rgba(255,255,255,0.05);">✅ File Siap!</div>
+      <div id="shareModalHeader" style="padding:22px; font-weight:900; font-size:16px; text-align:center; border-bottom:1px solid rgba(255,255,255,0.05); color:var(--text-primary);">File Siap!</div>
       <div id="shareModalContent" class="ios-alert-content" style="background:var(--bg-card); padding:20px; text-align:left; max-height:60vh;"></div>
       <button class="ios-alert-btn" style="background:var(--bg-inset); color:var(--c-sup);" onclick="tutupShareModal()">Tutup</button>
+    </div>
+  </div>
+
+  <!-- CUSTOM SELECT MODAL -->
+  <div id="iosSelectModal" class="ios-alert-overlay" style="z-index:10005; padding:15px;">
+    <div class="ios-alert-box" style="width:100%; max-width:380px; max-height:85vh; padding:0; border-radius:32px;">
+      <div style="padding:20px 20px 14px; border-bottom:1px solid rgba(255,255,255,0.05); text-align:center;">
+        <div id="iosSelectTitle" style="font-weight:900; font-size:0.8rem; color:var(--c-sppg); text-transform:uppercase; letter-spacing:1px;">
+          PILIH OPSI
+        </div>
+      </div>
+      <div id="iosSelectList" style="padding:16px; overflow-y:auto; max-height:calc(85vh - 130px); display:flex; flex-direction:column; gap:10px;">
+      </div>
+      <div style="padding:12px 16px 18px; border-top:1px solid rgba(255,255,255,0.05); text-align:center;">
+        <button type="button" class="btn-go" onclick="closeIosSelectModal()" style="background:var(--bg-inset); color:var(--text-soft); padding:12px; font-size:0.85rem; box-shadow:none;">BATAL</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CUSTOM DATE PICKER MODAL -->
+  <div id="iosDatePickerModal" class="ios-alert-overlay" style="z-index:10006; padding:15px;">
+    <div class="ios-alert-box" style="width:100%; max-width:360px; padding:0; border-radius:32px;">
+      
+      <div style="padding:20px 20px 14px; border-bottom:1px solid rgba(255,255,255,0.05); text-align:center;">
+        <div id="iosDateModalTitle" style="font-weight:900; font-size:0.75rem; color:var(--c-sppg); text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;">
+          PILIH TANGGAL
+        </div>
+        <div id="iosDateDisplay" style="font-size:1rem; font-weight:900; color:var(--text-primary);">
+          Belum dipilih
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; padding:14px 18px 6px;">
+        <button type="button" onclick="setIosDateToday()" class="btn-go" style="padding:10px 14px; font-size:0.78rem; background:var(--bg-inset); color:var(--c-kop); display:flex; align-items:center; justify-content:center; gap:6px; box-shadow:var(--shadow-tenggelam);">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg> Hari Ini
+        </button>
+        <button type="button" onclick="resetIosDate()" class="btn-go" style="padding:10px 14px; font-size:0.78rem; background:var(--bg-inset); color:var(--c-sup); display:flex; align-items:center; justify-content:center; gap:6px; box-shadow:var(--shadow-tenggelam);">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg> Reset
+        </button>
+      </div>
+
+      <div style="padding:10px 18px; display:flex; align-items:center; justify-content:space-between;">
+        <button type="button" onclick="changeIosDatePickerMonth(-1)" class="btn-go" style="width:38px; height:38px; padding:0; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.1rem; background:var(--bg-inset); box-shadow:var(--shadow-tenggelam);">
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <div id="iosDateMonthYear" style="font-weight:900; font-size:0.95rem; color:var(--text-primary);">
+          Juli 2026
+        </div>
+        <button type="button" onclick="changeIosDatePickerMonth(1)" class="btn-go" style="width:38px; height:38px; padding:0; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.1rem; background:var(--bg-inset); box-shadow:var(--shadow-tenggelam);">
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+
+      <div style="display:grid; grid-template-columns: repeat(7, 1fr); padding:0 14px; text-align:center; font-size:0.65rem; font-weight:900; color:var(--text-soft); text-transform:uppercase; margin-bottom:6px;">
+        <div>Min</div><div>Sen</div><div>Sel</div><div>Rab</div><div>Kam</div><div>Jum</div><div>Sab</div>
+      </div>
+
+      <div id="iosDateDaysGrid" style="display:grid; grid-template-columns: repeat(7, 1fr); gap:6px; padding:0 14px 16px; max-height:240px; overflow-y:auto;">
+      </div>
+
+      <div style="padding:12px 16px 18px; border-top:1px solid rgba(255,255,255,0.05); text-align:center;">
+        <button type="button" class="btn-go" onclick="closeIosDatePickerModal()" style="background:var(--bg-inset); color:var(--text-soft); padding:12px; font-size:0.85rem; box-shadow:none;">BATAL</button>
+      </div>
+
     </div>
   </div>
 
@@ -646,22 +990,359 @@
     let listBarangMasterAll = []; 
     let lastItemCount = 0;
 
+    let iosAlertCallback = null;
+
     function showLoading(msg) { document.getElementById('loaderText').innerHTML = msg; document.getElementById('iosLoader').style.display = 'flex'; }
     function hideLoading() { document.getElementById('iosLoader').style.display = 'none'; }
-    function showIosAlert(msg) { document.getElementById('iosAlertText').innerHTML = msg; document.getElementById('iosAlert').style.display = 'flex'; }
-    function closeIosAlert() { document.getElementById('iosAlert').style.display = 'none'; }
+    function showIosAlert(msg, callback) { 
+      document.getElementById('iosAlertText').innerHTML = msg; 
+      document.getElementById('iosAlert').style.display = 'flex'; 
+      iosAlertCallback = callback || null;
+    }
+    function closeIosAlert() { 
+      document.getElementById('iosAlert').style.display = 'none'; 
+      if (typeof iosAlertCallback === 'function') {
+        const cb = iosAlertCallback;
+        iosAlertCallback = null;
+        cb();
+      }
+    }
+
+    // Custom Select Modal Logic
+    let currentSelectTarget = null;
+
+    function openCustomSelect(selectEl) {
+      if (!selectEl) return;
+      currentSelectTarget = selectEl;
+      const modal = document.getElementById('iosSelectModal');
+      const titleEl = document.getElementById('iosSelectTitle');
+      const listEl = document.getElementById('iosSelectList');
+      
+      let titleText = "PILIH OPSI";
+      if (selectEl.options.length > 0 && selectEl.options[0].value === "" && selectEl.options[0].text.trim() !== "") {
+        titleText = selectEl.options[0].text.trim().toUpperCase();
+      } else if (selectEl.id) {
+        if (selectEl.id.toLowerCase().includes('dapur')) titleText = "PILIH DAPUR";
+        else if (selectEl.id.toLowerCase().includes('tanggal') || selectEl.id.toLowerCase().includes('tgl')) titleText = "PILIH TANGGAL";
+        else if (selectEl.id === 'kAction') titleText = "MODE KELOLA / EDIT";
+      }
+      titleEl.innerText = titleText;
+
+      listEl.innerHTML = '';
+      
+      Array.from(selectEl.options).forEach((opt) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        const isSelected = (opt.value === selectEl.value);
+        
+        btn.style.cssText = `
+          width: 100%;
+          padding: 14px 18px;
+          border-radius: 18px;
+          border: none;
+          font-family: 'Plus Jakarta Sans', sans-serif;
+          font-weight: 800;
+          font-size: 0.88rem;
+          text-align: left;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          transition: all 0.2s ease;
+          background: ${isSelected ? 'var(--bg-card)' : 'var(--bg-inset)'};
+          color: ${isSelected ? 'var(--c-sppg)' : 'var(--text-primary)'};
+          box-shadow: ${isSelected ? 'var(--shadow-pressed)' : 'var(--shadow-tenggelam)'};
+        `;
+        
+        btn.innerHTML = `<span>${opt.text}</span> ${isSelected ? '<svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="var(--c-sppg)" style="flex-shrink:0;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>' : ''}`;
+        
+        btn.onclick = function() {
+          selectEl.value = opt.value;
+          closeIosSelectModal();
+          selectEl.dispatchEvent(new Event('change', { bubbles: true }));
+        };
+        
+        listEl.appendChild(btn);
+      });
+      
+      modal.style.display = 'flex';
+    }
+
+    function closeIosSelectModal() {
+      const modal = document.getElementById('iosSelectModal');
+      if (modal) modal.style.display = 'none';
+      currentSelectTarget = null;
+    }
+
+    // Custom Date Picker Modal Logic
+    let currentDatePickerTarget = null;
+    let datePickerViewDate = new Date();
+    let datePickerSelectedDate = null;
+
+    const namaBulanIndo = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+    const namaHariIndo = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+
+    function formatIndoDateDisplay(dateObj) {
+      if (!dateObj || isNaN(dateObj.getTime())) return "Belum dipilih";
+      const hari = namaHariIndo[dateObj.getDay()];
+      const tgl = dateObj.getDate();
+      const bln = namaBulanIndo[dateObj.getMonth()];
+      const thn = dateObj.getFullYear();
+      return `${hari}, ${tgl} ${bln} ${thn}`;
+    }
+
+    function formatDateISO(dateObj) {
+      if (!dateObj || isNaN(dateObj.getTime())) return "";
+      const year = dateObj.getFullYear();
+      const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+      const day = String(dateObj.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+
+    function openCustomDatePicker(inputEl) {
+      if (!inputEl) return;
+      currentDatePickerTarget = inputEl;
+      
+      if (inputEl.value) {
+        const parts = inputEl.value.split('-');
+        if (parts.length === 3) {
+          datePickerSelectedDate = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+          datePickerViewDate = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, 1);
+        } else {
+          datePickerSelectedDate = null;
+          datePickerViewDate = new Date();
+        }
+      } else {
+        datePickerSelectedDate = null;
+        datePickerViewDate = new Date();
+      }
+
+      let title = "PILIH TANGGAL";
+      if (inputEl.id === 'tglMulaiLap') title = "TANGGAL MULAI LAPORAN";
+      else if (inputEl.id === 'tglSelesaiLap') title = "TANGGAL SELESAI LAPORAN";
+      else if (inputEl.id === 'bulkTanggal') title = "TANGGAL BULK PO";
+      else if (inputEl.id === 'kTglLama') title = "TARGET TANGGAL";
+      else if (inputEl.id === 'kTglBaru') title = "TANGGAL BARU";
+      
+      const titleEl = document.getElementById('iosDateModalTitle');
+      if (titleEl) titleEl.innerText = title;
+
+      renderIosDatePicker();
+      const modal = document.getElementById('iosDatePickerModal');
+      if (modal) modal.style.display = 'flex';
+    }
+
+    function renderIosDatePicker() {
+      const displayEl = document.getElementById('iosDateDisplay');
+      const monthYearEl = document.getElementById('iosDateMonthYear');
+      const gridEl = document.getElementById('iosDateDaysGrid');
+
+      if (displayEl) displayEl.innerText = formatIndoDateDisplay(datePickerSelectedDate);
+
+      const year = datePickerViewDate.getFullYear();
+      const month = datePickerViewDate.getMonth();
+      if (monthYearEl) monthYearEl.innerText = `${namaBulanIndo[month]} ${year}`;
+
+      if (!gridEl) return;
+      gridEl.innerHTML = '';
+
+      const firstDayIndex = new Date(year, month, 1).getDay();
+      const totalDays = new Date(year, month + 1, 0).getDate();
+
+      const today = new Date();
+      const todayY = today.getFullYear();
+      const todayM = today.getMonth();
+      const todayD = today.getDate();
+
+      for (let i = 0; i < firstDayIndex; i++) {
+        const emptyCell = document.createElement('div');
+        gridEl.appendChild(emptyCell);
+      }
+
+      for (let day = 1; day <= totalDays; day++) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        
+        const isSelected = datePickerSelectedDate && 
+          datePickerSelectedDate.getFullYear() === year && 
+          datePickerSelectedDate.getMonth() === month && 
+          datePickerSelectedDate.getDate() === day;
+
+        const isToday = todayY === year && todayM === month && todayD === day;
+
+        btn.style.cssText = `
+          width: 100%;
+          aspect-ratio: 1;
+          border-radius: 12px;
+          border: none;
+          font-family: 'Plus Jakarta Sans', sans-serif;
+          font-weight: 800;
+          font-size: 0.82rem;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.15s ease;
+          background: ${isSelected ? 'var(--c-sppg)' : (isToday ? 'rgba(96,165,250,0.15)' : 'var(--bg-inset)')};
+          color: ${isSelected ? 'var(--bg-inset)' : (isToday ? 'var(--c-sppg)' : 'var(--text-primary)')};
+          box-shadow: ${isSelected ? 'var(--shadow-timbul)' : 'var(--shadow-tenggelam)'};
+          ${isToday && !isSelected ? 'border: 1px solid var(--c-sppg);' : ''}
+        `;
+
+        btn.innerText = day;
+
+        btn.onclick = function() {
+          datePickerSelectedDate = new Date(year, month, day);
+          applyIosDatePicker();
+        };
+
+        gridEl.appendChild(btn);
+      }
+    }
+
+    function changeIosDatePickerMonth(delta) {
+      datePickerViewDate.setMonth(datePickerViewDate.getMonth() + delta);
+      renderIosDatePicker();
+    }
+
+    function setIosDateToday() {
+      const now = new Date();
+      datePickerSelectedDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      datePickerViewDate = new Date(now.getFullYear(), now.getMonth(), 1);
+      applyIosDatePicker();
+    }
+
+    function resetIosDate() {
+      datePickerSelectedDate = null;
+      if (currentDatePickerTarget) {
+        currentDatePickerTarget.value = '';
+        currentDatePickerTarget.dispatchEvent(new Event('change', { bubbles: true }));
+        currentDatePickerTarget.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+      closeIosDatePickerModal();
+    }
+
+    function applyIosDatePicker() {
+      if (currentDatePickerTarget && datePickerSelectedDate) {
+        const isoVal = formatDateISO(datePickerSelectedDate);
+        currentDatePickerTarget.value = isoVal;
+        currentDatePickerTarget.dispatchEvent(new Event('change', { bubbles: true }));
+        currentDatePickerTarget.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+      closeIosDatePickerModal();
+    }
+
+    function closeIosDatePickerModal() {
+      const modal = document.getElementById('iosDatePickerModal');
+      if (modal) modal.style.display = 'none';
+      currentDatePickerTarget = null;
+    }
+
+    // Global listener to intercept select & date picker taps
+    document.addEventListener('mousedown', function(e) {
+      const select = e.target.closest('select');
+      if (select) {
+        e.preventDefault();
+        select.blur();
+        openCustomSelect(select);
+        return;
+      }
+
+      const dateInp = e.target.closest('input[type="date"]');
+      if (dateInp) {
+        e.preventDefault();
+        dateInp.blur();
+        openCustomDatePicker(dateInp);
+        return;
+      }
+    }, true);
+
+    document.addEventListener('touchstart', function(e) {
+      const select = e.target.closest('select');
+      if (select) {
+        e.preventDefault();
+        select.blur();
+        openCustomSelect(select);
+        return;
+      }
+
+      const dateInp = e.target.closest('input[type="date"]');
+      if (dateInp) {
+        e.preventDefault();
+        dateInp.blur();
+        openCustomDatePicker(dateInp);
+        return;
+      }
+    }, { passive: false, capture: true });
+
+    function showIosConfirm(msg, title = "KONFIRMASI", okText = "Ya, Lanjutkan", cancelText = "Batal") {
+      return new Promise((resolve) => {
+        let contentHtml = `<div style="font-size:0.7rem; font-weight:900; color:var(--c-sppg); margin-bottom:10px; text-transform:uppercase; letter-spacing:1px;">${title}</div><div>${msg}</div>`;
+        document.getElementById('iosConfirmText').innerHTML = contentHtml;
+        
+        const btnOk = document.getElementById('iosConfirmBtnOk');
+        const btnCancel = document.getElementById('iosConfirmBtnCancel');
+        
+        btnOk.innerText = okText;
+        btnCancel.innerText = cancelText;
+        
+        document.getElementById('iosConfirm').style.display = 'flex';
+        
+        btnOk.onclick = function() {
+          closeIosConfirm();
+          resolve(true);
+        };
+        
+        btnCancel.onclick = function() {
+          closeIosConfirm();
+          resolve(false);
+        };
+      });
+    }
+
+    function closeIosConfirm() {
+      document.getElementById('iosConfirm').style.display = 'none';
+    }
+
+    // Override browser native alert and confirm to always use web app theme
+    window.alert = function(msg) {
+      showIosAlert(msg);
+    };
+
+    window.confirm = function(msg) {
+      showIosConfirm(msg);
+      return false;
+    };
     function tutupShareModal() { document.getElementById('shareModal').style.display = 'none'; window.tempShareData = []; }
 
     function resetNav() {
-      ['btnHarian','btnLaporan','btnLapPeriode','btnCetak','btnBarang','btnEdit','btnMaster'].forEach(id => { document.getElementById(id).className = 'nav-item ' + (document.getElementById(id).classList.contains('admin-only') ? 'admin-only' : ''); });
-      ['halamanHarian','halamanLaporan','halamanLapPeriode','halamanCetak','halamanBarang','halamanEdit','halamanMaster'].forEach(id => { document.getElementById(id).style.display = 'none'; });
+      ['btnHarian','btnLaporan','btnCetak','btnEdit','btnMaster'].forEach(id => { const el = document.getElementById(id); if (el) el.className = 'nav-item ' + (el.classList.contains('admin-only') ? 'admin-only' : ''); });
+      ['halamanHarian','halamanLaporan','halamanCetak','halamanEdit','halamanMaster'].forEach(id => { const el = document.getElementById(id); if (el) el.style.display = 'none'; });
     }
     
+    function switchSubLaporan(tab) {
+      const btnH = document.getElementById('tabSubLapHarian');
+      const btnP = document.getElementById('tabSubLapPeriode');
+      const secH = document.getElementById('subSecLapHarian');
+      const secP = document.getElementById('subSecLapPeriode');
+      if (tab === 'harian') {
+        if (btnH) { btnH.style.background = 'var(--bg-card)'; btnH.style.color = 'var(--text-primary)'; btnH.style.boxShadow = 'var(--shadow-timbul)'; }
+        if (btnP) { btnP.style.background = 'transparent'; btnP.style.color = 'var(--text-muted)'; btnP.style.boxShadow = 'none'; }
+        if (secH) secH.style.display = 'block';
+        if (secP) secP.style.display = 'none';
+      } else {
+        if (btnP) { btnP.style.background = 'var(--bg-card)'; btnP.style.color = 'var(--text-primary)'; btnP.style.boxShadow = 'var(--shadow-timbul)'; }
+        if (btnH) { btnH.style.background = 'transparent'; btnH.style.color = 'var(--text-muted)'; btnH.style.boxShadow = 'none'; }
+        if (secP) secP.style.display = 'block';
+        if (secH) secH.style.display = 'none';
+      }
+    }
+
     function showHarian()      { resetNav(); document.getElementById('halamanHarian').style.display='block';      document.getElementById('btnHarian').classList.add('active'); }
     function showLaporan()     { resetNav(); document.getElementById('halamanLaporan').style.display='block';     document.getElementById('btnLaporan').classList.add('active'); }
-    function showLapPeriode()  { resetNav(); document.getElementById('halamanLapPeriode').style.display='block';  document.getElementById('btnLapPeriode').classList.add('active'); }
+    function showLapPeriode()  { showLaporan(); switchSubLaporan('periode'); }
     function showCetak()       { resetNav(); document.getElementById('halamanCetak').style.display='block';       document.getElementById('btnCetak').classList.add('active'); }
-    function showBarang()      { resetNav(); document.getElementById('halamanBarang').style.display='block';      document.getElementById('btnBarang').classList.add('active'); }
+    function showBarang()      { showMaster(); }
     function showEdit() { 
         resetNav(); 
         document.getElementById('halamanEdit').style.display='block'; 
@@ -694,12 +1375,18 @@
     function aturMenuAdmin() {
       const isAdmin = sessionStorage.getItem('isLoggedIn') === 'true';
       const adminItems = document.querySelectorAll('.admin-only');
+      const modeText = document.getElementById('appModeText');
+      const modeDot = document.getElementById('appModeDot');
       if (isAdmin) {
          adminItems.forEach(el => el.style.display = 'flex');
          document.getElementById('btnAdminAuth').style.display = 'none'; 
+         if (modeText) modeText.innerText = 'Admin Mode';
+         if (modeDot) { modeDot.style.background = '#F59E0B'; modeDot.style.boxShadow = '0 0 8px #F59E0B'; }
       } else {
          adminItems.forEach(el => el.style.display = 'none');
          document.getElementById('btnAdminAuth').style.display = 'flex'; 
+         if (modeText) modeText.innerText = 'Viewer Mode';
+         if (modeDot) { modeDot.style.background = '#10B981'; modeDot.style.boxShadow = '0 0 8px #10B981'; }
       }
     }
 
@@ -728,7 +1415,7 @@
       apiCall('getFilterData').then(res => {
           let optD = res.dapur.map(d => `<option value="${d}">${d}</option>`).join('');
           document.getElementById('dapur').innerHTML = optD;
-          document.getElementById('dapurBarang').innerHTML = optD;
+          const dB = document.getElementById('dapurBarang'); if(dB) dB.innerHTML = optD;
           document.getElementById('dapurLapPer').innerHTML = optD;
           document.getElementById('dapurCetak').innerHTML = '<option value="">Pilih Dapur...</option>' + optD;
           document.getElementById('bulkDapur').innerHTML = '<option value="">Pilih Dapur...</option>' + optD;
@@ -833,7 +1520,7 @@
       else { btn.style.opacity = '0.5'; btn.style.pointerEvents = 'none'; }
     }
 
-    function konfirmasiSimpanMaster() {
+    async function konfirmasiSimpanMaster() {
       const data = {
         dapur: document.getElementById('mDapur').value,
         namaBarang: document.getElementById('mNamaBarang').value.trim(),
@@ -841,6 +1528,14 @@
         hargaKoperasi: cleanRupiah(document.getElementById('mHargaKoperasi').value),
         hargaSupplier: cleanRupiah(document.getElementById('mHargaSupplier').value)
       };
+      const setuju = await showIosConfirm(
+        `Yakin mau menyimpan update Master Barang <b>${data.namaBarang}</b> untuk dapur <b>${data.dapur}</b>?`,
+        "SIMPAN MASTER DATA",
+        "Ya, Simpan",
+        "Batal"
+      );
+      if (!setuju) return;
+
       const btn = document.getElementById('btnSimpanMaster');
       btn.innerText = "MENYIMPAN..."; btn.style.opacity = '0.5'; btn.style.pointerEvents = 'none';
       apiCall('simpanMasterBarang', { data: data }).then(function(res) {
@@ -856,10 +1551,21 @@
       });
     }
 
-    function prosesCetak(tipe, btnEl) {
+    async function prosesCetak(tipe, btnEl) {
       const d = document.getElementById('dapurCetak').value;
       const t = document.getElementById('tglCetak').value;
       if (!d || !t) { showIosAlert("Pilih Dapur & Tanggal dulu ya, Yu!"); return; }
+
+      if (tipe.includes('hapus')) {
+        const setuju = await showIosConfirm(
+          `Apakah kamu yakin ingin menghapus berkas di Google Drive untuk dapur <b>${d}</b> tanggal <b>${t}</b>?`,
+          "HAPUS BERKAS DRIVE",
+          "Ya, Hapus!",
+          "Batal"
+        );
+        if (!setuju) return;
+      }
+
       const allBtns = document.querySelectorAll('.action-btn');
       allBtns.forEach(b => b.disabled = true);
       showLoading("Memproses Berkas...<br>Jangan ditutup ya, Yu!");
@@ -894,12 +1600,12 @@
       const d = document.getElementById('lapDapur').innerText;
       const t = document.getElementById('lapTanggal').innerText;
       
-      document.getElementById('shareModalHeader').innerHTML = `<span style="color:#10B981;">📊 Opsi Simpan Laporan</span>`;
+      document.getElementById('shareModalHeader').innerHTML = `<span style="color:#10B981; display:inline-flex; align-items:center; gap:6px;"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg> Opsi Simpan Laporan</span>`;
       document.getElementById('shareModalContent').innerHTML = `
         <div style="text-align:center; padding:10px;">
           <p style="font-size:13px; color:var(--text-secondary); margin-bottom:24px;">Silakan pilih format penyimpanan laporan untuk <br><strong>${d} (${t})</strong></p>
-          <button onclick="copyLaporanWA()" style="display:block; width:100%; padding:16px; background:var(--bg-inset); color:#34D399; border:none; border-radius:20px; font-weight:800; margin-bottom:14px; box-shadow: var(--shadow-tenggelam);">📲 Salin Format WhatsApp</button>
-          <button onclick="cetakLaporanPDFResmi()" style="display:block; width:100%; padding:16px; background:#10B981; color:var(--bg-inset); border:none; border-radius:20px; font-weight:900; box-shadow: 4px 4px 10px rgba(11, 16, 26, 0.6), inset 2px 2px 4px rgba(255,255,255,0.4);">📄 Cetak PDF Resmi</button>
+          <button onclick="copyLaporanWA()" style="display:flex; align-items:center; justify-content:center; gap:8px; width:100%; padding:16px; background:var(--bg-inset); color:#34D399; border:none; border-radius:20px; font-weight:800; margin-bottom:14px; box-shadow: var(--shadow-tenggelam);"><svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg> Salin Format WhatsApp</button>
+          <button onclick="cetakLaporanPDFResmi()" style="display:flex; align-items:center; justify-content:center; gap:8px; width:100%; padding:16px; background:#10B981; color:var(--bg-inset); border:none; border-radius:20px; font-weight:900; box-shadow: 4px 4px 10px rgba(11, 16, 26, 0.6), inset 2px 2px 4px rgba(255,255,255,0.4);"><svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg> Cetak PDF Resmi</button>
         </div>
       `;
       document.getElementById('shareModal').style.display = 'flex';
@@ -917,26 +1623,29 @@
       const mrgY = document.getElementById('lapMrgYyn').innerText;
       const totM = document.getElementById('lapTotMrg').innerText;
       const prsn = document.getElementById('lapPersen').innerText;
+      const prsKop = document.getElementById('lapPrsKop') ? document.getElementById('lapPrsKop').innerText : '0%';
+      const prsYyn = document.getElementById('lapPrsYyn') ? document.getElementById('lapPrsYyn').innerText : '0%';
 
-      const waText = `SPPG      	:	${d}\nTgl            	:	${t}\nJmI tem   	:	${lastItemCount} item\n-----------------------------------------------------------------		\nPAGU        	:	${p}\n-----------------------------------------------------------------		\n\`PO SPPG\`   	:	${sppg}\nSISA PAGU  	:	${sisa.includes('-') ? sisa : '+ ' + sisa}\n-----------------------------------------------------------------		\n\`PO KOPR\`    	:	${kopr}\n\`PO SUPLY\`  	:	${suply}\n-----------------------------------------------------------------		\nMRG KOP - SPPG         	:	${mrgK}\nMRG YYN - SUPLY        	:	${mrgY}\n-----------------------------------------------------------------		\nTOTAL MRG         	:	${totM}\n-----------------------------------------------------------------		\n\`Persentase Margin\`	:	${prsn}`;
+      const waText = `SPPG      	:	${d}\nTgl            	:	${t}\nJmI tem   	:	${lastItemCount} item\n-----------------------------------------------------------------		\nPAGU        	:	${p}\n-----------------------------------------------------------------		\n\`PO SPPG\`   	:	${sppg}\nSISA PAGU  	:	${sisa.includes('-') ? sisa : '+ ' + sisa}\n-----------------------------------------------------------------		\n\`PO KOPR\`    	:	${kopr}\n\`PO SUPLY\`  	:	${suply}\n-----------------------------------------------------------------		\nMRG KOP - SPPG         	:	${mrgK}\nMRG YYN - SUPLY        	:	${mrgY}\n-----------------------------------------------------------------		\nTOTAL MRG         	:	${totM}\n-----------------------------------------------------------------		\n\`Persentase Total Margin\`	:	${prsn}\n  ├ Bagian KOP             	:	${prsKop}\n  └ Bagian YYN             	:	${prsYyn}`;
 
       navigator.clipboard.writeText(waText).then(() => {
-        showIosAlert("✅ Format laporan sudah disalin! <br>Tinggal tempel (paste) ke WhatsApp Bos.");
+        showIosAlert("Format laporan sudah disalin! <br>Tinggal tempel (paste) ke WhatsApp Bos.");
       });
     }
 
     function tampilkanModalSharePDF(tipe, dataArr) {
       if (!dataArr) return; 
       window.tempShareData = dataArr;
-      let warnaTeks = "var(--c-kop)"; let ikon = "✅"; let teksJml = "PO Siap Dikirim!";
-      if(tipe === 'kop') { warnaTeks = "var(--c-sppg)"; ikon = "📄"; teksJml = "PO Koperasi Siap!"; }
-      else if(tipe === 'bon') { warnaTeks = "#F59E0B"; ikon = "🧾"; teksJml = "File BON Siap!"; }
-      else if(tipe === 'rabak') { warnaTeks = "var(--c-margin-text)"; ikon = "🏢"; teksJml = "Berkas RAB AK Siap!"; }
-      else if(tipe === 'pogabungan') { warnaTeks = "var(--c-sup)"; ikon = "📑"; teksJml = "PO Gabungan Siap!"; }
-      else if(tipe === 'laporan') { warnaTeks = "#10B981"; ikon = "📊"; teksJml = "Laporan Siap!"; }
-      else if(tipe === 'inv_sppg') { warnaTeks = "var(--c-sppg)"; ikon = "💵"; teksJml = "Invoice SPPG Siap!"; }
+      let warnaTeks = "var(--c-kop)"; let teksJml = "PO Siap Dikirim!";
+      let svgIcon = '<svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>';
+      if(tipe === 'kop') { warnaTeks = "var(--c-sppg)"; teksJml = "PO Koperasi Siap!"; svgIcon = '<svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>'; }
+      else if(tipe === 'bon') { warnaTeks = "#F59E0B"; teksJml = "File BON Siap!"; svgIcon = '<svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>'; }
+      else if(tipe === 'rabak') { warnaTeks = "var(--c-margin-text)"; teksJml = "Berkas RAB AK Siap!"; svgIcon = '<svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0h5m-5 0V9m0 0h2m-2 0H8m2 0v12"/></svg>'; }
+      else if(tipe === 'pogabungan') { warnaTeks = "var(--c-sup)"; teksJml = "PO Gabungan Siap!"; svgIcon = '<svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"/></svg>'; }
+      else if(tipe === 'laporan') { warnaTeks = "#10B981"; teksJml = "Laporan Siap!"; svgIcon = '<svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>'; }
+      else if(tipe === 'inv_sppg') { warnaTeks = "var(--c-sppg)"; teksJml = "Invoice SPPG Siap!"; svgIcon = '<svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>'; }
 
-      document.getElementById('shareModalHeader').innerHTML = `<span style="color:${warnaTeks};">${ikon} ${dataArr.length} ${teksJml}</span>`;
+      document.getElementById('shareModalHeader').innerHTML = `<span style="color:${warnaTeks}; display:inline-flex; align-items:center; justify-content:center; gap:8px;">${svgIcon} ${dataArr.length} ${teksJml}</span>`;
       let html = '';
       dataArr.forEach((item, index) => {
          html += `
@@ -945,7 +1654,7 @@
                <div class="share-nama">${item.nama}</div>
                <div class="share-file">${item.fileName}</div>
              </div>
-             <button id="btnShare-${index}" class="btn-wa-share" onclick="shareSatuFile(${index})">📲 Share</button>
+             <button id="btnShare-${index}" class="btn-wa-share" onclick="shareSatuFile(${index})" style="display:inline-flex; align-items:center; gap:6px;"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg> Share</button>
            </div>
          `;
       });
@@ -973,9 +1682,9 @@ Untuk Menu ${tglTeks}
 Pesanan harus diantar pada :
 *${h1Text}*
 
-Mohon dicek file terlampir. ⬆️`;
+Mohon dicek file terlampir.`;
 
-       document.getElementById('shareModalHeader').innerHTML = `<span style="color:var(--text-primary); font-size:18px;">✨ File Siap!</span>`;
+       document.getElementById('shareModalHeader').innerHTML = `<span style="color:var(--text-primary); font-size:18px; display:inline-flex; align-items:center; gap:8px;"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="var(--c-sppg)"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> File Siap!</span>`;
        let encodedMsg = encodeURIComponent(pesanWA);
        document.getElementById('shareModalContent').innerHTML = `
           <div style="text-align:center; padding:10px;">
@@ -1018,7 +1727,7 @@ Mohon dicek file terlampir. ⬆️`;
        else if(namaFile.includes("laporan harian")) jenisText = "LAPORAN HARIAN";
 
        // 1. Ambil pesan dasar (dari server atau teks default)
-       let pesanWA = item.pesan || `${jenisText} ${targetName}\nUntuk Menu ${tglTeks}\n\nPesanan harus diantar pada :\n*${h1Text}*\n\nMohon dicek file terlampir. ⬆️`;
+       let pesanWA = item.pesan || `${jenisText} ${targetName}\nUntuk Menu ${tglTeks}\n\nPesanan harus diantar pada :\n*${h1Text}*\n\nMohon dicek file terlampir.`;
 
        // 2. Sisipkan Syarat & Ketentuan HANYA untuk PO biasa, PO GABUNGAN, atau PO AK (RAB lewat!)
        if (jenisText === "PO" || jenisText === "PO GABUNGAN" || jenisText === "PO AK") {
@@ -1050,11 +1759,11 @@ Mohon dicek file terlampir. ⬆️`;
              navigator.clipboard.writeText(pesanWA).catch(e => console.log("Clipboard error: ", e));
              
              let oldText = btn.innerHTML;
-             btn.innerHTML = "⏳ WA...";
+             btn.innerHTML = `<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="animation:spin 1s linear infinite;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> WA...`;
              
              navigator.share(shareData)
                 .then(() => {
-                   btn.innerHTML = "✅ Selesai"; 
+                   btn.innerHTML = `<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Selesai`; 
                    btn.style.backgroundColor = "var(--bg-card)"; 
                    btn.style.color = "var(--c-kop)"; 
                    btn.style.boxShadow = "var(--shadow-tenggelam)"; 
@@ -1065,19 +1774,19 @@ Mohon dicek file terlampir. ⬆️`;
                    console.log('Batal: ' + err.message);
                 });
           } else {
-             alert("Browser tidak support share langsung. File didownload.");
+             showIosAlert("Browser tidak support share langsung. File didownload.");
              const url = window.URL.createObjectURL(file);
              const a = document.createElement('a'); a.style.display = 'none'; a.href = url; a.download = item.fileName;
              document.body.appendChild(a); a.click(); window.URL.revokeObjectURL(url);
              
-             btn.innerHTML = "⬇️ Downloaded"; 
+             btn.innerHTML = `<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg> Downloaded`; 
              btn.style.backgroundColor = "var(--bg-card)"; 
              btn.style.color = "var(--text-soft)"; 
              btn.style.boxShadow = "var(--shadow-tenggelam)"; 
              btn.disabled = true;
           }
        } catch(e) { 
-          alert("Error: " + e.message); 
+          showIosAlert("Error: " + e.message); 
        }
     }
 
@@ -1130,7 +1839,7 @@ Mohon dicek file terlampir. ⬆️`;
           <div class="item-glass fade-up" style="cursor:pointer;" onclick="pilihItemEdit('${safeItem}')">
             <div class="item-top">
               <div class="item-name">${it.barang}</div>
-              <div class="qty-badge" style="color:var(--text-primary);">✏️ Edit</div>
+              <div class="qty-badge" style="color:var(--text-primary); display:inline-flex; align-items:center; gap:4px;"><svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg> Edit</div>
             </div>
             <div style="font-size:0.85rem; font-weight:800; color:var(--text-secondary); margin-bottom:14px;">
               Qty: <span style="color:var(--c-margin-text); font-weight:900;">${String(it.qty).replace('.', ',')} ${it.sat}</span> | Supplier: <b style="color:var(--text-primary);">${it.supplier || '-'}</b>
@@ -1164,13 +1873,22 @@ Mohon dicek file terlampir. ⬆️`;
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function eksekusiKelola() { 
+    async function eksekusiKelola() { 
       const action = document.getElementById('kAction').value; 
       const payload = { 
         tanggalLama: document.getElementById('kTglLama').value, dapurLama: document.getElementById('kDapurLama').value, barangLama: document.getElementById('kBarangLama').value, tanggalBaru: document.getElementById('kTglBaru').value, dapurBaru: document.getElementById('kDapurBaru').value, barangBaru: document.getElementById('kBarangBaru').value, qtyBaru: document.getElementById('kQty').value, satuanBaru: document.getElementById('kSatuan').value, supplierBaru: document.getElementById('kSupplier').value, ketBaru: document.getElementById('kKet').value, tSppg: document.getElementById('kSppg').value, tKop: document.getElementById('kKop').value, tSup: document.getElementById('kSup').value 
       }; 
       if ((action === 'edit' || action === 'hapus') && (!payload.tanggalLama || !payload.dapurLama || !payload.barangLama)) { showIosAlert("Area TARGET DATA harus diisi lengkap ya."); return; } 
       if (action === 'tambah' && (!payload.tanggalBaru || !payload.dapurBaru || !payload.barangBaru || !payload.supplierBaru)) { showIosAlert("Tanggal, Dapur, Barang, dan Supplier wajib diisi."); return; } 
+      if (action === 'hapus') {
+        const setuju = await showIosConfirm(
+          `Apakah kamu yakin ingin menghapus item <b>${payload.barangLama}</b> dari dapur <b>${payload.dapurLama}</b>?`,
+          "HAPUS ITEM DATA",
+          "Ya, Hapus!",
+          "Batal"
+        );
+        if (!setuju) return;
+      }
       showLoading("Menyimpan ke Spreadsheet...<br>Bentar ya Yu!"); 
       apiCall('kelolaDataPesanan', { actionType: action, data: payload }).then(function(res) { 
           hideLoading(); showIosAlert(res.msg); 
@@ -1183,7 +1901,105 @@ Mohon dicek file terlampir. ⬆️`;
     
     function toggleLaci(id, suffix) { const body = document.getElementById('body-' + suffix + '-' + id); const header = document.getElementById('laci-header-' + suffix + '-' + id); if (body.style.display === 'block') { body.style.display = 'none'; header.classList.remove('active-laci'); } else { body.style.display = 'block'; header.classList.add('active-laci'); } }
     
-    function bikinLaciHTML(groupedData, suffix) { let html = ''; Object.keys(groupedData).sort().forEach((s, index) => { let supData = groupedData[s]; supData.list.sort((a, b) => { let tglA = a.sortDateInt || 0, tglB = b.sortDateInt || 0; if (tglA !== tglB) return tglA - tglB; return (a.barang||"").localeCompare(b.barang||""); }); html += `<div class="laci-item"><div class="laci-header" id="laci-header-${suffix}-${index}" onclick="toggleLaci(${index},'${suffix}')"><div class="sup-name"><span class="sup-icon">📦</span>${s}</div><div class="sub-grid-3"><div class="sub-box sb-sppg"><div class="sub-lbl">SPPG</div><div class="sub-val">${Math.round(supData.tp).toLocaleString('id-ID')}</div></div><div class="sub-box sb-kop"><div class="sub-lbl">KOP</div><div class="sub-val">${Math.round(supData.tk).toLocaleString('id-ID')}</div></div><div class="sub-box sb-sup"><div class="sub-lbl">SUP</div><div class="sub-val">${Math.round(supData.ts).toLocaleString('id-ID')}</div></div></div></div><div id="body-${suffix}-${index}" class="laci-body">`; let currentTgl = ""; supData.list.forEach(it => { let uSppg = it.qty > 0 ? Math.round(it.tSppg/it.qty).toLocaleString('id-ID') : 0; let uKop  = it.qty > 0 ? Math.round(it.tKop/it.qty).toLocaleString('id-ID')  : 0; let uSup  = it.qty > 0 ? Math.round(it.tSup/it.qty).toLocaleString('id-ID')  : 0; let tS = Math.round(it.tSppg).toLocaleString('id-ID'); let tK = Math.round(it.tKop).toLocaleString('id-ID'); let tU = Math.round(it.tSup).toLocaleString('id-ID'); if (suffix === 'rek' && it.tanggal && it.tanggal !== currentTgl) { html += `<div class="tgl-group">📅 ${it.tanggal}</div>`; currentTgl = it.tanggal; } html += `<div class="item-glass fade-up"><div class="item-top"><div class="item-name">${it.barang}</div><div class="qty-badge">${String(it.qty).replace('.', ',')} ${it.sat}</div></div><div class="price-row pr-sppg"><div class="pr-left"><div class="pr-label">SPPG</div><div class="pr-unit">${uSppg}/${it.sat}</div></div><div class="pr-val">${tS}</div></div><div class="price-row pr-kop"><div class="pr-left"><div class="pr-label">KOP</div><div class="pr-unit">${uKop}/${it.sat}</div></div><div class="pr-val">${tK}</div></div><div class="price-row pr-sup"><div class="pr-left"><div class="pr-label">SUP</div><div class="pr-unit">${uSup}/${it.sat}</div></div><div class="pr-val">${tU}</div></div></div>`; }); html += `</div></div>`; }); return html; }
+    function bikinLaciHTML(groupedData, suffix) { let html = ''; Object.keys(groupedData).sort().forEach((s, index) => { let supData = groupedData[s]; supData.list.sort((a, b) => { let tglA = a.sortDateInt || 0, tglB = b.sortDateInt || 0; if (tglA !== tglB) return tglA - tglB; return (a.barang||"").localeCompare(b.barang||""); }); html += `<div class="laci-item"><div class="laci-header" id="laci-header-${suffix}-${index}" onclick="toggleLaci(${index},'${suffix}')"><div class="sup-name" style="display:inline-flex; align-items:center; gap:8px;"><svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color:var(--text-primary);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>${s}</div><div class="sub-grid-3"><div class="sub-box sb-sppg"><div class="sub-lbl">SPPG</div><div class="sub-val">${Math.round(supData.tp).toLocaleString('id-ID')}</div></div><div class="sub-box sb-kop"><div class="sub-lbl">KOP</div><div class="sub-val">${Math.round(supData.tk).toLocaleString('id-ID')}</div></div><div class="sub-box sb-sup"><div class="sub-lbl">SUP</div><div class="sub-val">${Math.round(supData.ts).toLocaleString('id-ID')}</div></div></div></div><div id="body-${suffix}-${index}" class="laci-body">`; let currentTgl = ""; supData.list.forEach(it => { let uSppg = it.qty > 0 ? Math.round(it.tSppg/it.qty).toLocaleString('id-ID') : 0; let uKop  = it.qty > 0 ? Math.round(it.tKop/it.qty).toLocaleString('id-ID')  : 0; let uSup  = it.qty > 0 ? Math.round(it.tSup/it.qty).toLocaleString('id-ID')  : 0; let tS = Math.round(it.tSppg).toLocaleString('id-ID'); let tK = Math.round(it.tKop).toLocaleString('id-ID'); let tU = Math.round(it.tSup).toLocaleString('id-ID'); if (suffix === 'rek' && it.tanggal && it.tanggal !== currentTgl) { html += `<div class="tgl-group" style="display:inline-flex; align-items:center; gap:6px;"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>${it.tanggal}</div>`; currentTgl = it.tanggal; } html += `<div class="item-glass fade-up"><div class="item-top"><div class="item-name">${it.barang}</div><div class="qty-badge">${String(it.qty).replace('.', ',')} ${it.sat}</div></div><div class="price-row pr-sppg"><div class="pr-left"><div class="pr-label">SPPG</div><div class="pr-unit">${uSppg}/${it.sat}</div></div><div class="pr-val">${tS}</div></div><div class="price-row pr-kop"><div class="pr-left"><div class="pr-label">KOP</div><div class="pr-unit">${uKop}/${it.sat}</div></div><div class="pr-val">${tK}</div></div><div class="price-row pr-sup"><div class="pr-left"><div class="pr-label">SUP</div><div class="pr-unit">${uSup}/${it.sat}</div></div><div class="pr-val">${tU}</div></div></div>`; }); html += `</div></div>`; }); return html; }
+    
+    window.rawHarianItems = [];
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    }
+
+    function clearSearchHarian() {
+      const el = document.getElementById('inputSearchHarian');
+      if (el) {
+        el.value = '';
+        renderHarianWithFilter();
+      }
+    }
+
+    function matchItemWithQuery(it, query, qClean) {
+      if (!query) return true;
+      const sup = (it.supplier || "TANPA SUPPLIER").toLowerCase();
+      const barang = (it.barang || "").toLowerCase();
+      const sat = (it.sat || "").toLowerCase();
+      const qtyStr = String(it.qty || "").toLowerCase();
+      
+      if (sup.includes(query) || barang.includes(query) || sat.includes(query) || qtyStr.includes(query)) {
+        return true;
+      }
+
+      const uSppg = it.qty > 0 ? Math.round(it.tSppg / it.qty) : 0;
+      const uKop  = it.qty > 0 ? Math.round(it.tKop / it.qty)  : 0;
+      const uSup  = it.qty > 0 ? Math.round(it.tSup / it.qty)  : 0;
+
+      const tSppg = Math.round(it.tSppg || 0);
+      const tKop  = Math.round(it.tKop || 0);
+      const tSup  = Math.round(it.tSup || 0);
+
+      const tSppgFmt = tSppg.toLocaleString('id-ID');
+      const tKopFmt  = tKop.toLocaleString('id-ID');
+      const tSupFmt  = tSup.toLocaleString('id-ID');
+
+      const uSppgFmt = uSppg.toLocaleString('id-ID');
+      const uKopFmt  = uKop.toLocaleString('id-ID');
+      const uSupFmt  = uSup.toLocaleString('id-ID');
+
+      if (tSppgFmt.includes(query) || tKopFmt.includes(query) || tSupFmt.includes(query) ||
+          uSppgFmt.includes(query) || uKopFmt.includes(query) || uSupFmt.includes(query)) {
+        return true;
+      }
+
+      if (qClean && qClean.length > 0) {
+        if (String(tSppg).includes(qClean) || String(tKop).includes(qClean) || String(tSup).includes(qClean) ||
+            String(uSppg).includes(qClean) || String(uKop).includes(qClean) || String(uSup).includes(qClean)) {
+          return true;
+        }
+      }
+
+      return false;
+    }
+
+    function renderHarianWithFilter() {
+      const searchInput = document.getElementById('inputSearchHarian');
+      const btnClear = document.getElementById('btnClearSearchHarian');
+      const query = (searchInput ? searchInput.value : '').trim().toLowerCase();
+      const qClean = query.replace(/[^a-z0-9]/g, '');
+
+      if (btnClear) {
+        btnClear.style.display = query ? 'block' : 'none';
+      }
+
+      if (!window.rawHarianItems || !window.rawHarianItems.length) return;
+
+      const filtered = window.rawHarianItems.filter(it => matchItemWithQuery(it, query, qClean));
+
+      if (!filtered.length) {
+        document.getElementById('tempatHasil').innerHTML = `<div class="empty-state" style="padding:30px 15px;">🔍 Tidak ada data yang cocok dengan "<b>${escapeHtml(query)}</b>"</div>`;
+        return;
+      }
+
+      let grouped = {};
+      filtered.forEach(it => {
+        let s = it.supplier || "TANPA SUPPLIER";
+        if (!grouped[s]) grouped[s] = { tk:0, ts:0, tp:0, list:[] };
+        grouped[s].tk += it.tKop;
+        grouped[s].ts += it.tSup;
+        grouped[s].tp += it.tSppg;
+        grouped[s].list.push(it);
+      });
+
+      document.getElementById('tempatHasil').innerHTML = bikinLaciHTML(grouped, 'har');
+
+      if (query) {
+        Object.keys(grouped).sort().forEach((_, index) => {
+          const body = document.getElementById('body-har-' + index);
+          const header = document.getElementById('laci-header-har-' + index);
+          if (body) body.style.display = 'block';
+          if (header) header.classList.add('active-laci');
+        });
+      }
+    }
     
     function cariData() { 
       const d = document.getElementById('dapur').value; const t = document.getElementById('tanggal').value; const tTeks = document.getElementById('tanggal').options[document.getElementById('tanggal').selectedIndex].text; 
@@ -1191,12 +2007,31 @@ Mohon dicek file terlampir. ⬆️`;
       apiCall('getDataCepat', { dapur: d, tgl: t }).then(function(res) { 
         if (!res.items.length) { document.getElementById('tempatHasil').innerHTML = '<div class="empty-state">Data kosong, Yu.</div>'; document.getElementById('pesanLaporan').style.display = 'block'; document.getElementById('laporanCard').style.display = 'none'; return; } 
         lastItemCount = res.items.length; // SIMPAN JUMLAH ITEM
+        window.rawHarianItems = res.items || [];
+        const inputSearch = document.getElementById('inputSearchHarian');
+        if (inputSearch) inputSearch.value = '';
+        const btnClear = document.getElementById('btnClearSearchHarian');
+        if (btnClear) btnClear.style.display = 'none';
+
         document.getElementById('hasilHarian').style.display = 'block'; document.getElementById('totSppgHar').innerText = Math.round(res.grand.tSppg).toLocaleString('id-ID'); document.getElementById('totKopHar').innerText  = Math.round(res.grand.tKop).toLocaleString('id-ID'); document.getElementById('marKopHar').innerText  = Math.round(res.grand.mKop).toLocaleString('id-ID'); document.getElementById('totSupHar').innerText  = Math.round(res.grand.tSup).toLocaleString('id-ID'); document.getElementById('marYynHar').innerText  = Math.round(res.grand.mYyn).toLocaleString('id-ID'); 
-        let grouped = {}; res.items.forEach(it => { let s = it.supplier || "TANPA SUPPLIER"; if (!grouped[s]) grouped[s] = { tk:0, ts:0, tp:0, list:[] }; grouped[s].tk += it.tKop; grouped[s].ts += it.tSup; grouped[s].tp += it.tSppg; grouped[s].list.push(it); }); document.getElementById('tempatHasil').innerHTML = bikinLaciHTML(grouped, 'har'); 
-        let pagu = res.grand.pagu || 0; let menu = res.grand.menu || "-"; let poSppg = res.grand.tSppg; let poKop  = res.grand.tKop; let poSup  = res.grand.tSup; let sisaPagu = pagu - poSppg; let mrgKop = poSppg - poKop; let mrgYyn = poKop - poSup; let totMrg = mrgKop + mrgYyn; let persen = poSppg > 0 ? ((totMrg / poSppg) * 100).toFixed(2).replace('.', ',') : "0"; 
+        
+        renderHarianWithFilter();
+
+        let pagu = res.grand.pagu || 0; let menu = res.grand.menu || "-"; let poSppg = res.grand.tSppg; let poKop  = res.grand.tKop; let poSup  = res.grand.tSup; let sisaPagu = pagu - poSppg; let mrgKop = poSppg - poKop; let mrgYyn = poKop - poSup; let totMrg = mrgKop + mrgYyn; 
+        let persen = poSppg > 0 ? ((totMrg / poSppg) * 100).toFixed(2).replace('.', ',') : "0"; 
+        let prsKop = poSppg > 0 ? ((mrgKop / poSppg) * 100).toFixed(2).replace('.', ',') : "0";
+        let prsYyn = poSppg > 0 ? ((mrgYyn / poSppg) * 100).toFixed(2).replace('.', ',') : "0";
+        let porsiKop = totMrg > 0 ? ((mrgKop / totMrg) * 100).toFixed(1).replace('.', ',') : "0";
+        let porsiYyn = totMrg > 0 ? ((mrgYyn / totMrg) * 100).toFixed(1).replace('.', ',') : "0";
+
         document.getElementById('pesanLaporan').style.display = 'none'; document.getElementById('laporanCard').style.display  = 'block'; document.getElementById('lapDapur').innerText   = d; document.getElementById('lapTanggal').innerText = tTeks; document.getElementById('lapMenu').innerText    = menu; document.getElementById('lapPagu').innerText    = `Rp ${Math.round(pagu).toLocaleString('id-ID')}`; document.getElementById('lapPoSppg').innerText  = `Rp ${Math.round(poSppg).toLocaleString('id-ID')}`; document.getElementById('lapPoKop').innerText   = `Rp ${Math.round(poKop).toLocaleString('id-ID')}`; document.getElementById('lapPoSup').innerText   = `Rp ${Math.round(poSup).toLocaleString('id-ID')}`; 
         let elSisa  = document.getElementById('lapSisaPagu'); let rowSisa = document.getElementById('bgSisaPagu'); let lblSisa = document.getElementById('textSisaPagu'); elSisa.innerText = `Rp ${Math.round(sisaPagu).toLocaleString('id-ID')}`; rowSisa.className = 'price-row pr-neutral ' + (sisaPagu < 0 ? 'sisa-over' : 'sisa-ok'); rowSisa.style.borderLeftColor = sisaPagu < 0 ? 'var(--c-sup)' : 'var(--c-kop)'; lblSisa.style.color = sisaPagu < 0 ? 'var(--c-sup)' : 'var(--c-kop)'; 
-        document.getElementById('lapMrgKop').innerText  = `Rp ${Math.round(mrgKop).toLocaleString('id-ID')}`; document.getElementById('lapMrgYyn').innerText  = `Rp ${Math.round(mrgYyn).toLocaleString('id-ID')}`; document.getElementById('lapTmKop').innerText   = `Rp ${Math.round(mrgKop).toLocaleString('id-ID')}`; document.getElementById('lapTmYyn').innerText   = `Rp ${Math.round(mrgYyn).toLocaleString('id-ID')}`; document.getElementById('lapTotMrg').innerText  = `Rp ${Math.round(totMrg).toLocaleString('id-ID')}`; document.getElementById('lapPersen').innerText  = `${persen}%`; 
+        document.getElementById('lapMrgKop').innerText  = `Rp ${Math.round(mrgKop).toLocaleString('id-ID')}`; document.getElementById('lapMrgYyn').innerText  = `Rp ${Math.round(mrgYyn).toLocaleString('id-ID')}`; document.getElementById('lapTmKop').innerText   = `Rp ${Math.round(mrgKop).toLocaleString('id-ID')}`; document.getElementById('lapTmYyn').innerText   = `Rp ${Math.round(mrgYyn).toLocaleString('id-ID')}`; document.getElementById('lapTotMrg').innerText  = `Rp ${Math.round(totMrg).toLocaleString('id-ID')}`; 
+        document.getElementById('lapPersen').innerText  = `${persen}%`; 
+        if (document.getElementById('lapPrsKop')) document.getElementById('lapPrsKop').innerText = `${prsKop}%`;
+        if (document.getElementById('lapPrsKopPorsi')) document.getElementById('lapPrsKopPorsi').innerText = `${porsiKop}% dr Total Margin`;
+        if (document.getElementById('lapPrsYyn')) document.getElementById('lapPrsYyn').innerText = `${prsYyn}%`;
+        if (document.getElementById('lapPrsYynPorsi')) document.getElementById('lapPrsYynPorsi').innerText = `${porsiYyn}% dr Total Margin`;
       }); 
     }
     
@@ -1207,31 +2042,174 @@ Mohon dicek file terlampir. ⬆️`;
       document.getElementById('hasilLapPeriode').style.display = 'none'; document.getElementById('lapPerListHari').innerHTML = `<div class="loading-wrap"><div class="spinner-glass"></div>Menyusun laporan periode...</div>`; document.getElementById('hasilLapPeriode').style.display = 'block'; 
       apiCall('getRekapPeriode', { dapur: d, tgl1: t1, tgl2: t2 }).then(function(res) { 
         if (!res || !res.items || !res.items.length) { document.getElementById('lapPerListHari').innerHTML = '<div class="empty-state">Data kosong.</div>'; return; } 
-        let gSppg = res.grand.tSppg; let gKop = res.grand.tKop; let gSup = res.grand.tSup; let gMrgKop = gSppg - gKop; let gMrgYyn = gKop - gSup; let gTotMrg = gMrgKop + gMrgYyn; let gPersen = gSppg > 0 ? ((gTotMrg / gSppg) * 100).toFixed(2).replace('.', ',') : "0"; 
+        let gSppg = res.grand.tSppg; let gKop = res.grand.tKop; let gSup = res.grand.tSup; let gMrgKop = gSppg - gKop; let gMrgYyn = gKop - gSup; let gTotMrg = gMrgKop + gMrgYyn; 
+        let gPersen = gSppg > 0 ? ((gTotMrg / gSppg) * 100).toFixed(2).replace('.', ',') : "0"; 
+        let gPrsKop = gSppg > 0 ? ((gMrgKop / gSppg) * 100).toFixed(2).replace('.', ',') : "0";
+        let gPrsYyn = gSppg > 0 ? ((gMrgYyn / gSppg) * 100).toFixed(2).replace('.', ',') : "0";
+        let gPorsiKop = gTotMrg > 0 ? ((gMrgKop / gTotMrg) * 100).toFixed(1).replace('.', ',') : "0";
+        let gPorsiYyn = gTotMrg > 0 ? ((gMrgYyn / gTotMrg) * 100).toFixed(1).replace('.', ',') : "0";
+
         document.getElementById('lapPerDapur').innerText = d; document.getElementById('lapPerRange').innerText = `${fmt(t1)} – ${fmt(t2)}`; document.getElementById('lapPerTotSppg').innerText = `Rp ${Math.round(gSppg).toLocaleString('id-ID')}`; document.getElementById('lapPerTotKop').innerText = `Rp ${Math.round(gKop).toLocaleString('id-ID')}`; document.getElementById('lapPerTotSup').innerText = `Rp ${Math.round(gSup).toLocaleString('id-ID')}`; document.getElementById('lapPerPoSppg').innerText = `Rp ${Math.round(gSppg).toLocaleString('id-ID')}`; document.getElementById('lapPerPoKop').innerText = `Rp ${Math.round(gKop).toLocaleString('id-ID')}`; document.getElementById('lapPerPoSup').innerText = `Rp ${Math.round(gSup).toLocaleString('id-ID')}`; document.getElementById('lapPerMrgKop').innerText = `Rp ${Math.round(gMrgKop).toLocaleString('id-ID')}`; document.getElementById('lapPerMrgYyn').innerText = `Rp ${Math.round(gMrgYyn).toLocaleString('id-ID')}`; document.getElementById('lapPerTmKop').innerText = `Rp ${Math.round(gMrgKop).toLocaleString('id-ID')}`; document.getElementById('lapPerTmYyn').innerText = `Rp ${Math.round(gMrgYyn).toLocaleString('id-ID')}`; document.getElementById('lapPerTotMrg').innerText = `Rp ${Math.round(gTotMrg).toLocaleString('id-ID')}`; document.getElementById('lapPerPersen').innerText = `${gPersen}%`; 
+        if (document.getElementById('lapPerPrsKop')) document.getElementById('lapPerPrsKop').innerText = `${gPrsKop}%`;
+        if (document.getElementById('lapPerPrsKopPorsi')) document.getElementById('lapPerPrsKopPorsi').innerText = `${gPorsiKop}% dr Total Margin`;
+        if (document.getElementById('lapPerPrsYyn')) document.getElementById('lapPerPrsYyn').innerText = `${gPrsYyn}%`;
+        if (document.getElementById('lapPerPrsYynPorsi')) document.getElementById('lapPerPrsYynPorsi').innerText = `${gPorsiYyn}% dr Total Margin`;
+
         let perTgl = {}; res.items.forEach(it => { let tgl = it.tanggal || 'Tanpa Tanggal'; if (!perTgl[tgl]) perTgl[tgl] = { sppg:0, kop:0, sup:0, menu:'', list:[], sortKey: it.sortDateInt||0 }; perTgl[tgl].sppg += it.tSppg; perTgl[tgl].kop += it.tKop; perTgl[tgl].sup += it.tSup; if (it.menu) perTgl[tgl].menu = it.menu; perTgl[tgl].list.push(it); }); let tglKeys = Object.keys(perTgl).sort((a,b) => (perTgl[a].sortKey||0) - (perTgl[b].sortKey||0)); document.getElementById('lapPerJmlHari').innerText = tglKeys.length + ' hari'; 
-        let html = ''; tglKeys.forEach((tgl, idx) => { let h = perTgl[tgl]; let mKop = h.sppg - h.kop; let mYyn = h.kop - h.sup; let totM = mKop + mYyn; let prs = h.sppg > 0 ? ((totM/h.sppg)*100).toFixed(1).replace('.',',') : '0'; let grouped = {}; h.list.forEach(it => { let s = it.supplier || 'TANPA SUPPLIER'; if (!grouped[s]) grouped[s] = { sppg:0, kop:0, sup:0, list:[] }; grouped[s].sppg += it.tSppg; grouped[s].kop += it.tKop; grouped[s].sup += it.tSup; grouped[s].list.push(it); }); 
-        let detailHTML = ''; Object.keys(grouped).sort().forEach(sup => { let sg = grouped[sup]; detailHTML += `<div style="margin-bottom:14px; background: transparent; border-radius: 20px; padding: 6px; border: none;"><div style="position: sticky; top: 10px; z-index: 5; font-size:0.85rem; font-weight:900; margin-bottom: 14px; display:flex; align-items:center; gap:10px; padding: 14px; border-radius: 18px; background: var(--bg-card); box-shadow: var(--shadow-timbul);"><span style="color:var(--text-primary); font-weight:900;">📦 ${sup}</span></div><div style="padding: 0 4px; border-left: 2px dashed rgba(255,255,255,0.1); margin-left: 10px;">`; sg.list.forEach(it => { let uS = it.qty>0 ? Math.round(it.tSppg/it.qty).toLocaleString('id-ID') : 0; let uK = it.qty>0 ? Math.round(it.tKop/it.qty).toLocaleString('id-ID')  : 0; let uU = it.qty>0 ? Math.round(it.tSup/it.qty).toLocaleString('id-ID')  : 0; detailHTML += `<div class="item-glass" style="margin-bottom:14px;"><div class="item-top"><div class="item-name">${it.barang}</div><div class="qty-badge">${String(it.qty).replace('.', ',')} ${it.sat}</div></div><div class="price-row pr-sppg"><div class="pr-left"><div class="pr-label">SPPG</div><div class="pr-unit">${uS}/${it.sat}</div></div><div class="pr-val">${Math.round(it.tSppg).toLocaleString('id-ID')}</div></div><div class="price-row pr-kop"><div class="pr-left"><div class="pr-label">KOP</div><div class="pr-unit">${uK}/${it.sat}</div></div><div class="pr-val">${Math.round(it.tKop).toLocaleString('id-ID')}</div></div><div class="price-row pr-sup"><div class="pr-left"><div class="pr-label">SUP</div><div class="pr-unit">${uU}/${it.sat}</div></div><div class="pr-val">${Math.round(it.tSup).toLocaleString('id-ID')}</div></div></div>`; }); let smK = sg.sppg-sg.kop; let smY = sg.kop-sg.sup; detailHTML += `<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;margin-top:16px;"><div class="price-row pr-kop" style="margin-top:0;"><div class="pr-left"><div class="pr-label" style="font-size:0.7rem;">Mrg KOP</div></div><div class="pr-val" style="font-size:0.95rem;">${Math.round(smK).toLocaleString('id-ID')}</div></div><div class="price-row pr-sup" style="margin-top:0;"><div class="pr-left"><div class="pr-label" style="font-size:0.7rem;">Mrg YYN</div></div><div class="pr-val" style="font-size:0.95rem;">${Math.round(smY).toLocaleString('id-ID')}</div></div></div></div></div>`; }); detailHTML += `<div class="section-head" style="margin:24px 0 14px; color: var(--text-muted);">Laporan Keuangan Hari Ini</div><div class="price-row pr-sppg" style="margin-top:0;"><div class="pr-left"><div class="pr-label">Total SPPG</div></div><div class="pr-val">Rp ${Math.round(h.sppg).toLocaleString('id-ID')}</div></div><div class="price-row pr-kop" style="margin-top:10px;"><div class="pr-left"><div class="pr-label">PO Koperasi</div></div><div class="pr-val">Rp ${Math.round(h.kop).toLocaleString('id-ID')}</div></div><div class="price-row pr-sup" style="margin-top:10px;"><div class="pr-left"><div class="pr-label">PO Supplier</div></div><div class="pr-val">Rp ${Math.round(h.sup).toLocaleString('id-ID')}</div></div><div class="total-margin-card" style="margin-top:16px;"><div class="tm-row"><div class="tm-label">Margin KOP</div><div class="tm-val">Rp ${Math.round(mKop).toLocaleString('id-ID')}</div></div><div class="tm-row"><div class="tm-label">Margin YYN</div><div class="tm-val">Rp ${Math.round(mYyn).toLocaleString('id-ID')}</div></div><div class="tm-divider"></div><div class="tm-row"><div class="tm-total-label">Total Margin</div><div class="tm-total-val">Rp ${Math.round(totM).toLocaleString('id-ID')}</div></div><div class="tm-row" style="margin-top:8px;"><div class="tm-label">Persentase</div><div class="tm-persen-val">${prs}%</div></div></div>`; html += `<div class="hari-card" id="haricard-${idx}" onclick="toggleHariCard(${idx})"><div class="hari-card-header"><div class="hari-tgl">📅 ${tgl}</div><div class="hari-menu-badge">${h.menu || '-'}</div></div><div class="hari-mini-grid"><div class="hari-mini-box sub-box sb-sppg"><div class="sub-lbl">SPPG</div><div class="sub-val">${Math.round(h.sppg).toLocaleString('id-ID')}</div></div><div class="hari-mini-box sub-box sb-kop"><div class="sub-lbl">KOP</div><div class="sub-val">${Math.round(h.kop).toLocaleString('id-ID')}</div></div><div class="hari-mini-box sub-box sb-sup"><div class="sub-lbl">SUP</div><div class="sub-val">${Math.round(h.sup).toLocaleString('id-ID')}</div></div></div><div class="hari-margin-strip"><div class="hms-label">Total Margin</div><div class="hms-val">Rp ${Math.round(totM).toLocaleString('id-ID')}</div><div class="hms-label" style="margin-left:14px;">Persen</div><div class="hms-val">${prs}%</div></div><div class="hari-detail" onclick="event.stopPropagation()">${detailHTML}</div></div>`; }); document.getElementById('lapPerListHari').innerHTML = html; 
+        let html = ''; tglKeys.forEach((tgl, idx) => { let h = perTgl[tgl]; let mKop = h.sppg - h.kop; let mYyn = h.kop - h.sup; let totM = mKop + mYyn; let prs = h.sppg > 0 ? ((totM/h.sppg)*100).toFixed(1).replace('.',',') : '0'; let prsK = h.sppg > 0 ? ((mKop/h.sppg)*100).toFixed(1).replace('.',',') : '0'; let prsY = h.sppg > 0 ? ((mYyn/h.sppg)*100).toFixed(1).replace('.',',') : '0'; let grouped = {}; h.list.forEach(it => { let s = it.supplier || 'TANPA SUPPLIER'; if (!grouped[s]) grouped[s] = { sppg:0, kop:0, sup:0, list:[] }; grouped[s].sppg += it.tSppg; grouped[s].kop += it.tKop; grouped[s].sup += it.tSup; grouped[s].list.push(it); }); 
+        let detailHTML = ''; Object.keys(grouped).sort().forEach(sup => { let sg = grouped[sup]; detailHTML += `<div style="margin-bottom:14px; background: transparent; border-radius: 20px; padding: 6px; border: none;"><div style="position: sticky; top: 10px; z-index: 5; font-size:0.85rem; font-weight:900; margin-bottom: 14px; display:flex; align-items:center; gap:10px; padding: 14px; border-radius: 18px; background: var(--bg-card); box-shadow: var(--shadow-timbul);"><span style="color:var(--text-primary); font-weight:900;">📦 ${sup}</span></div><div style="padding: 0 4px; border-left: 2px dashed rgba(255,255,255,0.1); margin-left: 10px;">`; sg.list.forEach(it => { let uS = it.qty>0 ? Math.round(it.tSppg/it.qty).toLocaleString('id-ID') : 0; let uK = it.qty>0 ? Math.round(it.tKop/it.qty).toLocaleString('id-ID')  : 0; let uU = it.qty>0 ? Math.round(it.tSup/it.qty).toLocaleString('id-ID')  : 0; detailHTML += `<div class="item-glass" style="margin-bottom:14px;"><div class="item-top"><div class="item-name">${it.barang}</div><div class="qty-badge">${String(it.qty).replace('.', ',')} ${it.sat}</div></div><div class="price-row pr-sppg"><div class="pr-left"><div class="pr-label">SPPG</div><div class="pr-unit">${uS}/${it.sat}</div></div><div class="pr-val">${Math.round(it.tSppg).toLocaleString('id-ID')}</div></div><div class="price-row pr-kop"><div class="pr-left"><div class="pr-label">KOP</div><div class="pr-unit">${uK}/${it.sat}</div></div><div class="pr-val">${Math.round(it.tKop).toLocaleString('id-ID')}</div></div><div class="price-row pr-sup"><div class="pr-left"><div class="pr-label">SUP</div><div class="pr-unit">${uU}/${it.sat}</div></div><div class="pr-val">${Math.round(it.tSup).toLocaleString('id-ID')}</div></div></div>`; }); let smK = sg.sppg-sg.kop; let smY = sg.kop-sg.sup; detailHTML += `<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;margin-top:16px;"><div class="price-row pr-kop" style="margin-top:0;"><div class="pr-left"><div class="pr-label" style="font-size:0.7rem;">Mrg KOP</div></div><div class="pr-val" style="font-size:0.95rem;">${Math.round(smK).toLocaleString('id-ID')}</div></div><div class="price-row pr-sup" style="margin-top:0;"><div class="pr-left"><div class="pr-label" style="font-size:0.7rem;">Mrg YYN</div></div><div class="pr-val" style="font-size:0.95rem;">${Math.round(smY).toLocaleString('id-ID')}</div></div></div></div></div>`; }); detailHTML += `<div class="section-head" style="margin:24px 0 14px; color: var(--text-muted);">Laporan Keuangan Hari Ini</div><div class="price-row pr-sppg" style="margin-top:0;"><div class="pr-left"><div class="pr-label">Total SPPG</div></div><div class="pr-val">Rp ${Math.round(h.sppg).toLocaleString('id-ID')}</div></div><div class="price-row pr-kop" style="margin-top:10px;"><div class="pr-left"><div class="pr-label">PO Koperasi</div></div><div class="pr-val">Rp ${Math.round(h.kop).toLocaleString('id-ID')}</div></div><div class="price-row pr-sup" style="margin-top:10px;"><div class="pr-left"><div class="pr-label">PO Supplier</div></div><div class="pr-val">Rp ${Math.round(h.sup).toLocaleString('id-ID')}</div></div><div class="total-margin-card" style="margin-top:16px;"><div class="tm-row"><div class="tm-label">Margin KOP</div><div class="tm-val">Rp ${Math.round(mKop).toLocaleString('id-ID')}</div></div><div class="tm-row"><div class="tm-label">Margin YYN</div><div class="tm-val">Rp ${Math.round(mYyn).toLocaleString('id-ID')}</div></div><div class="tm-divider"></div><div class="tm-row"><div class="tm-total-label">Total Margin</div><div class="tm-total-val">Rp ${Math.round(totM).toLocaleString('id-ID')}</div></div><div class="tm-row" style="margin-top:8px;"><div class="tm-label">Persentase Total Margin</div><div class="tm-persen-val">${prs}%</div></div><div style="margin-top:10px; display:flex; justify-content:space-between; font-size:0.75rem; font-weight:800; padding-top:8px; border-top:1px dashed rgba(255,255,255,0.1);"><span style="color:var(--c-kop);">Bagian KOP: <b>${prsK}%</b></span><span style="color:var(--c-sup);">Bagian YYN: <b>${prsY}%</b></span></div></div>`; html += `<div class="hari-card" id="haricard-${idx}" onclick="toggleHariCard(${idx})"><div class="hari-card-header"><div class="hari-tgl">📅 ${tgl}</div><div class="hari-menu-badge">${h.menu || '-'}</div></div><div class="hari-mini-grid"><div class="hari-mini-box sub-box sb-sppg"><div class="sub-lbl">SPPG</div><div class="sub-val">${Math.round(h.sppg).toLocaleString('id-ID')}</div></div><div class="hari-mini-box sub-box sb-kop"><div class="sub-lbl">KOP</div><div class="sub-val">${Math.round(h.kop).toLocaleString('id-ID')}</div></div><div class="hari-mini-box sub-box sb-sup"><div class="sub-lbl">SUP</div><div class="sub-val">${Math.round(h.sup).toLocaleString('id-ID')}</div></div></div><div class="hari-margin-strip"><div class="hms-label">Total Margin</div><div class="hms-val">Rp ${Math.round(totM).toLocaleString('id-ID')}</div><div class="hms-label" style="margin-left:14px;">Persen</div><div class="hms-val">${prs}%</div></div><div class="hari-detail" onclick="event.stopPropagation()">${detailHTML}</div></div>`; }); document.getElementById('lapPerListHari').innerHTML = html; 
       }); 
     }
     
     function toggleHariCard(idx) { document.getElementById('haricard-' + idx).classList.toggle('open'); }
     
     function cariHargaBarang() { 
-      const d = document.getElementById('dapurBarang').value; const b = document.getElementById('namaBarang').value; 
+      const elD = document.getElementById('mDapur') || document.getElementById('dapurBarang');
+      const elB = document.getElementById('mNamaBarang') || document.getElementById('namaBarang');
+      const d = elD ? elD.value : '';
+      const b = elB ? elB.value.trim() : ''; 
       if(!d || !b) { showIosAlert("Pilih dapur dan ketik nama barang dulu ya!"); return; } 
-      document.getElementById('hasilBarang').innerHTML = `<div class="loading-wrap"><div class="spinner-glass"></div>Mencari riwayat harga...</div>`; 
+      const targetHasil = document.getElementById('hasilBarang');
+      if(!targetHasil) return;
+      targetHasil.innerHTML = `<div class="loading-wrap"><div class="spinner-glass"></div>Mencari riwayat harga...</div>`; 
       apiCall('getHargaBarang', { dapur: d, barang: b }).then(function(res) { 
-        if(!res || !res.length) { document.getElementById('hasilBarang').innerHTML = '<div class="empty-state">Tidak ada riwayat harga.</div>'; return; } 
-        let html = ''; let lastPrices = null; res.forEach(it => { let uSppg = it.qty > 0 ? Math.round(it.tSppg / it.qty) : 0; let uKop = it.qty > 0 ? Math.round(it.tKop / it.qty) : 0; let uSup = it.qty > 0 ? Math.round(it.tSup / it.qty) : 0; let currentPrices = `${uSppg}-${uKop}-${uSup}`; if (currentPrices !== lastPrices) { html += `<div class="tgl-group" style="margin-left:0;">📅 ${it.tanggal}</div><div class="item-glass fade-up"><div class="item-top"><div class="item-name">${it.barang}</div><div class="qty-badge">${String(it.qty).replace('.', ',')} ${it.sat}</div></div><div class="price-row pr-sppg"><div class="pr-left"><div class="pr-label">SPPG</div><div class="pr-unit">Harga Satuan</div></div><div class="pr-val">Rp ${uSppg.toLocaleString('id-ID')}</div></div><div class="price-row pr-kop"><div class="pr-left"><div class="pr-label">KOP</div><div class="pr-unit">Harga Satuan</div></div><div class="pr-val">Rp ${uKop.toLocaleString('id-ID')}</div></div><div class="price-row pr-sup"><div class="pr-left"><div class="pr-label">SUP</div><div class="pr-unit">Harga Satuan</div></div><div class="pr-val">Rp ${uSup.toLocaleString('id-ID')}</div></div></div>`; lastPrices = currentPrices; } }); if (html === '') { html = '<div class="empty-state">Tidak ada perubahan harga.</div>'; } document.getElementById('hasilBarang').innerHTML = html; 
+        if(!res || !res.length) { targetHasil.innerHTML = '<div class="empty-state">Tidak ada riwayat harga.</div>'; return; } 
+        let html = ''; let lastPrices = null; res.forEach(it => { let uSppg = it.qty > 0 ? Math.round(it.tSppg / it.qty) : 0; let uKop = it.qty > 0 ? Math.round(it.tKop / it.qty) : 0; let uSup = it.qty > 0 ? Math.round(it.tSup / it.qty) : 0; let currentPrices = `${uSppg}-${uKop}-${uSup}`; if (currentPrices !== lastPrices) { html += `<div class="tgl-group" style="margin-left:0; display:inline-flex; align-items:center; gap:6px;"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>${it.tanggal}</div><div class="item-glass fade-up"><div class="item-top"><div class="item-name">${it.barang}</div><div class="qty-badge">${String(it.qty).replace('.', ',')} ${it.sat}</div></div><div class="price-row pr-sppg"><div class="pr-left"><div class="pr-label">SPPG</div><div class="pr-unit">Harga Satuan</div></div><div class="pr-val">Rp ${uSppg.toLocaleString('id-ID')}</div></div><div class="price-row pr-kop"><div class="pr-left"><div class="pr-label">KOP</div><div class="pr-unit">Harga Satuan</div></div><div class="pr-val">Rp ${uKop.toLocaleString('id-ID')}</div></div><div class="price-row pr-sup"><div class="pr-left"><div class="pr-label">SUP</div><div class="pr-unit">Harga Satuan</div></div><div class="pr-val">Rp ${uSup.toLocaleString('id-ID')}</div></div></div>`; lastPrices = currentPrices; } }); if (html === '') { html = '<div class="empty-state">Tidak ada perubahan harga.</div>'; } targetHasil.innerHTML = html; 
       }); 
     }
 
     // =========================================
-    // FUNGSI KHUSUS BULK PO (MASAL)
+    // FUNGSI KHUSUS BULK PO (MASAL & SATUAN)
     // =========================================
     
     window.bulkDataTemp = [];
+
+    function switchModePo(mode) {
+      const btnT = document.getElementById('btnModePoText');
+      const btnS = document.getElementById('btnModePoSingle');
+      const areaT = document.getElementById('areaPoText');
+      const areaS = document.getElementById('areaPoSingle');
+      if (mode === 'text') {
+        if (btnT) { btnT.style.background = 'var(--bg-inset)'; btnT.style.color = 'var(--text-primary)'; btnT.style.boxShadow = 'var(--shadow-timbul)'; }
+        if (btnS) { btnS.style.background = 'transparent'; btnS.style.color = 'var(--text-muted)'; btnS.style.boxShadow = 'none'; }
+        if (areaT) areaT.style.display = 'block';
+        if (areaS) areaS.style.display = 'none';
+      } else {
+        if (btnS) { btnS.style.background = 'var(--bg-inset)'; btnS.style.color = 'var(--text-primary)'; btnS.style.boxShadow = 'var(--shadow-timbul)'; }
+        if (btnT) { btnT.style.background = 'transparent'; btnT.style.color = 'var(--text-muted)'; btnT.style.boxShadow = 'none'; }
+        if (areaS) areaS.style.display = 'block';
+        if (areaT) areaT.style.display = 'none';
+      }
+    }
+
+    function formatInpRupiah(el) {
+      let val = el.value.replace(/[^0-9]/g, '');
+      if (val) {
+        el.value = Number(val).toLocaleString('id-ID');
+      } else {
+        el.value = '';
+      }
+    }
+
+    function tambahSingleItemPo() {
+      const d = document.getElementById('bulkDapur').value;
+      const t = document.getElementById('bulkTanggal').value;
+      if (!d || !t) return showIosAlert("Pilih Dapur & Tanggal dulu ya Yu!");
+
+      const barang = document.getElementById('sNamaBarang').value.trim();
+      if (!barang) return showIosAlert("Ketik Nama Barang dulu!");
+
+      const qty = document.getElementById('sQty').value.trim() || "1";
+      const sat = document.getElementById('sSatuan').value.trim() || "pcs";
+      const sppg = cleanRupiah(document.getElementById('sHrgSppg').value);
+      const kop = cleanRupiah(document.getElementById('sHrgKop').value);
+      const sup = cleanRupiah(document.getElementById('sHrgSup').value);
+      const supplier = document.getElementById('sSupplier').value.trim();
+      const ket = document.getElementById('sKet').value.trim();
+
+      if(!window.bulkDataTemp) window.bulkDataTemp = [];
+
+      window.bulkDataTemp.push({
+        barang: barang,
+        qty: qty,
+        sat: sat,
+        tSppg: sppg,
+        tKop: kop,
+        tSup: sup,
+        ket: ket,
+        supplier: supplier
+      });
+
+      document.getElementById('sNamaBarang').value = "";
+      document.getElementById('sQty').value = "";
+      document.getElementById('sSatuan').value = "";
+      document.getElementById('sHrgSppg').value = "";
+      document.getElementById('sHrgKop').value = "";
+      document.getElementById('sHrgSup').value = "";
+      document.getElementById('sKet').value = "";
+
+      renderBulkPreview();
+      showIosAlert("Item '" + barang + "' berhasil ditambahkan!");
+    }
+
+    function hapusItemBulkTemp(index) {
+      const supInputs = document.querySelectorAll('.bulk-sup-input');
+      supInputs.forEach(input => {
+        let idx = parseInt(input.getAttribute('data-index'));
+        if (window.bulkDataTemp[idx]) {
+          window.bulkDataTemp[idx].supplier = input.value.trim();
+        }
+      });
+
+      if (!window.bulkDataTemp || index < 0 || index >= window.bulkDataTemp.length) return;
+      window.bulkDataTemp.splice(index, 1);
+      renderBulkPreview();
+    }
+
+    function renderBulkPreview() {
+      if (!window.bulkDataTemp || window.bulkDataTemp.length === 0) {
+        document.getElementById('bulkListPreview').innerHTML = '<div class="empty-state">Belum ada item PO di daftar.</div>';
+        document.getElementById('bulkPreviewArea').style.display = 'none';
+        return;
+      }
+
+      let html = "";
+      window.bulkDataTemp.forEach((item, i) => {
+        let sppgVal = item.tSppg ? Number(item.tSppg) : 0;
+        let kopVal = item.tKop ? Number(item.tKop) : 0;
+        let supVal = item.tSup ? Number(item.tSup) : 0;
+
+        html += `
+          <div class="bulk-preview-card" style="position:relative;">
+             <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+               <div>
+                 <div class="bpc-title">${i+1}. ${item.barang}</div>
+                 ${item.ket ? `<div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">Ket: ${item.ket}</div>` : ''}
+               </div>
+               <div style="display:flex; align-items:center; gap:8px;">
+                 <div style="font-size:0.8rem; font-weight:900; color:var(--c-margin-text);">${item.qty} ${item.sat}</div>
+                 <button type="button" onclick="hapusItemBulkTemp(${i})" style="background:rgba(239,68,68,0.15); color:#EF4444; border:none; padding:6px 10px; border-radius:10px; cursor:pointer; font-size:0.75rem; font-weight:800; display:flex; align-items:center; gap:4px;" title="Hapus Item">
+                   <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                 </button>
+               </div>
+             </div>
+             <div class="bpc-grid">
+               <div class="bpc-box"><div class="bpc-lbl">SPPG</div><div class="bpc-val">${sppgVal ? 'Rp ' + Math.round(sppgVal).toLocaleString('id-ID') : '-'}</div></div>
+               <div class="bpc-box"><div class="bpc-lbl">KOP</div><div class="bpc-val">${kopVal ? 'Rp ' + Math.round(kopVal).toLocaleString('id-ID') : '-'}</div></div>
+               <div class="bpc-box"><div class="bpc-lbl">SUP</div><div class="bpc-val">${supVal ? 'Rp ' + Math.round(supVal).toLocaleString('id-ID') : '-'}</div></div>
+             </div>
+             <div style="margin-top:12px;">
+               <label style="font-size:0.65rem; color:var(--text-muted); font-weight:900;">NAMA SUPPLIER:</label>
+               <input type="text" class="form-control bulk-sup-input" data-index="${i}" value="${item.supplier || ''}" placeholder="Ketik nama supplier..." style="padding:10px 14px;">
+             </div>
+          </div>
+        `;
+      });
+
+      document.getElementById('bulkListPreview').innerHTML = html;
+      document.getElementById('bulkPreviewArea').style.display = 'block';
+      document.getElementById('bulkPreviewArea').scrollIntoView({behavior: "smooth"});
+    }
 
     function nextBulkStep(targetId) {
       document.querySelectorAll('.bulk-step').forEach(el => el.classList.remove('active-step'));
@@ -1260,7 +2238,6 @@ Mohon dicek file terlampir. ⬆️`;
       const arrKet = ambilArrayDariTextarea('bKet');
 
       window.bulkDataTemp = [];
-      let html = "";
 
       for(let i=0; i<arrBarang.length; i++) {
         let barang = arrBarang[i] || "";
@@ -1277,29 +2254,9 @@ Mohon dicek file terlampir. ⬆️`;
           barang: barang, qty: qty, sat: sat, 
           tSppg: sppg, tKop: kop, tSup: sup, ket: ket, supplier: ""
         });
-
-        html += `
-          <div class="bulk-preview-card">
-             <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
-               <div class="bpc-title">${i+1}. ${barang}</div>
-               <div style="font-size:0.8rem; font-weight:900; color:var(--c-margin-text);">${qty} ${sat}</div>
-             </div>
-             <div class="bpc-grid">
-               <div class="bpc-box"><div class="bpc-lbl">SPPG</div><div class="bpc-val">${sppg ? formatRupiah(sppg) : '-'}</div></div>
-               <div class="bpc-box"><div class="bpc-lbl">KOP</div><div class="bpc-val">${kop ? formatRupiah(kop) : '-'}</div></div>
-               <div class="bpc-box"><div class="bpc-lbl">SUP</div><div class="bpc-val">${sup ? formatRupiah(sup) : '-'}</div></div>
-             </div>
-             <div style="margin-top:12px;">
-               <label style="font-size:0.65rem; color:var(--text-muted); font-weight:900;">NAMA SUPPLIER:</label>
-               <input type="text" class="form-control bulk-sup-input" data-index="${i}" placeholder="Ketik nama supplier..." style="padding:10px 14px;">
-             </div>
-          </div>
-        `;
       }
 
-      document.getElementById('bulkListPreview').innerHTML = html;
-      document.getElementById('bulkPreviewArea').style.display = 'block';
-      document.getElementById('bulkPreviewArea').scrollIntoView({behavior: "smooth"});
+      renderBulkPreview();
     }
 
     function eksekusiSimpanBulk() {
