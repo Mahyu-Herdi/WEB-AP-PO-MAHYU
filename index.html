@@ -726,7 +726,7 @@
                  <div class="bulk-step active-step" id="stepBarang"><label><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="vertical-align:middle; margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg> NAMA BARANG</label><textarea id="bBarang" class="form-control bulk-area" rows="8" placeholder="Paste NAMA BARANG..."></textarea><button class="btn-go mobile-only" style="margin-top:10px; display:flex; align-items:center; justify-content:center; gap:6px;" onclick="nextBulkStep('stepQty')">Lanjut: QTY <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></button><div class="pc-only">Kolom Nama Barang</div></div>
                  <div class="bulk-step" id="stepQty"><label><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="vertical-align:middle; margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 18h12l3-18H3z"/></svg> QTY (JUMLAH)</label><textarea id="bQty" class="form-control bulk-area" rows="8" placeholder="Paste QTY..."></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft); display:flex; align-items:center; justify-content:center;" onclick="nextBulkStep('stepBarang')"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg></button><button class="btn-go" style="display:flex; align-items:center; justify-content:center; gap:6px;" onclick="nextBulkStep('stepSat')">Lanjut: SATUAN <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></button></div><div class="pc-only">Kolom QTY</div></div>
                  <div class="bulk-step" id="stepSat"><label><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="vertical-align:middle; margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg> SATUAN</label><textarea id="bSat" class="form-control bulk-area" rows="8" placeholder="Paste SATUAN..."></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft); display:flex; align-items:center; justify-content:center;" onclick="nextBulkStep('stepQty')"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg></button><button class="btn-go" style="display:flex; align-items:center; justify-content:center; gap:6px;" onclick="nextBulkStep('stepSppg')">Lanjut: HARGA SPPG <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></button></div><div class="pc-only">Kolom Satuan</div></div>
-                 <div class="bulk-step" id="stepSppg"><label><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="vertical-align:middle; margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> HARGA SPPG</label><textarea id="bSppg" class="form-control bulk-area" rows="8" placeholder="Paste Harga SPPG..."></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft); display:flex; align-items:center; justify-content:center;" onclick="nextBulkStep('stepSat')"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg></button><button class="btn-go" style="display:flex; align-items:center; justify-content:center; gap:6px;" onclick="nextBulkStep('stepKop')">Lanjut: HARGA KOP <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></button></div><div class="pc-only">Kolom Hrg SPPG</div></div>
+                 <div class="bulk-step" id="stepSppg"><label><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="vertical-align:middle; margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> HARGA SPPG</label><textarea id="bSppg" class="form-control bulk-area" rows="8" placeholder="Paste Harga SPPG..." oninput="hitungDefaultKopSupBulk()"></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft); display:flex; align-items:center; justify-content:center;" onclick="nextBulkStep('stepSat')"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg></button><button class="btn-go" style="display:flex; align-items:center; justify-content:center; gap:6px;" onclick="nextBulkStep('stepKop')">Lanjut: HARGA KOP <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></button></div><div class="pc-only">Kolom Hrg SPPG</div></div>
                  <div class="bulk-step" id="stepKop"><label><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="vertical-align:middle; margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg> HARGA KOP</label><textarea id="bKop" class="form-control bulk-area" rows="8" placeholder="Paste Harga KOP..."></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft); display:flex; align-items:center; justify-content:center;" onclick="nextBulkStep('stepSppg')"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg></button><button class="btn-go" style="display:flex; align-items:center; justify-content:center; gap:6px;" onclick="nextBulkStep('stepSup')">Lanjut: HARGA SUP <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></button></div><div class="pc-only">Kolom Hrg KOP</div></div>
                  <div class="bulk-step" id="stepSup"><label><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="vertical-align:middle; margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 17a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4zM3 9h10l3 5h5v4h-2a3 3 0 01-6 0H9a3 3 0 01-6 0H1V9z"/></svg> HARGA SUP</label><textarea id="bSup" class="form-control bulk-area" rows="8" placeholder="Paste Harga SUP..."></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft); display:flex; align-items:center; justify-content:center;" onclick="nextBulkStep('stepKop')"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg></button><button class="btn-go" style="display:flex; align-items:center; justify-content:center; gap:6px;" onclick="nextBulkStep('stepKet')">Lanjut: KET <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></button></div><div class="pc-only">Kolom Hrg SUP</div></div>
                  <div class="bulk-step" id="stepKet"><label><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="vertical-align:middle; margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg> KETERANGAN</label><textarea id="bKet" class="form-control bulk-area" rows="8" placeholder="Paste Keterangan..."></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft); display:flex; align-items:center; justify-content:center;" onclick="nextBulkStep('stepSup')"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg></button><button class="btn-go" onclick="previewBulkData()" style="background:#10B981; color:var(--bg-inset); display:flex; align-items:center; justify-content:center; gap:6px;"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg> PREVIEW</button></div><div class="pc-only">Kolom Keterangan</div></div>
@@ -753,7 +753,7 @@
                 <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px;">
                   <div>
                     <label style="font-size:0.65rem; color:var(--text-muted); font-weight:800; display:block; margin-bottom:4px;">HARGA SPPG</label>
-                    <input type="text" inputmode="numeric" id="sHrgSppg" class="form-control" placeholder="Rp 0" oninput="formatInpRupiah(this)">
+                    <input type="text" inputmode="numeric" id="sHrgSppg" class="form-control" placeholder="Rp 0" oninput="formatInpRupiah(this); hitungDefaultKopSupSingle();">
                   </div>
                   <div>
                     <label style="font-size:0.65rem; color:var(--text-muted); font-weight:800; display:block; margin-bottom:4px;">HARGA KOP</label>
@@ -817,7 +817,7 @@
           <input type="text" id="kKet" class="form-control" placeholder="Keterangan Baru" style="margin-bottom:24px;">
           
           <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:14px;">
-            <div><label style="font-size:0.65rem; font-weight:900; color:var(--text-muted);">Harga SPPG</label><input type="number" id="kSppg" class="form-control" placeholder="0"></div>
+            <div><label style="font-size:0.65rem; font-weight:900; color:var(--text-muted);">Harga SPPG</label><input type="number" id="kSppg" class="form-control" placeholder="0" oninput="hitungDefaultKopSupEdit()"></div>
             <div><label style="font-size:0.65rem; font-weight:900; color:var(--text-muted);">Harga KOP</label><input type="number" id="kKop" class="form-control" placeholder="0"></div>
             <div><label style="font-size:0.65rem; font-weight:900; color:var(--text-muted);">Harga SUP</label><input type="number" id="kSup" class="form-control" placeholder="0"></div>
           </div>
@@ -973,6 +973,64 @@
 
   <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbwQFA_5iap95UfbX0SPEgiAzFz2rKNhYmmNesZuI0iXcXf7L8lDZ9vRLH_UNT-v0SZqvw/exec";
+
+    function hitungDefaultKopSupSingle() {
+      const sppgEl = document.getElementById('sHrgSppg');
+      const kopEl = document.getElementById('sHrgKop');
+      const supEl = document.getElementById('sHrgSup');
+      if (!sppgEl || !kopEl || !supEl) return;
+      let sppgVal = Number(sppgEl.value.replace(/[^0-9]/g, '')) || 0;
+      if (sppgVal > 0) {
+        let kopVal = Math.round(sppgVal * 0.92);
+        let supVal = Math.round(sppgVal * 0.90);
+        kopEl.value = kopVal.toLocaleString('id-ID');
+        supEl.value = supVal.toLocaleString('id-ID');
+      } else {
+        kopEl.value = '';
+        supEl.value = '';
+      }
+    }
+
+    function hitungDefaultKopSupEdit() {
+      const sppgEl = document.getElementById('kSppg');
+      const kopEl = document.getElementById('kKop');
+      const supEl = document.getElementById('kSup');
+      if (!sppgEl || !kopEl || !supEl) return;
+      let sppgVal = Number(sppgEl.value) || 0;
+      if (sppgVal > 0) {
+        kopEl.value = Math.round(sppgVal * 0.92);
+        supEl.value = Math.round(sppgVal * 0.90);
+      } else {
+        kopEl.value = '';
+        supEl.value = '';
+      }
+    }
+
+    function hitungDefaultKopSupBulk() {
+      const sppgEl = document.getElementById('bSppg');
+      const kopEl = document.getElementById('bKop');
+      const supEl = document.getElementById('bSup');
+      if (!sppgEl || !kopEl || !supEl) return;
+      
+      let sppgLines = sppgEl.value.split('\n');
+      let kopLines = [];
+      let supLines = [];
+      
+      sppgLines.forEach(line => {
+        let cleanVal = line.replace(/[^0-9]/g, '');
+        if (cleanVal) {
+          let sppgVal = Number(cleanVal);
+          kopLines.push(Math.round(sppgVal * 0.92));
+          supLines.push(Math.round(sppgVal * 0.90));
+        } else {
+          kopLines.push('');
+          supLines.push('');
+        }
+      });
+      
+      kopEl.value = kopLines.join('\n');
+      supEl.value = supLines.join('\n');
+    }
 
     async function apiCall(action, params = {}) {
       const payload = { action: action, ...params };
@@ -1655,12 +1713,15 @@
       let html = '';
       dataArr.forEach((item, index) => {
          html += `
-           <div class="share-card">
-             <div class="share-info">
-               <div class="share-nama">${item.nama}</div>
-               <div class="share-file">${item.fileName}</div>
+           <div class="share-card" style="display: flex; flex-direction: column; gap: 10px; padding: 12px; margin-bottom: 12px; background: var(--bg-inset); border-radius: 14px; box-shadow: var(--shadow-tenggelam);">
+             <div class="share-info" style="flex-grow: 1; text-align: left;">
+               <div class="share-nama" style="font-weight: 800; font-size: 0.9rem; color: var(--text-primary); margin-bottom: 2px;">${item.nama}</div>
+               <div class="share-file" style="font-size: 0.72rem; color: var(--text-muted); word-break: break-all;">${item.fileName}</div>
              </div>
-             <button id="btnShare-${index}" class="btn-wa-share" onclick="shareSatuFile(${index})" style="display:inline-flex; align-items:center; gap:6px;"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg> Share</button>
+             <div style="display: flex; gap: 8px; width: 100%;">
+               <button class="btn-wa-share" onclick="salinPesanSatuFile(${index})" style="flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 4px; padding: 10px; background: var(--bg-card); color: var(--text-primary); border: none; border-radius: 10px; font-weight: 800; font-size: 0.78rem; cursor: pointer; box-shadow: var(--shadow-timbul);"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg> Salin Teks</button>
+               <button id="btnShare-${index}" class="btn-wa-share" onclick="shareSatuFile(${index})" style="flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 4px; padding: 10px; background: var(--c-kop); color: var(--bg-inset); border: none; border-radius: 10px; font-weight: 900; font-size: 0.78rem; cursor: pointer; box-shadow: 4px 4px 8px rgba(0,0,0,0.2), inset 1px 1px 2px rgba(255,255,255,0.3);"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg> Share</button>
+             </div>
            </div>
          `;
       });
@@ -1670,8 +1731,8 @@
 
     function tampilkanModalSurat(res) {
        const tglSel = document.getElementById('tglCetak');
-       const tglTeks = tglSel.options[tglSel.selectedIndex].text;
-       const tglVal = tglSel.value;
+       const tglTeks = tglSel ? tglSel.options[tglSel.selectedIndex].text : document.getElementById('lapTanggal').innerText;
+       const tglVal = tglSel ? tglSel.value : document.getElementById('tanggal').value;
        
        let h1Text = "";
        if (tglVal) {
@@ -1704,13 +1765,11 @@ Mohon dicek file terlampir.`;
        document.getElementById('shareModal').style.display = 'flex';
     }
 
-    function shareSatuFile(idx) {
+    function getPesanSatuFile(idx) {
        const item = window.tempShareData[idx];
-       const btn = document.getElementById('btnShare-' + idx);
-       
        const tglSel = document.getElementById('tglCetak');
-       const tglTeks = tglSel ? tglSel.options[tglSel.selectedIndex].text : document.getElementById('lapTanggal').innerText; 
-       const tglVal = tglSel ? tglSel.value : document.getElementById('tanggal').value; 
+       const tglTeks = tglSel && tglSel.value ? tglSel.options[tglSel.selectedIndex].text : document.getElementById('lapTanggal').innerText; 
+       const tglVal = tglSel && tglSel.value ? tglSel.value : document.getElementById('tanggal').value; 
        
        let h1Text = "";
        if (tglVal) {
@@ -1730,11 +1789,11 @@ Mohon dicek file terlampir.`;
        else if(namaFile.includes("po ak")) jenisText = "PO AK";
        else if(namaFile.includes("gabungan")) jenisText = "PO GABUNGAN";
        else if(namaFile.includes("bon sppg")) jenisText = "BON SPPG";
-        else if(namaFile.includes("bon")) jenisText = "BON";
+       else if(namaFile.includes("bon")) jenisText = "BON";
        else if(namaFile.includes("laporan harian")) jenisText = "LAPORAN HARIAN";
 
        // 1. Ambil pesan dasar (dari server atau teks default)
-       let pesanWA = item.pesan || `${jenisText} ${targetName}\nUntuk Menu ${tglTeks}\n\nPesanan harus diantar pada :\n*${h1Text}*\n\nMohon dicek file terlampir.`;
+       let pesanWA = item.pesan || `${jenisText} ${targetName}\nUntuk Menu ${tglTeks}\n\nPesanan harus diantar pada :\n*${h1Text}*\n\nMohon dicek file PO terlampir. ⬇️`;
 
        // 2. Sisipkan Syarat & Ketentuan HANYA untuk PO biasa, PO GABUNGAN, atau PO AK (RAB lewat!)
        if (jenisText === "PO" || jenisText === "PO GABUNGAN" || jenisText === "PO AK") {
@@ -1748,9 +1807,29 @@ Mohon dicek file terlampir.`;
 - Penambahan bahan baku dapat dilakukan bila telah disetujui oleh Ka. SPPG, Ahli Gizi, Akuntan, serta diketahui oleh Yayasan.
 - Pemberitahuan penambahan bahan baku wajib diinformasikan sebelum pukul 10.00 WIB pada tanggal menu disalurkan. Lewat dari jam tersebut, sepenuhnya menjadi tanggung jawab penyuplai.\n\n`;
            
-           // Masukkan syarat tepat di atas kalimat "Mohon..."
-           pesanWA = pesanWA.replace("\n\nMohon", syarat + "Mohon");
+           // Masukkan syarat tepat di atas kalimat "Mohon"
+           if (pesanWA.includes("Mohon")) {
+               pesanWA = pesanWA.replace(/Mohon/i, match => syarat + match);
+           } else {
+               pesanWA += syarat;
+           }
        }
+       return pesanWA;
+    }
+
+    function salinPesanSatuFile(idx) {
+       const pesan = getPesanSatuFile(idx);
+       navigator.clipboard.writeText(pesan).then(() => {
+          showIosAlert("Pesan WhatsApp berhasil disalin! <br>Silakan tempel (paste) di chat WhatsApp.");
+       }).catch(err => {
+          showIosAlert("Gagal menyalin pesan: " + err.message);
+       });
+    }
+
+    function shareSatuFile(idx) {
+       const item = window.tempShareData[idx];
+       const btn = document.getElementById('btnShare-' + idx);
+       const pesanWA = getPesanSatuFile(idx);
 
        try {
           const byteCharacters = atob(item.base64);
@@ -1885,6 +1964,12 @@ Mohon dicek file terlampir.`;
       const payload = { 
         tanggalLama: document.getElementById('kTglLama').value, dapurLama: document.getElementById('kDapurLama').value, barangLama: document.getElementById('kBarangLama').value, tanggalBaru: document.getElementById('kTglBaru').value, dapurBaru: document.getElementById('kDapurBaru').value, barangBaru: document.getElementById('kBarangBaru').value, qtyBaru: document.getElementById('kQty').value, satuanBaru: document.getElementById('kSatuan').value, supplierBaru: document.getElementById('kSupplier').value, ketBaru: document.getElementById('kKet').value, tSppg: document.getElementById('kSppg').value, tKop: document.getElementById('kKop').value, tSup: document.getElementById('kSup').value 
       }; 
+      if (payload.tKop === "" && payload.tSppg !== "") {
+        payload.tKop = Math.round(Number(payload.tSppg) * 0.92).toString();
+      }
+      if (payload.tSup === "" && payload.tSppg !== "") {
+        payload.tSup = Math.round(Number(payload.tSppg) * 0.90).toString();
+      }
       if ((action === 'edit' || action === 'hapus') && (!payload.tanggalLama || !payload.dapurLama || !payload.barangLama)) { showIosAlert("Area TARGET DATA harus diisi lengkap ya."); return; } 
       if (action === 'tambah' && (!payload.tanggalBaru || !payload.dapurBaru || !payload.barangBaru || !payload.supplierBaru)) { showIosAlert("Tanggal, Dapur, Barang, dan Supplier wajib diisi."); return; } 
       if (action === 'hapus') {
@@ -2129,8 +2214,14 @@ Mohon dicek file terlampir.`;
       const qty = document.getElementById('sQty').value.trim() || "1";
       const sat = document.getElementById('sSatuan').value.trim() || "pcs";
       const sppg = cleanRupiah(document.getElementById('sHrgSppg').value);
-      const kop = cleanRupiah(document.getElementById('sHrgKop').value);
-      const sup = cleanRupiah(document.getElementById('sHrgSup').value);
+      let kop = cleanRupiah(document.getElementById('sHrgKop').value);
+      if (kop === "" && sppg !== "") {
+        kop = Math.round(Number(sppg) * 0.92).toString();
+      }
+      let sup = cleanRupiah(document.getElementById('sHrgSup').value);
+      if (sup === "" && sppg !== "") {
+        sup = Math.round(Number(sppg) * 0.90).toString();
+      }
       const supplier = document.getElementById('sSupplier').value.trim();
       const ket = document.getElementById('sKet').value.trim();
 
@@ -2254,7 +2345,13 @@ Mohon dicek file terlampir.`;
         let sat = arrSat[i] || "";
         let sppg = arrSppg[i] ? cleanRupiah(arrSppg[i]) : "";
         let kop = arrKop[i] ? cleanRupiah(arrKop[i]) : "";
+        if (kop === "" && sppg !== "") {
+          kop = Math.round(Number(sppg) * 0.92).toString();
+        }
         let sup = arrSup[i] ? cleanRupiah(arrSup[i]) : "";
+        if (sup === "" && sppg !== "") {
+          sup = Math.round(Number(sppg) * 0.90).toString();
+        }
         let ket = arrKet[i] || "";
 
         window.bulkDataTemp.push({
