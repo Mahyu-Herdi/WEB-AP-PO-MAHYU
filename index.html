@@ -713,7 +713,7 @@
             </div>
 
             <!-- Fields for Nama Menu and Nominal Pagu -->
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px; margin-bottom:18px;">
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px; margin-bottom:14px;">
               <div>
                 <label style="font-size:0.7rem; color:var(--text-muted); font-weight:800; display:block; margin-bottom:4px;">NAMA MENU (OPSIONAL)</label>
                 <input type="text" id="inputNamaMenu" class="form-control" placeholder="Ketik nama menu hari ini...">
@@ -722,6 +722,12 @@
                 <label style="font-size:0.7rem; color:var(--text-muted); font-weight:800; display:block; margin-bottom:4px;">NOMINAL PAGU (OPSIONAL)</label>
                 <input type="text" inputmode="numeric" id="inputNominalPagu" class="form-control" placeholder="Rp 0" oninput="formatInpRupiah(this)">
               </div>
+            </div>
+
+            <!-- Field for Supplier Utama -->
+            <div style="margin-bottom:18px;">
+              <label style="font-size:0.7rem; color:var(--text-muted); font-weight:800; display:block; margin-bottom:4px;">SUPPLIER UTAMA (OPSIONAL)</label>
+              <input type="text" id="inputSupplierUtama" class="form-control" placeholder="Ketik nama supplier utama jika semua item sama..." oninput="updateAllSuppliersFromUtama()">
             </div>
 
             <div style="display:flex; background:var(--bg-card); padding:4px; border-radius:18px; margin-bottom:18px; box-shadow:var(--shadow-tenggelam);">
@@ -2234,7 +2240,11 @@ Mohon dicek file terlampir.`;
       if (sup === "" && sppg !== "") {
         sup = Math.round(Number(sppg) * 0.90).toString();
       }
-      const supplier = document.getElementById('sSupplier').value.trim();
+      let supplier = document.getElementById('sSupplier').value.trim();
+      const supUtama = document.getElementById('inputSupplierUtama') ? document.getElementById('inputSupplierUtama').value.trim() : "";
+      if (!supplier && supUtama) {
+        supplier = supUtama;
+      }
       const ket = document.getElementById('sKet').value.trim();
 
       if(!window.bulkDataTemp) window.bulkDataTemp = [];
@@ -2367,6 +2377,18 @@ Mohon dicek file terlampir.`;
       }
     }
 
+    function updateAllSuppliersFromUtama() {
+      const supUtama = document.getElementById('inputSupplierUtama') ? document.getElementById('inputSupplierUtama').value.trim() : "";
+      if (!window.bulkDataTemp) return;
+      window.bulkDataTemp.forEach(item => {
+        item.supplier = supUtama;
+      });
+      const supInputs = document.querySelectorAll('.bulk-sup-input');
+      supInputs.forEach(input => {
+        input.value = supUtama;
+      });
+    }
+
     function nextBulkStep(targetId) {
       document.querySelectorAll('.bulk-step').forEach(el => el.classList.remove('active-step'));
       document.getElementById(targetId).classList.add('active-step');
@@ -2394,6 +2416,7 @@ Mohon dicek file terlampir.`;
       const arrKet = ambilArrayDariTextarea('bKet');
 
       window.bulkDataTemp = [];
+      const supUtama = document.getElementById('inputSupplierUtama') ? document.getElementById('inputSupplierUtama').value.trim() : "";
 
       for(let i=0; i<arrBarang.length; i++) {
         let barang = arrBarang[i] || "";
@@ -2414,7 +2437,7 @@ Mohon dicek file terlampir.`;
 
         window.bulkDataTemp.push({
           barang: barang, qty: qty, sat: sat, 
-          tSppg: sppg, tKop: kop, tSup: sup, ket: ket, supplier: ""
+          tSppg: sppg, tKop: kop, tSup: sup, ket: ket, supplier: supUtama
         });
       }
 
@@ -2451,6 +2474,8 @@ Mohon dicek file terlampir.`;
           document.querySelectorAll('.bulk-area').forEach(el => el.value = "");
           document.getElementById('inputNamaMenu').value = "";
           document.getElementById('inputNominalPagu').value = "";
+          const supUtamaEl = document.getElementById('inputSupplierUtama');
+          if (supUtamaEl) supUtamaEl.value = "";
           document.getElementById('bulkPreviewArea').style.display = 'none';
           window.bulkDataTemp = [];
           nextBulkStep('stepBarang');
