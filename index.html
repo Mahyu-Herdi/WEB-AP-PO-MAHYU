@@ -442,7 +442,7 @@
       #areaDataLama { grid-column: 1; grid-row: 3; margin-bottom: 20px !important; }
       #listEditBawah { grid-column: 1; grid-row: 4; width: 100%; }
       
-      #areaDataBaru {
+      #areaDataBaru, #areaBulkReplace {
         grid-column: 2;
         grid-row: 2 / span 2;
         background: var(--bg-card);
@@ -839,7 +839,6 @@
 
           <div style="margin-top:40px; margin-bottom: 24px; border-bottom: 2px dashed rgba(255,255,255,0.08);"></div>
           <div class="section-head" style="margin-top:0;"><svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="margin-right:6px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg> 2. KELOLA / EDIT ITEM (SATUAN)</div>
-        </div>
         <select id="kAction" class="form-select" onchange="gantiModeKelola()" style="margin-bottom:24px;">
           <option value="edit">Edit Data / Ganti Tanggal</option>
           <option value="tambah">Tambah Item Baru</option>
@@ -853,24 +852,83 @@
           <input type="text" id="kBarangLama" list="listBarangEdit" class="form-control" placeholder="Nama Barang..." oninput="renderEditWithFilter()">
         </div>
 
-        <div id="areaDataBaru">
-          <div style="font-size:0.8rem; font-weight:900; color:var(--text-muted); margin-bottom:14px;">DETAIL DATA BARU (Kosongkan jika tidak diubah)</div>
-          <input type="date" id="kTglBaru" class="form-control" style="margin-bottom:14px;" readonly>
-          <input type="text" id="kDapurBaru" list="listDapurEdit" class="form-control" placeholder="Dapur..." style="margin-bottom:14px;">
-          <input type="text" id="kBarangBaru" list="listBarangEdit" class="form-control" placeholder="Nama Barang..." style="margin-bottom:14px;">
-          
-          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px; margin-bottom:14px;">
-            <input type="text" inputmode="decimal" id="kQty" class="form-control" placeholder="Qty Baru">
-            <input type="text" id="kSatuan" class="form-control" placeholder="Sat Baru">
+        <div id="areaBulkReplace" style="display:none;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+            <div style="font-size:0.85rem; font-weight:900; color:var(--c-sppg); display:flex; align-items:center; gap:8px;">
+              <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+              3. GANTI SEMUA ITEM MASAL (BULK REPLACE)
+            </div>
+            <button type="button" onclick="toggleBulkReplaceForm()" style="background:rgba(255,255,255,0.05); color:var(--text-muted); border:1px solid rgba(255,255,255,0.1); padding:6px 12px; border-radius:12px; cursor:pointer; font-size:0.75rem; font-weight:800; display:flex; align-items:center; gap:4px; outline:none; transition:all 0.15s ease;">
+              <span id="textToggleBulkReplace">Tampilkan</span>
+              <svg id="iconToggleBulkReplace" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="transition:transform 0.3s ease; transform:rotate(0deg);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+            </button>
           </div>
-
-          <input type="text" id="kSupplier" list="listSupplierGlobal" class="form-control" placeholder="Nama Supplier Baru..." style="margin-bottom:14px;">
-          <input type="text" id="kKet" class="form-control" placeholder="Keterangan Baru" style="margin-bottom:24px;">
           
-          <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:14px;">
-            <div><label style="font-size:0.65rem; font-weight:900; color:var(--text-muted);">Harga SPPG</label><input type="number" id="kSppg" class="form-control" placeholder="0" oninput="hitungDefaultKopSupEdit()"></div>
-            <div><label style="font-size:0.65rem; font-weight:900; color:var(--text-muted);">Harga KOP</label><input type="number" id="kKop" class="form-control" placeholder="0"></div>
-            <div><label style="font-size:0.65rem; font-weight:900; color:var(--text-muted);">Harga SUP</label><input type="number" id="kSup" class="form-control" placeholder="0"></div>
+          <div id="bulkReplaceFormWrapper" style="display:none;">
+            <div style="font-size:0.75rem; color:var(--text-muted); font-weight:800; margin-bottom:18px; line-height:1.4;">
+              Edit / Paste seluruh item sekaligus untuk tanggal &amp; dapur ini dalam bentuk tabel interaktif.
+            </div>
+
+            <!-- Input Nama Menu & Pagu Harian -->
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:14px;">
+              <div>
+                <label style="font-size:0.65rem; color:var(--text-muted); font-weight:800; display:block; margin-bottom:4px;">NAMA MENU</label>
+                <input type="text" id="bMenuReplace" class="form-control" placeholder="Memuat atau ketik menu..." style="font-weight:800;">
+              </div>
+              <div>
+                <label style="font-size:0.65rem; color:var(--text-muted); font-weight:800; display:block; margin-bottom:4px;">NOMINAL PAGU</label>
+                <input type="text" inputmode="numeric" id="bPaguReplace" class="form-control" placeholder="Rp 0" oninput="formatInpRupiah(this)" style="font-weight:800; color:var(--c-kop);">
+              </div>
+            </div>
+
+            <!-- Paste Box Area -->
+            <div style="background: rgba(255,255,255,0.02); border: 2px dashed rgba(255,255,255,0.1); border-radius: 14px; padding: 12px; margin-bottom: 18px;">
+              <label style="font-size:0.68rem; color:var(--c-sppg); font-weight:900; display:block; margin-bottom:4px;">PASTE DATA DARI EXCEL / GOOGLE SHEETS DI SINI</label>
+              <textarea id="bUnifiedPasteArea" class="form-control" rows="2" placeholder="Paste baris Excel di sini (Kolom: Barang, Qty, Sat, SPPG, [KOP], [SUP], [Supplier], [Ket])..." oninput="parseUnifiedPaste(this.value)" style="font-size:0.75rem; font-family:monospace; line-height:1.3; background:rgba(0,0,0,0.1);"></textarea>
+              <div style="font-size:0.62rem; color:var(--text-muted); margin-top:4px;">
+                * Cukup copy range tabel dari Excel/Sheets lalu paste ke kotak di atas. Kolom akan terbagi otomatis!
+              </div>
+            </div>
+
+            <!-- Table Editor Area -->
+            <div style="font-size:0.75rem; font-weight:900; color:var(--text-muted); display:flex; justify-content:space-between; align-items:center; margin-bottom: 8px;">
+              <span>DAFTAR BARANG DALAM PO (EDITABLE TABLE)</span>
+              <div style="display:flex; gap:6px;">
+                <button type="button" onclick="tambahBarisBulkReplace()" style="background:rgba(16,185,129,0.15); color:#10B981; border:1px solid rgba(16,185,129,0.2); padding:4px 10px; border-radius:8px; font-size:0.68rem; font-weight:800; cursor:pointer;">+ Tambah Baris</button>
+                <button type="button" onclick="bersihkanBulkReplace()" style="background:rgba(239,68,68,0.15); color:#EF4444; border:1px solid rgba(239,68,68,0.2); padding:4px 10px; border-radius:8px; font-size:0.68rem; font-weight:800; cursor:pointer;">Bersihkan</button>
+              </div>
+            </div>
+
+            <div class="table-responsive" style="overflow-x: auto; max-width: 100%; border-radius: 14px; background: rgba(0,0,0,0.18); box-shadow: var(--shadow-tenggelam); border: 1px solid rgba(255,255,255,0.05); margin-bottom:18px;">
+              <table style="width: 100%; border-collapse: collapse; font-size: 0.72rem; min-width: 850px;">
+                <thead>
+                  <tr style="background: rgba(255,255,255,0.04); border-bottom: 1.5px solid rgba(255,255,255,0.08); color: var(--text-muted); font-weight: 900; text-align: left;">
+                    <th style="padding: 10px 8px; text-align: center; width: 40px;">No</th>
+                    <th style="padding: 10px 8px; width: 180px;">Nama Barang *</th>
+                    <th style="padding: 10px 8px; text-align: center; width: 70px;">Qty *</th>
+                    <th style="padding: 10px 8px; width: 70px;">Satuan *</th>
+                    <th style="padding: 10px 8px; text-align: right; width: 100px; color:var(--c-sppg);">Hrg SPPG *</th>
+                    <th style="padding: 10px 8px; text-align: right; width: 100px; color:var(--c-kop);">Hrg KOP</th>
+                    <th style="padding: 10px 8px; text-align: right; width: 100px; color:var(--c-sup);">Hrg SUP</th>
+                    <th style="padding: 10px 8px; width: 130px;">Supplier *</th>
+                    <th style="padding: 10px 8px; width: 110px;">Ket</th>
+                    <th style="padding: 10px 8px; text-align: center; width: 50px;">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="bulkTableBody">
+                  <!-- Dynamically populated rows -->
+                </tbody>
+                <tfoot style="background: rgba(255,255,255,0.02); border-top: 1.5px solid rgba(255,255,255,0.08); font-weight: 900; color: var(--text-primary);" id="bulkTableFooter">
+                  <!-- Totals -->
+                </tfoot>
+              </table>
+            </div>
+
+            <!-- Button Ganti Semua -->
+            <button onclick="eksekusiGantiSemuaBulk()" class="btn-go" style="margin-top:18px; background:#EF4444; color:white; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow: 0px 4px 10px rgba(239, 68, 68, 0.4);">
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+              GANTI SEMUA ITEM SEKARANG
+            </button>
           </div>
         </div>
 
@@ -1996,20 +2054,34 @@ Mohon dicek file terlampir.`;
       const act = document.getElementById('kAction').value;
       const aLama = document.getElementById('areaDataLama');
       const aBaru = document.getElementById('areaDataBaru');
+      const aBulkReplace = document.getElementById('areaBulkReplace');
       const btnSimpan = document.getElementById('btnSimpanKelola');
       
       if (act === 'tambah') {
         if (aLama) aLama.style.display = 'none';
         if (aBaru) aBaru.style.display = 'block';
+        if (aBulkReplace) aBulkReplace.style.display = 'none';
         if (btnSimpan) btnSimpan.style.display = 'block';
         const listEdit = document.getElementById('listEditBawah');
         if (listEdit) {
           listEdit.style.gridColumn = '1';
           listEdit.style.display = 'block';
         }
-      } else { // 'edit' or 'hapus'
+      } else if (act === 'edit') {
         if (aLama) aLama.style.display = 'block';
         if (aBaru) aBaru.style.display = 'none';
+        if (aBulkReplace) aBulkReplace.style.display = 'block';
+        if (btnSimpan) btnSimpan.style.display = 'none';
+        
+        const listEdit = document.getElementById('listEditBawah');
+        if (listEdit) {
+          listEdit.style.gridColumn = '1';
+          listEdit.style.display = 'block';
+        }
+      } else { // 'hapus'
+        if (aLama) aLama.style.display = 'block';
+        if (aBaru) aBaru.style.display = 'none';
+        if (aBulkReplace) aBulkReplace.style.display = 'none';
         if (btnSimpan) btnSimpan.style.display = 'none';
         
         const listEdit = document.getElementById('listEditBawah');
@@ -2244,14 +2316,57 @@ Mohon dicek file terlampir.`;
       const dpr = document.getElementById('kDapurLama').value;
       if (!tgl || !dpr) return;
       document.getElementById('listEditBawah').innerHTML = `<div class="loading-wrap"><div class="spinner-glass"></div>Memuat daftar item...</div>`;
+      
+      const areaBulk = document.getElementById('areaBulkReplace');
+      if (areaBulk) areaBulk.style.display = 'block';
+
       apiCall('getDataCepat', { dapur: dpr, tgl: tgl }).then(function(res) {
         if (!res.items || !res.items.length) {
           window.rawEditItems = [];
           document.getElementById('listEditBawah').innerHTML = '<div class="empty-state">Belum ada data untuk dapur dan tanggal ini.</div>';
+          
+          window.bulkTableItems = [];
+          const menuEl = document.getElementById('bMenuReplace');
+          const paguEl = document.getElementById('bPaguReplace');
+          if (menuEl) menuEl.value = "";
+          if (paguEl) paguEl.value = "";
+          if (typeof renderBulkTable === 'function') renderBulkTable();
           return;
         }
         window.rawEditItems = res.items || [];
         renderEditWithFilter();
+
+        window.bulkTableItems = (res.items || []).map(it => {
+          let qty = parseFloat(it.qty) || 0;
+          let uSppg = qty > 0 ? Math.round(it.tSppg / qty) : 0;
+          let uKop  = qty > 0 ? Math.round(it.tKop / qty) : 0;
+          let uSup  = qty > 0 ? Math.round(it.tSup / qty) : 0;
+          return {
+            barang: it.barang || "",
+            qty: String(it.qty),
+            sat: it.sat || "",
+            unitSppg: uSppg || "",
+            unitKop: uKop || "",
+            unitSup: uSup || "",
+            supplier: it.supplier || "",
+            ket: it.ket || ""
+          };
+        });
+
+        const menuEl = document.getElementById('bMenuReplace');
+        const paguEl = document.getElementById('bPaguReplace');
+        if (res.grand) {
+          if (menuEl) menuEl.value = res.grand.menu === "-" ? "" : res.grand.menu;
+          if (paguEl) {
+            paguEl.value = res.grand.pagu ? res.grand.pagu : "";
+            formatInpRupiah(paguEl);
+          }
+        } else {
+          if (menuEl) menuEl.value = "";
+          if (paguEl) paguEl.value = "";
+        }
+
+        if (typeof renderBulkTable === 'function') renderBulkTable();
       });
     }
 
@@ -2848,6 +2963,348 @@ Mohon dicek file terlampir.`;
         if (btnText) btnText.textContent = 'Tampilkan';
         if (icon) icon.style.transform = 'rotate(0deg)';
       }
+    }
+
+    function toggleBulkReplaceForm() {
+      const wrapper = document.getElementById('bulkReplaceFormWrapper');
+      const btnText = document.getElementById('textToggleBulkReplace');
+      const icon = document.getElementById('iconToggleBulkReplace');
+      if (!wrapper) return;
+      if (wrapper.style.display === 'none') {
+        wrapper.style.display = 'block';
+        if (btnText) btnText.textContent = 'Sembunyikan';
+        if (icon) icon.style.transform = 'rotate(180deg)';
+      } else {
+        wrapper.style.display = 'none';
+        if (btnText) btnText.textContent = 'Tampilkan';
+        if (icon) icon.style.transform = 'rotate(0deg)';
+      }
+    }
+
+    window.bulkTableItems = [];
+
+    function renderBulkTable() {
+      const tbody = document.getElementById('bulkTableBody');
+      const tfoot = document.getElementById('bulkTableFooter');
+      if (!tbody) return;
+
+      if (window.bulkTableItems.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="10" style="padding: 24px; text-align: center; color: var(--text-muted); font-style: italic;">
+              Belum ada item. Silakan load data dapur &amp; tanggal, ketik manual, atau paste data Excel di atas.
+            </td>
+          </tr>
+        `;
+        tfoot.innerHTML = '';
+        return;
+      }
+
+      let html = "";
+      let totalSppg = 0;
+      let totalKop = 0;
+      let totalSup = 0;
+
+      window.bulkTableItems.forEach((item, idx) => {
+        let qty = parseFloat(String(item.qty).replace(/,/g, '.')) || 0;
+        let sppg = parseFloat(String(item.unitSppg).replace(/[^0-9.]/g, '')) || 0;
+        let kop = parseFloat(String(item.unitKop).replace(/[^0-9.]/g, '')) || 0;
+        let sup = parseFloat(String(item.unitSup).replace(/[^0-9.]/g, '')) || 0;
+
+        totalSppg += sppg * qty;
+        totalKop += kop * qty;
+        totalSup += sup * qty;
+
+        html += `
+          <tr style="border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.15s ease;" class="hover:bg-[rgba(255,255,255,0.02)]">
+            <td style="padding: 6px 8px; text-align: center; color: var(--text-muted); font-weight: 800;">${idx + 1}</td>
+            <td style="padding: 4px 6px;">
+              <input type="text" value="${escapeHtml(item.barang)}" oninput="updateBulkItemField(${idx}, 'barang', this.value)" class="form-control" style="font-size: 0.75rem; padding: 4px 8px; height: 30px; font-weight: 800; border-radius: 6px;" list="listBarangEdit">
+            </td>
+            <td style="padding: 4px 6px;">
+              <input type="text" value="${String(item.qty).replace('.', ',')}" oninput="updateBulkItemField(${idx}, 'qty', this.value)" class="form-control" style="font-size: 0.75rem; padding: 4px 8px; height: 30px; text-align: center; font-weight: 800; color: var(--c-margin-text); border-radius: 6px;">
+            </td>
+            <td style="padding: 4px 6px;">
+              <input type="text" value="${escapeHtml(item.sat)}" oninput="updateBulkItemField(${idx}, 'sat', this.value)" class="form-control" style="font-size: 0.75rem; padding: 4px 8px; height: 30px; text-align: center; color: var(--text-muted); border-radius: 6px;">
+            </td>
+            <td style="padding: 4px 6px;">
+              <input type="text" value="${sppg ? Math.round(sppg) : ''}" oninput="updateBulkItemPriceField(${idx}, 'unitSppg', this.value)" class="form-control" style="font-size: 0.75rem; padding: 4px 8px; height: 30px; text-align: right; font-weight: 800; color: var(--c-sppg); border-radius: 6px;" placeholder="0">
+            </td>
+            <td style="padding: 4px 6px;">
+              <input type="text" value="${kop ? Math.round(kop) : ''}" oninput="updateBulkItemField(${idx}, 'unitKop', this.value)" class="form-control" style="font-size: 0.75rem; padding: 4px 8px; height: 30px; text-align: right; font-weight: 800; color: var(--c-kop); border-radius: 6px;" placeholder="92%">
+            </td>
+            <td style="padding: 4px 6px;">
+              <input type="text" value="${sup ? Math.round(sup) : ''}" oninput="updateBulkItemField(${idx}, 'unitSup', this.value)" class="form-control" style="font-size: 0.75rem; padding: 4px 8px; height: 30px; text-align: right; font-weight: 800; color: var(--c-sup); border-radius: 6px;" placeholder="90%">
+            </td>
+            <td style="padding: 4px 6px;">
+              <input type="text" value="${escapeHtml(item.supplier)}" oninput="updateBulkItemField(${idx}, 'supplier', this.value)" class="form-control" style="font-size: 0.75rem; padding: 4px 8px; height: 30px; font-weight: 800; border-radius: 6px;" list="listSupplierGlobal" placeholder="Pilih Supplier...">
+            </td>
+            <td style="padding: 4px 6px;">
+              <input type="text" value="${escapeHtml(item.ket)}" oninput="updateBulkItemField(${idx}, 'ket', this.value)" class="form-control" style="font-size: 0.75rem; padding: 4px 8px; height: 30px; border-radius: 6px;" placeholder="...">
+            </td>
+            <td style="padding: 4px 6px; text-align: center;">
+              <button type="button" onclick="hapusBarisBulkReplace(${idx})" style="background: rgba(239,68,68,0.15); color: #EF4444; border: none; width: 28px; height: 28px; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; outline: none;">
+                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+              </button>
+            </td>
+          </tr>
+        `;
+      });
+
+      tbody.innerHTML = html;
+
+      tfoot.innerHTML = `
+        <tr style="background: rgba(255,255,255,0.04);">
+          <td colspan="4" style="padding: 10px; text-align: right; font-weight: 900; color: var(--text-muted);">TOTAL HARGA (QTY × UNIT):</td>
+          <td style="padding: 10px; text-align: right; color: var(--c-sppg); font-weight: 900;">Rp ${Math.round(totalSppg).toLocaleString('id-ID')}</td>
+          <td style="padding: 10px; text-align: right; color: var(--c-kop); font-weight: 900;">Rp ${Math.round(totalKop).toLocaleString('id-ID')}</td>
+          <td style="padding: 10px; text-align: right; color: var(--c-sup); font-weight: 900;">Rp ${Math.round(totalSup).toLocaleString('id-ID')}</td>
+          <td colspan="3"></td>
+        </tr>
+      `;
+    }
+
+    function updateBulkItemField(idx, field, val) {
+      if (!window.bulkTableItems[idx]) return;
+      window.bulkTableItems[idx][field] = val;
+      renderBulkTableTotalsOnly();
+    }
+
+    function updateBulkItemPriceField(idx, field, val) {
+      if (!window.bulkTableItems[idx]) return;
+      window.bulkTableItems[idx][field] = val;
+
+      let cleanVal = parseFloat(val.replace(/[^0-9.]/g, '')) || 0;
+      if (cleanVal > 0) {
+        const rowEl = document.querySelectorAll('#bulkTableBody tr')[idx];
+        if (rowEl) {
+          const inputs = rowEl.querySelectorAll('input');
+          const kopInput = inputs[4]; // 0: barang, 1: qty, 2: sat, 3: sppg, 4: kop, 5: sup
+          const supInput = inputs[5];
+
+          let autoKop = Math.round(cleanVal * 0.92);
+          let autoSup = Math.round(cleanVal * 0.90);
+
+          window.bulkTableItems[idx].unitKop = autoKop;
+          if (kopInput) kopInput.value = autoKop;
+
+          window.bulkTableItems[idx].unitSup = autoSup;
+          if (supInput) supInput.value = autoSup;
+        }
+      } else {
+        const rowEl = document.querySelectorAll('#bulkTableBody tr')[idx];
+        if (rowEl) {
+          const inputs = rowEl.querySelectorAll('input');
+          const kopInput = inputs[4];
+          const supInput = inputs[5];
+
+          window.bulkTableItems[idx].unitKop = "";
+          if (kopInput) kopInput.value = "";
+
+          window.bulkTableItems[idx].unitSup = "";
+          if (supInput) supInput.value = "";
+        }
+      }
+      renderBulkTableTotalsOnly();
+    }
+
+    function renderBulkTableTotalsOnly() {
+      const tfoot = document.getElementById('bulkTableFooter');
+      if (!tfoot) return;
+
+      let totalSppg = 0;
+      let totalKop = 0;
+      let totalSup = 0;
+
+      window.bulkTableItems.forEach(item => {
+        let qty = parseFloat(String(item.qty).replace(/,/g, '.')) || 0;
+        let sppg = parseFloat(String(item.unitSppg).replace(/[^0-9.]/g, '')) || 0;
+        let kop = parseFloat(String(item.unitKop).replace(/[^0-9.]/g, '')) || 0;
+        let sup = parseFloat(String(item.unitSup).replace(/[^0-9.]/g, '')) || 0;
+
+        totalSppg += sppg * qty;
+        totalKop += kop * qty;
+        totalSup += sup * qty;
+      });
+
+      tfoot.innerHTML = `
+        <tr style="background: rgba(255,255,255,0.04);">
+          <td colspan="4" style="padding: 10px; text-align: right; font-weight: 900; color: var(--text-muted);">TOTAL HARGA (QTY × UNIT):</td>
+          <td style="padding: 10px; text-align: right; color: var(--c-sppg); font-weight: 900;">Rp ${Math.round(totalSppg).toLocaleString('id-ID')}</td>
+          <td style="padding: 10px; text-align: right; color: var(--c-kop); font-weight: 900;">Rp ${Math.round(totalKop).toLocaleString('id-ID')}</td>
+          <td style="padding: 10px; text-align: right; color: var(--c-sup); font-weight: 900;">Rp ${Math.round(totalSup).toLocaleString('id-ID')}</td>
+          <td colspan="3"></td>
+        </tr>
+      `;
+    }
+
+    function tambahBarisBulkReplace() {
+      window.bulkTableItems.push({
+        barang: "",
+        qty: "1",
+        sat: "pcs",
+        unitSppg: "",
+        unitKop: "",
+        unitSup: "",
+        supplier: "",
+        ket: ""
+      });
+      renderBulkTable();
+    }
+
+    function hapusBarisBulkReplace(idx) {
+      window.bulkTableItems.splice(idx, 1);
+      renderBulkTable();
+    }
+
+    function bersihkanBulkReplace() {
+      window.bulkTableItems = [];
+      const pasteArea = document.getElementById('bUnifiedPasteArea');
+      if (pasteArea) pasteArea.value = '';
+      renderBulkTable();
+    }
+
+    function parseUnifiedPaste(text) {
+      if (!text || text.trim() === "") return;
+      const lines = text.split('\n');
+      
+      let parsedItems = [];
+      lines.forEach(line => {
+        if (line.trim() === "") return;
+        
+        let parts = line.split('\t');
+        if (parts.length < 2) parts = line.split(';');
+        if (parts.length < 2) parts = line.split(',');
+
+        if (parts.length > 0) {
+          let barang = parts[0] ? parts[0].trim() : "";
+          if (barang === "") return;
+
+          let qtyStr = parts[1] ? parts[1].trim() : "1";
+          let sat = parts[2] ? parts[2].trim() : "pcs";
+          
+          let sppgStr = parts[3] ? parts[3].trim().replace(/[^0-9]/g, '') : "";
+          let kopStr = parts[4] ? parts[4].trim().replace(/[^0-9]/g, '') : "";
+          let supStr = parts[5] ? parts[5].trim().replace(/[^0-9]/g, '') : "";
+          let supplier = parts[6] ? parts[6].trim() : "";
+          let ket = parts[7] ? parts[7].trim() : "";
+
+          let sppgNum = parseFloat(sppgStr) || 0;
+          let kopNum = parseFloat(kopStr) || 0;
+          let supNum = parseFloat(supStr) || 0;
+
+          if (sppgNum > 0) {
+            if (kopNum === 0) kopNum = Math.round(sppgNum * 0.92);
+            if (supNum === 0) supNum = Math.round(sppgNum * 0.90);
+          }
+
+          parsedItems.push({
+            barang: barang,
+            qty: qtyStr,
+            sat: sat,
+            unitSppg: sppgNum || "",
+            unitKop: kopNum || "",
+            unitSup: supNum || "",
+            supplier: supplier,
+            ket: ket
+          });
+        }
+      });
+
+      if (parsedItems.length > 0) {
+        window.bulkTableItems = parsedItems;
+        renderBulkTable();
+      }
+    }
+
+    async function eksekusiGantiSemuaBulk() {
+      const tgl = document.getElementById('kTglLama').value;
+      const dpr = document.getElementById('kDapurLama').value;
+      if (!tgl || !dpr) return showIosAlert("Pilih Dapur & Tanggal target dulu ya Yu!");
+
+      if (window.bulkTableItems.length === 0) {
+        return showIosAlert("Waduh, tidak ada item di tabel bulk replace! Silakan masukkan data dulu.");
+      }
+
+      let adaYangKosong = false;
+      let namaKosong = false;
+      const payloadItems = [];
+
+      window.bulkTableItems.forEach((item, idx) => {
+        let barang = item.barang.trim();
+        let qtyStr = String(item.qty).trim().replace(/,/g, '.');
+        let qtyVal = parseFloat(qtyStr) || 0;
+        let sat = item.sat.trim();
+        let supplier = item.supplier.trim();
+        let ket = item.ket.trim();
+
+        if (barang === "") {
+          namaKosong = true;
+        }
+        if (qtyVal <= 0 || sat === "" || supplier === "") {
+          adaYangKosong = true;
+        }
+
+        let sppgVal = parseFloat(String(item.unitSppg).replace(/[^0-9.]/g, '')) || 0;
+        let kopVal = parseFloat(String(item.unitKop).replace(/[^0-9.]/g, '')) || 0;
+        let supVal = parseFloat(String(item.unitSup).replace(/[^0-9.]/g, '')) || 0;
+
+        if (kopVal === 0 && sppgVal > 0) kopVal = Math.round(sppgVal * 0.92);
+        if (supVal === 0 && sppgVal > 0) supVal = Math.round(sppgVal * 0.90);
+
+        payloadItems.push({
+          barang: barang,
+          qty: qtyVal,
+          sat: sat,
+          tSppg: sppgVal * qtyVal,
+          tKop: kopVal * qtyVal,
+          tSup: supVal * qtyVal,
+          ket: ket,
+          supplier: supplier
+        });
+      });
+
+      if (namaKosong) {
+        return showIosAlert("Waduh, ada Nama Barang yang kosong di tabel! Silakan diisi dulu.");
+      }
+      if (adaYangKosong) {
+        return showIosAlert("Eits, Qty, Satuan, dan Supplier wajib diisi lengkap untuk semua baris!");
+      }
+
+      const menuVal = document.getElementById('bMenuReplace').value.trim();
+      const paguRaw = document.getElementById('bPaguReplace').value.trim();
+      const paguNum = parseFloat(paguRaw.replace(/[^0-9]/g, '')) || 0;
+
+      const setuju = await showIosConfirm(
+        `Apakah Anda yakin ingin <b>MENGGANTI SELURUH ITEM PO</b> pada dapur <b>${dpr}</b> di tanggal <b>${tgl}</b> dengan data baru ini?<br><br><span style="color:#EF4444; font-weight:900;">⚠️ PERHATIAN: Semua item PO lama pada hari ini akan DIHAPUS TOTAL dan diganti dengan data baru!</span>`,
+        "KONFIRMASI REPLACE MASAL",
+        "Ya, Ganti Semua!",
+        "Batal"
+      );
+      if (!setuju) return;
+
+      const payload = {
+        tanggal: tgl,
+        dapur: dpr,
+        items: payloadItems,
+        namaMenu: menuVal,
+        nominalPagu: paguNum
+      };
+
+      showLoading("Sedang mengganti massal...<br>Bentar ya Yu!");
+      apiCall('gantiSemuaItemPO', { data: payload }).then(function(res) {
+        hideLoading();
+        showIosAlert(res.msg);
+        if (res.status === 'success') {
+          const pasteArea = document.getElementById('bUnifiedPasteArea');
+          if (pasteArea) pasteArea.value = '';
+          loadDaftarEdit();
+          if (typeof loadDaftarHarian === 'function') loadDaftarHarian();
+        }
+      }).catch(err => {
+        hideLoading();
+        showIosAlert("Gagal mengganti item: " + err.message);
+      });
     }
   </script>
 </body>
