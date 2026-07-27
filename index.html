@@ -881,6 +881,12 @@
               </div>
             </div>
 
+            <!-- Tombol Simpan Menu & Pagu Saja -->
+            <button type="button" onclick="simpanMenuPaguSaja()" class="btn-go" style="margin-bottom:18px; padding:10px 14px; font-size:0.75rem; background:rgba(96,165,250,0.15); color:#60A5FA; border:1px solid rgba(96,165,250,0.2); display:flex; align-items:center; justify-content:center; gap:6px; box-shadow:var(--shadow-tenggelam);">
+              <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
+              SIMPAN MENU & PAGU SAJA
+            </button>
+
             <!-- Paste Box Area -->
             <div style="background: rgba(255,255,255,0.02); border: 2px dashed rgba(255,255,255,0.1); border-radius: 14px; padding: 12px; margin-bottom: 18px;">
               <label style="font-size:0.68rem; color:var(--c-sppg); font-weight:900; display:block; margin-bottom:4px;">PASTE DATA DARI EXCEL / GOOGLE SHEETS DI SINI</label>
@@ -2343,6 +2349,7 @@ Mohon dicek file terlampir.`;
           let uSup  = qty > 0 ? Math.round(it.tSup / qty) : 0;
           return {
             barang: it.barang || "",
+            barangOriginal: it.barang || "",
             qty: String(it.qty),
             sat: it.sat || "",
             unitSppg: uSppg || "",
@@ -3042,10 +3049,15 @@ Mohon dicek file terlampir.`;
             <td style="padding: 4px 6px;">
               <input type="text" value="${escapeHtml(item.ket)}" oninput="updateBulkItemField(${idx}, 'ket', this.value)" class="form-control" style="font-size: 0.75rem; padding: 4px 8px; height: 30px; border-radius: 6px;" placeholder="...">
             </td>
-            <td style="padding: 4px 6px; text-align: center;">
-              <button type="button" onclick="hapusBarisBulkReplace(${idx})" style="background: rgba(239,68,68,0.15); color: #EF4444; border: none; width: 28px; height: 28px; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; outline: none;">
-                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-              </button>
+            <td style="padding: 4px 6px; text-align: center; white-space: nowrap;">
+              <div style="display: flex; gap: 4px; justify-content: center;">
+                <button type="button" onclick="simpanBarisBulkReplace(${idx})" style="background: rgba(16,185,129,0.15); color: #10B981; border: none; width: 28px; height: 28px; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; outline: none;" title="Simpan Baris Ini Saja">
+                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                </button>
+                <button type="button" onclick="hapusBarisBulkReplace(${idx})" style="background: rgba(239,68,68,0.15); color: #EF4444; border: none; width: 28px; height: 28px; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; outline: none;" title="Hapus Baris Ini">
+                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                </button>
+              </div>
             </td>
           </tr>
         `;
@@ -3152,9 +3164,133 @@ Mohon dicek file terlampir.`;
       renderBulkTable();
     }
 
-    function hapusBarisBulkReplace(idx) {
-      window.bulkTableItems.splice(idx, 1);
-      renderBulkTable();
+    async function simpanBarisBulkReplace(idx) {
+      const item = window.bulkTableItems[idx];
+      if (!item) return;
+
+      const tglLama = document.getElementById('kTglLama').value;
+      const dapurLama = document.getElementById('kDapurLama').value;
+      if (!tglLama || !dapurLama) return showIosAlert("Pilih Dapur & Tanggal target dulu ya Yu!");
+
+      const barang = item.barang.trim();
+      const qtyStr = String(item.qty).trim().replace(/,/g, '.');
+      const qtyVal = parseFloat(qtyStr) || 0;
+      const sat = item.sat.trim();
+      const supplier = item.supplier.trim();
+      const ket = item.ket.trim();
+
+      if (barang === "") return showIosAlert("Nama Barang wajib diisi!");
+      if (qtyVal <= 0) return showIosAlert("Qty wajib lebih besar dari 0!");
+      if (sat === "") return showIosAlert("Satuan wajib diisi!");
+      if (supplier === "") return showIosAlert("Supplier wajib diisi!");
+
+      let sppgVal = parseFloat(String(item.unitSppg).replace(/[^0-9.]/g, '')) || 0;
+      let kopVal = parseFloat(String(item.unitKop).replace(/[^0-9.]/g, '')) || 0;
+      let supVal = parseFloat(String(item.unitSup).replace(/[^0-9.]/g, '')) || 0;
+
+      if (kopVal === 0 && sppgVal > 0) kopVal = Math.round(sppgVal * 0.92);
+      if (supVal === 0 && sppgVal > 0) supVal = Math.round(sppgVal * 0.90);
+
+      const tSppg = Math.round(sppgVal * qtyVal);
+      const tKop = Math.round(kopVal * qtyVal);
+      const tSup = Math.round(supVal * qtyVal);
+
+      showLoading("Menyimpan perubahan item...<br>Bentar ya Yu!");
+
+      const isEdit = !!item.barangOriginal;
+      const actionType = isEdit ? 'edit' : 'tambah';
+      const payload = {
+        tanggalLama: tglLama,
+        dapurLama: dapurLama,
+        barangLama: item.barangOriginal || "",
+        tanggalBaru: tglLama,
+        dapurBaru: dapurLama,
+        barangBaru: barang,
+        qtyBaru: qtyVal,
+        satuanBaru: sat,
+        supplierBaru: supplier,
+        ketBaru: ket,
+        tSppg: tSppg,
+        tKop: tKop,
+        tSup: tSup
+      };
+
+      apiCall('kelolaDataPesanan', { actionType: actionType, data: payload }).then(function(res) {
+        hideLoading();
+        showIosAlert(res.msg);
+        if (res.status === 'success') {
+          loadDaftarEdit();
+          if (typeof loadDaftarHarian === 'function') loadDaftarHarian();
+        }
+      }).catch(err => {
+        hideLoading();
+        showIosAlert("Gagal menyimpan item: " + err.message);
+      });
+    }
+
+    async function hapusBarisBulkReplace(idx) {
+      const item = window.bulkTableItems[idx];
+      if (item && item.barangOriginal) {
+        const setuju = await showIosConfirm(
+          `Apakah kamu yakin ingin menghapus item <b>${item.barangOriginal}</b> dari database?`,
+          "HAPUS ITEM DARI DATABASE",
+          "Ya, Hapus!",
+          "Batal"
+        );
+        if (!setuju) return;
+        
+        const tglLama = document.getElementById('kTglLama').value;
+        const dapurLama = document.getElementById('kDapurLama').value;
+        const payload = {
+          tanggalLama: tglLama,
+          dapurLama: dapurLama,
+          barangLama: item.barangOriginal
+        };
+        
+        showLoading("Menghapus item...<br>Sabar ya Yu!");
+        apiCall('kelolaDataPesanan', { actionType: 'hapus', data: payload }).then(function(res) {
+          hideLoading();
+          showIosAlert(res.msg);
+          if (res.status === 'success') {
+            loadDaftarEdit();
+            if (typeof loadDaftarHarian === 'function') loadDaftarHarian();
+          }
+        }).catch(err => {
+          hideLoading();
+          showIosAlert("Gagal menghapus: " + err.message);
+        });
+      } else {
+        window.bulkTableItems.splice(idx, 1);
+        renderBulkTable();
+      }
+    }
+
+    async function simpanMenuPaguSaja() {
+      const tgl = document.getElementById('kTglLama').value;
+      const dpr = document.getElementById('kDapurLama').value;
+      if (!tgl || !dpr) return showIosAlert("Pilih Dapur & Tanggal target dulu ya Yu!");
+
+      const menuVal = document.getElementById('bMenuReplace').value.trim();
+      const paguRaw = document.getElementById('bPaguReplace').value.trim();
+      const paguNum = parseFloat(paguRaw.replace(/[^0-9]/g, '')) || 0;
+
+      showLoading("Menyimpan Menu & Pagu...<br>Bentar ya Yu!");
+      apiCall('simpanPaguMenuSaja', {
+        dapur: dpr,
+        tanggal: tgl,
+        namaMenu: menuVal,
+        nominalPagu: paguNum
+      }).then(function(res) {
+        hideLoading();
+        showIosAlert(res.msg);
+        if (res.status === 'success') {
+          loadDaftarEdit();
+          if (typeof loadDaftarHarian === 'function') loadDaftarHarian();
+        }
+      }).catch(err => {
+        hideLoading();
+        showIosAlert("Gagal menyimpan Menu & Pagu: " + err.message);
+      });
     }
 
     function bersihkanBulkReplace() {
