@@ -1992,7 +1992,158 @@ Mohon dicek file terlampir.`;
       });
     }
 
-    function gantiModeKelola() { const act = document.getElementById('kAction').value; const aLama = document.getElementById('areaDataLama'); const aBaru = document.getElementById('areaDataBaru'); if (act === 'hapus') { aLama.style.display = 'block'; aBaru.style.display = 'none'; } else if (act === 'tambah') { aLama.style.display = 'none'; aBaru.style.display = 'block'; } else { aLama.style.display = 'block'; aBaru.style.display = 'block'; } }
+    function gantiModeKelola() {
+      const act = document.getElementById('kAction').value;
+      const aLama = document.getElementById('areaDataLama');
+      const aBaru = document.getElementById('areaDataBaru');
+      const btnSimpan = document.getElementById('btnSimpanKelola');
+      
+      if (act === 'tambah') {
+        if (aLama) aLama.style.display = 'none';
+        if (aBaru) aBaru.style.display = 'block';
+        if (btnSimpan) btnSimpan.style.display = 'block';
+        const listEdit = document.getElementById('listEditBawah');
+        if (listEdit) {
+          listEdit.style.gridColumn = '1';
+          listEdit.style.display = 'block';
+        }
+      } else { // 'edit' or 'hapus'
+        if (aLama) aLama.style.display = 'block';
+        if (aBaru) aBaru.style.display = 'none';
+        if (btnSimpan) btnSimpan.style.display = 'none';
+        
+        const listEdit = document.getElementById('listEditBawah');
+        if (listEdit) {
+          if (window.innerWidth >= 1024) {
+            listEdit.style.gridColumn = '1 / -1';
+            listEdit.style.display = 'grid';
+            listEdit.style.gridTemplateColumns = 'repeat(auto-fill, minmax(380px, 1fr))';
+            listEdit.style.gap = '20px';
+          } else {
+            listEdit.style.gridColumn = '1';
+            listEdit.style.display = 'block';
+          }
+        }
+      }
+      renderEditWithFilter();
+    }
+    
+    function hitungDefaultKopSupInline(idx) {
+      const sppgEl = document.getElementById(`inlineSppg-${idx}`);
+      const kopEl = document.getElementById(`inlineKop-${idx}`);
+      const supEl = document.getElementById(`inlineSup-${idx}`);
+      if (!sppgEl || !kopEl || !supEl) return;
+      
+      let sppgVal = sppgEl.value.replace(/[^0-9]/g, '');
+      let sppgNum = Number(sppgVal) || 0;
+      if (sppgNum > 0) {
+        kopEl.value = Math.round(sppgNum * 0.92);
+        supEl.value = Math.round(sppgNum * 0.90);
+      } else {
+        kopEl.value = '';
+        supEl.value = '';
+      }
+    }
+
+    function simpanInlineItem(idx) {
+      const item = window.rawEditItems[idx];
+      if (!item) return;
+      
+      const tglLama = document.getElementById('kTglLama').value;
+      const dapurLama = document.getElementById('kDapurLama').value;
+      if (!tglLama || !dapurLama) {
+        showIosAlert("Waduh, dapur atau tanggal lama tidak valid!");
+        return;
+      }
+      
+      const barangBaru = document.getElementById(`inlineBarang-${idx}`).value.trim();
+      const qtyBaru = document.getElementById(`inlineQty-${idx}`).value.trim();
+      const satuanBaru = document.getElementById(`inlineSat-${idx}`).value.trim();
+      const supplierBaru = document.getElementById(`inlineSupplier-${idx}`).value.trim();
+      const ketBaru = document.getElementById(`inlineKet-${idx}`).value.trim();
+      
+      let sppgBaru = document.getElementById(`inlineSppg-${idx}`).value.trim();
+      let kopBaru = document.getElementById(`inlineKop-${idx}`).value.trim();
+      let supBaru = document.getElementById(`inlineSup-${idx}`).value.trim();
+      
+      if (!barangBaru || !qtyBaru || !satuanBaru || !supplierBaru) {
+        showIosAlert("Nama barang, Qty, Satuan, dan Supplier wajib diisi ya!");
+        return;
+      }
+      
+      if (kopBaru === "" && sppgBaru !== "") {
+        kopBaru = Math.round(Number(sppgBaru) * 0.92).toString();
+      }
+      if (supBaru === "" && sppgBaru !== "") {
+        supBaru = Math.round(Number(sppgBaru) * 0.90).toString();
+      }
+      
+      const payload = {
+        tanggalLama: tglLama,
+        dapurLama: dapurLama,
+        barangLama: item.barang,
+        tanggalBaru: tglLama,
+        dapurBaru: dapurLama,
+        barangBaru: barangBaru,
+        qtyBaru: qtyBaru,
+        satuanBaru: satuanBaru,
+        supplierBaru: supplierBaru,
+        ketBaru: ketBaru,
+        tSppg: sppgBaru,
+        tKop: kopBaru,
+        tSup: supBaru
+      };
+      
+      showLoading("Menyimpan ke Spreadsheet...<br>Bentar ya Yu!");
+      apiCall('kelolaDataPesanan', { actionType: 'edit', data: payload }).then(function(res) {
+        hideLoading();
+        showIosAlert(res.msg);
+        if (res.status === 'success') {
+          loadDaftarEdit();
+        }
+      }).catch(err => {
+        hideLoading();
+        showIosAlert("Aduh, gagal konek. " + err.message);
+      });
+    }
+
+    async function hapusInlineItem(idx) {
+      const item = window.rawEditItems[idx];
+      if (!item) return;
+      
+      const tglLama = document.getElementById('kTglLama').value;
+      const dapurLama = document.getElementById('kDapurLama').value;
+      if (!tglLama || !dapurLama) {
+        showIosAlert("Waduh, dapur atau tanggal lama tidak valid!");
+        return;
+      }
+      
+      const setuju = await showIosConfirm(
+        `Apakah kamu yakin ingin menghapus item <b>${item.barang}</b> dari dapur <b>${dapurLama}</b>?`,
+        "HAPUS ITEM DATA",
+        "Ya, Hapus!",
+        "Batal"
+      );
+      if (!setuju) return;
+      
+      const payload = {
+        tanggalLama: tglLama,
+        dapurLama: dapurLama,
+        barangLama: item.barang
+      };
+      
+      showLoading("Menghapus item...<br>Sabar ya Yu!");
+      apiCall('kelolaDataPesanan', { actionType: 'hapus', data: payload }).then(function(res) {
+        hideLoading();
+        showIosAlert(res.msg);
+        if (res.status === 'success') {
+          loadDaftarEdit();
+        }
+      }).catch(err => {
+        hideLoading();
+        showIosAlert("Aduh, gagal konek. " + err.message);
+      });
+    }
     
     function fetchDropdownEdit(tglPilih) { 
       if (!tglPilih) return; 
@@ -2013,32 +2164,74 @@ Mohon dicek file terlampir.`;
         return barang.includes(searchVal);
       });
       
-      let html = '<div class="section-head" style="margin-top:28px;">Daftar Item (Klik untuk Edit)</div>';
+      let html = '<div class="section-head" style="margin-top:28px; grid-column: 1 / -1;">Daftar Item PO (Edit Langsung)</div>';
       if (!filtered.length) {
-        document.getElementById('listEditBawah').innerHTML = html + '<div class="empty-state" style="padding:20px 10px;">🔍 Tidak ada data yang cocok dengan nama barang tersebut.</div>';
+        document.getElementById('listEditBawah').innerHTML = html + '<div class="empty-state" style="padding:20px 10px; grid-column: 1 / -1;">🔍 Tidak ada data yang cocok dengan nama barang tersebut.</div>';
         return;
       }
       
       filtered.forEach((it) => {
-        let safeItem = encodeURIComponent(JSON.stringify(it));
+        let origIdx = window.rawEditItems.indexOf(it);
         let uSppg = it.qty > 0 ? Math.round(it.tSppg / it.qty) : 0;
         let uKop  = it.qty > 0 ? Math.round(it.tKop / it.qty) : 0;
         let uSup  = it.qty > 0 ? Math.round(it.tSup / it.qty) : 0;
 
         html += `
-        <div class="item-glass fade-up" style="cursor:pointer;" onclick="pilihItemEdit('${safeItem}')">
-          <div class="item-top">
-            <div class="item-name">${it.barang}</div>
-            <div class="qty-badge" style="color:var(--text-primary); display:inline-flex; align-items:center; gap:4px;"><svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg> Edit</div>
+        <div class="item-glass fade-up" style="padding: 16px; margin-bottom: 16px; border-radius: 18px; background: var(--bg-card); box-shadow: var(--shadow-timbul);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px dashed rgba(255,255,255,0.08);">
+            <div style="font-size: 0.72rem; font-weight: 900; color: var(--text-muted);">
+              CARD ITEM #${origIdx + 1}
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button onclick="simpanInlineItem(${origIdx})" class="btn-mini-save" style="background: rgba(16,185,129,0.15); color: #10B981; border: none; padding: 6px 12px; border-radius: 10px; cursor: pointer; font-size: 0.75rem; font-weight: 800; display: flex; align-items: center; gap: 4px;">
+                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Simpan
+              </button>
+              <button onclick="hapusInlineItem(${origIdx})" class="btn-mini-delete" style="background: rgba(239,68,68,0.15); color: #EF4444; border: none; padding: 6px 12px; border-radius: 10px; cursor: pointer; font-size: 0.75rem; font-weight: 800; display: flex; align-items: center; gap: 4px;">
+                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg> Hapus
+              </button>
+            </div>
           </div>
-          <div style="font-size:0.85rem; font-weight:800; color:var(--text-secondary); margin-bottom:14px;">
-            Qty: <span style="color:var(--c-margin-text); font-weight:900;">${String(it.qty).replace('.', ',')} ${it.sat}</span> | Supplier: <b style="color:var(--text-primary);">${it.supplier || '-'}</b>
+
+          <div style="margin-bottom: 12px;">
+            <label style="font-size: 0.65rem; font-weight: 800; color: var(--text-muted); display: block; margin-bottom: 4px; letter-spacing:0.5px;">NAMA BARANG</label>
+            <input type="text" id="inlineBarang-${origIdx}" value="${it.barang}" list="listBarangEdit" class="form-control" style="font-weight: 800; padding: 8px 12px; border-radius: 10px; font-size: 0.85rem; height: 38px;">
           </div>
-          <div style="font-size:0.78rem; color:var(--text-muted); margin-bottom:18px;">Ket: <b>${it.ket || '-'}</b></div>
-          <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:12px;">
-            <div class="sub-box sb-sppg"><div class="sub-lbl">SPPG / ${it.sat}</div><div class="sub-val">${uSppg.toLocaleString('id-ID')}</div></div>
-            <div class="sub-box sb-kop"><div class="sub-lbl">KOP / ${it.sat}</div><div class="sub-val">${uKop.toLocaleString('id-ID')}</div></div>
-            <div class="sub-box sb-sup"><div class="sub-lbl">SUP / ${it.sat}</div><div class="sub-val">${uSup.toLocaleString('id-ID')}</div></div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+            <div>
+              <label style="font-size: 0.65rem; font-weight: 800; color: var(--text-muted); display: block; margin-bottom: 4px; letter-spacing:0.5px;">QTY</label>
+              <input type="text" id="inlineQty-${origIdx}" value="${String(it.qty).replace('.', ',')}" class="form-control" style="font-weight: 800; padding: 8px 12px; border-radius: 10px; font-size: 0.85rem; height: 38px;">
+            </div>
+            <div>
+              <label style="font-size: 0.65rem; font-weight: 800; color: var(--text-muted); display: block; margin-bottom: 4px; letter-spacing:0.5px;">SATUAN</label>
+              <input type="text" id="inlineSat-${origIdx}" value="${it.sat || ''}" class="form-control" style="font-weight: 800; padding: 8px 12px; border-radius: 10px; font-size: 0.85rem; height: 38px;">
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+            <div>
+              <label style="font-size: 0.65rem; font-weight: 800; color: var(--text-muted); display: block; margin-bottom: 4px; letter-spacing:0.5px;">SUPPLIER</label>
+              <input type="text" id="inlineSupplier-${origIdx}" value="${it.supplier || ''}" list="listSupplierGlobal" class="form-control" style="font-weight: 800; padding: 8px 12px; border-radius: 10px; font-size: 0.85rem; height: 38px;">
+            </div>
+            <div>
+              <label style="font-size: 0.65rem; font-weight: 800; color: var(--text-muted); display: block; margin-bottom: 4px; letter-spacing:0.5px;">KETERANGAN</label>
+              <input type="text" id="inlineKet-${origIdx}" value="${it.ket || ''}" class="form-control" style="font-weight: 800; padding: 8px 12px; border-radius: 10px; font-size: 0.85rem; height: 38px;">
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
+            <div>
+              <label style="font-size: 0.6rem; font-weight: 900; color: var(--c-sppg); display: block; margin-bottom: 4px;">SPPG / ${it.sat || ''}</label>
+              <input type="number" id="inlineSppg-${origIdx}" value="${uSppg || ''}" oninput="hitungDefaultKopSupInline(${origIdx})" class="form-control" style="font-weight: 900; text-align: center; color: var(--c-sppg); padding: 6px; border-radius: 8px; font-size: 0.82rem; height: 34px;">
+            </div>
+            <div>
+              <label style="font-size: 0.6rem; font-weight: 900; color: var(--c-kop); display: block; margin-bottom: 4px;">KOP / ${it.sat || ''}</label>
+              <input type="number" id="inlineKop-${origIdx}" value="${uKop || ''}" class="form-control" style="font-weight: 900; text-align: center; color: var(--c-kop); padding: 6px; border-radius: 8px; font-size: 0.82rem; height: 34px;">
+            </div>
+            <div>
+              <label style="font-size: 0.6rem; font-weight: 900; color: var(--c-sup); display: block; margin-bottom: 4px;">SUP / ${it.sat || ''}</label>
+              <input type="number" id="inlineSup-${origIdx}" value="${uSup || ''}" class="form-control" style="font-weight: 900; text-align: center; color: var(--c-sup); padding: 6px; border-radius: 8px; font-size: 0.82rem; height: 34px;">
+            </div>
           </div>
         </div>
         `;
