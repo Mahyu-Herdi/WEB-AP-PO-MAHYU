@@ -2171,11 +2171,6 @@ Mohon dicek file terlampir.`;
         cleanSup = Math.round(cleanSppg * 0.90);
       }
 
-      const qtyNum = parseFloat(qtyBaru.replace(',', '.')) || 0;
-      const totalSppg = Math.round(qtyNum * cleanSppg);
-      const totalKop = Math.round(qtyNum * cleanKop);
-      const totalSup = Math.round(qtyNum * cleanSup);
-      
       const payload = {
         tanggalLama: tglLama,
         dapurLama: dapurLama,
@@ -2187,9 +2182,9 @@ Mohon dicek file terlampir.`;
         satuanBaru: satuanBaru,
         supplierBaru: supplierBaru,
         ketBaru: ketBaru,
-        tSppg: totalSppg,
-        tKop: totalKop,
-        tSup: totalSup
+        tSppg: cleanSppg,
+        tKop: cleanKop,
+        tSup: cleanSup
       };
       
       showLoading("Menyimpan ke Spreadsheet...<br>Bentar ya Yu!");
@@ -2311,10 +2306,6 @@ Mohon dicek file terlampir.`;
         cleanSup = Math.round(cleanSppg * 0.90);
       }
 
-      const totalSppg = Math.round(qtyVal * cleanSppg);
-      const totalKop = Math.round(qtyVal * cleanKop);
-      const totalSup = Math.round(qtyVal * cleanSup);
-
       const payload = {
         tanggalBaru: tglLama,
         dapurBaru: dapurLama,
@@ -2323,9 +2314,9 @@ Mohon dicek file terlampir.`;
         satuanBaru: sat,
         supplierBaru: supplier,
         ketBaru: ket,
-        tSppg: totalSppg,
-        tKop: totalKop,
-        tSup: totalSup
+        tSppg: cleanSppg,
+        tKop: cleanKop,
+        tSup: cleanSup
       };
 
       showLoading("Menyimpan barang baru ke Spreadsheet...<br>Bentar ya Yu!");
@@ -3382,10 +3373,6 @@ Mohon dicek file terlampir.`;
       if (kopVal === 0 && sppgVal > 0) kopVal = Math.round(sppgVal * 0.92);
       if (supVal === 0 && sppgVal > 0) supVal = Math.round(sppgVal * 0.90);
 
-      const tSppg = Math.round(sppgVal * qtyVal);
-      const tKop = Math.round(kopVal * qtyVal);
-      const tSup = Math.round(supVal * qtyVal);
-
       showLoading("Menyimpan perubahan item...<br>Bentar ya Yu!");
 
       const isEdit = !!item.barangOriginal;
@@ -3401,9 +3388,9 @@ Mohon dicek file terlampir.`;
         satuanBaru: sat,
         supplierBaru: supplier,
         ketBaru: ket,
-        tSppg: tSppg,
-        tKop: tKop,
-        tSup: tSup
+        tSppg: sppgVal,
+        tKop: kopVal,
+        tSup: supVal
       };
 
       apiCall('kelolaDataPesanan', { actionType: actionType, data: payload }).then(function(res) {
@@ -3586,9 +3573,9 @@ Mohon dicek file terlampir.`;
           barang: barang,
           qty: qtyVal,
           sat: sat,
-          tSppg: sppgVal * qtyVal,
-          tKop: kopVal * qtyVal,
-          tSup: supVal * qtyVal,
+          tSppg: sppgVal,
+          tKop: kopVal,
+          tSup: supVal,
           ket: ket,
           supplier: supplier
         });
