@@ -566,7 +566,10 @@
         <div id="pesanLaporan" class="empty-state">Tekan "GO" di menu Home dulu ya, Yu!<br>Laporan otomatis muncul di sini.</div>
         <div id="laporanCard" style="display:none;" class="g-card fade-up">
           <div class="lap-header"><div class="lap-dapur"><svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="display:inline-block; vertical-align:middle; margin-right:6px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg><span id="lapDapur"></span></div><div class="lap-tanggal-badge" id="lapTanggal"></div></div>
-          <div class="menu-row">Menu: <span id="lapMenu"></span></div>
+          <div class="menu-row" style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
+            <div>Menu: <span id="lapMenu"></span></div>
+            <div>Jumlah PM: <span id="lapJumlahPm">-</span></div>
+          </div>
           <div class="pagu-card"><div class="pagu-label">Pagu Harian</div><div class="pagu-val" id="lapPagu">0</div></div>
           <div class="section-head">Pengeluaran PO</div>
           <div class="price-row pr-sppg"><div class="pr-left"><div class="pr-label">Total SPPG</div></div><div class="pr-val" id="lapPoSppg">0</div></div>
@@ -744,8 +747,8 @@
               <input type="date" id="bulkTanggal" class="form-control" readonly>
             </div>
 
-            <!-- Fields for Nama Menu and Nominal Pagu -->
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px; margin-bottom:14px;">
+            <!-- Fields for Nama Menu, Nominal Pagu, and Jumlah PM -->
+            <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:14px; margin-bottom:14px;">
               <div>
                 <label style="font-size:0.7rem; color:var(--text-muted); font-weight:800; display:block; margin-bottom:4px;">NAMA MENU (OPSIONAL)</label>
                 <input type="text" id="inputNamaMenu" class="form-control" placeholder="Ketik nama menu hari ini...">
@@ -753,6 +756,10 @@
               <div>
                 <label style="font-size:0.7rem; color:var(--text-muted); font-weight:800; display:block; margin-bottom:4px;">NOMINAL PAGU (OPSIONAL)</label>
                 <input type="text" inputmode="numeric" id="inputNominalPagu" class="form-control" placeholder="Rp 0" oninput="formatInpRupiah(this)">
+              </div>
+              <div>
+                <label style="font-size:0.7rem; color:var(--text-muted); font-weight:800; display:block; margin-bottom:4px;">JUMLAH PM (OPSIONAL)</label>
+                <input type="text" inputmode="numeric" id="inputJumlahPm" class="form-control" placeholder="Jumlah PM..." oninput="formatInpRupiah(this)">
               </div>
             </div>
 
@@ -869,8 +876,8 @@
               Edit / Paste seluruh item sekaligus untuk tanggal &amp; dapur ini dalam bentuk tabel interaktif.
             </div>
 
-            <!-- Input Nama Menu & Pagu Harian -->
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:14px;">
+            <!-- Input Nama Menu, Pagu Harian & Jumlah PM -->
+            <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:12px; margin-bottom:14px;">
               <div>
                 <label style="font-size:0.65rem; color:var(--text-muted); font-weight:800; display:block; margin-bottom:4px;">NAMA MENU</label>
                 <input type="text" id="bMenuReplace" class="form-control" placeholder="Memuat atau ketik menu..." style="font-weight:800;">
@@ -879,12 +886,16 @@
                 <label style="font-size:0.65rem; color:var(--text-muted); font-weight:800; display:block; margin-bottom:4px;">NOMINAL PAGU</label>
                 <input type="text" inputmode="numeric" id="bPaguReplace" class="form-control" placeholder="Rp 0" oninput="formatInpRupiah(this)" style="font-weight:800; color:var(--c-kop);">
               </div>
+              <div>
+                <label style="font-size:0.65rem; color:var(--text-muted); font-weight:800; display:block; margin-bottom:4px;">JUMLAH PM</label>
+                <input type="text" inputmode="numeric" id="bJumlahPmReplace" class="form-control" placeholder="Ketik jumlah PM..." oninput="formatInpRupiah(this)" style="font-weight:800; color:var(--c-sppg);">
+              </div>
             </div>
 
-            <!-- Tombol Simpan Menu & Pagu Saja -->
+            <!-- Tombol Simpan Menu & Pagu & PM Saja -->
             <button type="button" onclick="simpanMenuPaguSaja()" class="btn-go" style="margin-bottom:18px; padding:10px 14px; font-size:0.75rem; background:rgba(96,165,250,0.15); color:#60A5FA; border:1px solid rgba(96,165,250,0.2); display:flex; align-items:center; justify-content:center; gap:6px; box-shadow:var(--shadow-tenggelam);">
               <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
-              SIMPAN MENU & PAGU SAJA
+              SIMPAN MENU, PAGU &amp; PM SAJA
             </button>
 
             <!-- Paste Box Area -->
@@ -2504,8 +2515,10 @@ Mohon dicek file terlampir.`;
           window.bulkTableItems = [];
           const menuEl = document.getElementById('bMenuReplace');
           const paguEl = document.getElementById('bPaguReplace');
+          const pmEl = document.getElementById('bJumlahPmReplace');
           if (menuEl) menuEl.value = "";
           if (paguEl) paguEl.value = "";
+          if (pmEl) pmEl.value = "";
           if (typeof renderBulkTable === 'function') renderBulkTable();
           return;
         }
@@ -2532,15 +2545,21 @@ Mohon dicek file terlampir.`;
 
         const menuEl = document.getElementById('bMenuReplace');
         const paguEl = document.getElementById('bPaguReplace');
+        const pmEl = document.getElementById('bJumlahPmReplace');
         if (res.grand) {
           if (menuEl) menuEl.value = res.grand.menu === "-" ? "" : res.grand.menu;
           if (paguEl) {
             paguEl.value = res.grand.pagu ? res.grand.pagu : "";
             formatInpRupiah(paguEl);
           }
+          if (pmEl) {
+            pmEl.value = res.grand.jumlahPm ? res.grand.jumlahPm : "";
+            formatInpRupiah(pmEl);
+          }
         } else {
           if (menuEl) menuEl.value = "";
           if (paguEl) paguEl.value = "";
+          if (pmEl) pmEl.value = "";
         }
 
         if (typeof renderBulkTable === 'function') renderBulkTable();
@@ -2761,7 +2780,7 @@ Mohon dicek file terlampir.`;
         let porsiKop = totMrg > 0 ? ((mrgKop / totMrg) * 100).toFixed(1).replace('.', ',') : "0";
         let porsiYyn = totMrg > 0 ? ((mrgYyn / totMrg) * 100).toFixed(1).replace('.', ',') : "0";
 
-        document.getElementById('pesanLaporan').style.display = 'none'; document.getElementById('laporanCard').style.display  = 'block'; document.getElementById('lapDapur').innerText   = d; document.getElementById('lapTanggal').innerText = tTeks; document.getElementById('lapMenu').innerText    = menu; document.getElementById('lapPagu').innerText    = `Rp ${Math.round(pagu).toLocaleString('id-ID')}`; document.getElementById('lapPoSppg').innerText  = `Rp ${Math.round(poSppg).toLocaleString('id-ID')}`; document.getElementById('lapPoKop').innerText   = `Rp ${Math.round(poKop).toLocaleString('id-ID')}`; document.getElementById('lapPoSup').innerText   = `Rp ${Math.round(poSup).toLocaleString('id-ID')}`; 
+        document.getElementById('pesanLaporan').style.display = 'none'; document.getElementById('laporanCard').style.display  = 'block'; document.getElementById('lapDapur').innerText   = d; document.getElementById('lapTanggal').innerText = tTeks; document.getElementById('lapMenu').innerText    = menu; document.getElementById('lapJumlahPm').innerText = res.grand.jumlahPm ? Number(res.grand.jumlahPm).toLocaleString('id-ID') : "-"; document.getElementById('lapPagu').innerText    = `Rp ${Math.round(pagu).toLocaleString('id-ID')}`; document.getElementById('lapPoSppg').innerText  = `Rp ${Math.round(poSppg).toLocaleString('id-ID')}`; document.getElementById('lapPoKop').innerText   = `Rp ${Math.round(poKop).toLocaleString('id-ID')}`; document.getElementById('lapPoSup').innerText   = `Rp ${Math.round(poSup).toLocaleString('id-ID')}`; 
         let elSisa  = document.getElementById('lapSisaPagu'); let rowSisa = document.getElementById('bgSisaPagu'); let lblSisa = document.getElementById('textSisaPagu'); elSisa.innerText = `Rp ${Math.round(sisaPagu).toLocaleString('id-ID')}`; rowSisa.className = 'price-row pr-neutral ' + (sisaPagu < 0 ? 'sisa-over' : 'sisa-ok'); rowSisa.style.borderLeftColor = sisaPagu < 0 ? 'var(--c-sup)' : 'var(--c-kop)'; lblSisa.style.color = sisaPagu < 0 ? 'var(--c-sup)' : 'var(--c-kop)'; 
         document.getElementById('lapMrgKop').innerText  = `Rp ${Math.round(mrgKop).toLocaleString('id-ID')}`; document.getElementById('lapMrgYyn').innerText  = `Rp ${Math.round(mrgYyn).toLocaleString('id-ID')}`; document.getElementById('lapTmKop').innerText   = `Rp ${Math.round(mrgKop).toLocaleString('id-ID')}`; document.getElementById('lapTmYyn').innerText   = `Rp ${Math.round(mrgYyn).toLocaleString('id-ID')}`; document.getElementById('lapTotMrg').innerText  = `Rp ${Math.round(totMrg).toLocaleString('id-ID')}`; 
         document.getElementById('lapPersen').innerText  = `${persen}%`; 
@@ -3090,6 +3109,7 @@ Mohon dicek file terlampir.`;
         tanggal: document.getElementById('bulkTanggal').value,
         namaMenu: document.getElementById('inputNamaMenu').value.trim(),
         nominalPagu: cleanRupiah(document.getElementById('inputNominalPagu').value),
+        jumlahPm: cleanRupiah(document.getElementById('inputJumlahPm').value),
         items: window.bulkDataTemp
       };
 
@@ -3102,6 +3122,7 @@ Mohon dicek file terlampir.`;
           document.querySelectorAll('.bulk-area').forEach(el => el.value = "");
           document.getElementById('inputNamaMenu').value = "";
           document.getElementById('inputNominalPagu').value = "";
+          document.getElementById('inputJumlahPm').value = "";
           const supUtamaEl = document.getElementById('inputSupplierUtama');
           if (supUtamaEl) supUtamaEl.value = "";
           document.getElementById('bulkPreviewArea').style.display = 'none';
@@ -3443,13 +3464,16 @@ Mohon dicek file terlampir.`;
       const menuVal = document.getElementById('bMenuReplace').value.trim();
       const paguRaw = document.getElementById('bPaguReplace').value.trim();
       const paguNum = parseFloat(paguRaw.replace(/[^0-9]/g, '')) || 0;
+      const pmRaw = document.getElementById('bJumlahPmReplace').value.trim();
+      const pmNum = parseFloat(pmRaw.replace(/[^0-9]/g, '')) || 0;
 
-      showLoading("Menyimpan Menu & Pagu...<br>Bentar ya Yu!");
+      showLoading("Menyimpan Menu & Pagu & PM...<br>Bentar ya Yu!");
       apiCall('simpanPaguMenuSaja', {
         dapur: dpr,
         tanggal: tgl,
         namaMenu: menuVal,
-        nominalPagu: paguNum
+        nominalPagu: paguNum,
+        jumlahPm: pmNum
       }).then(function(res) {
         hideLoading();
         showIosAlert(res.msg);
@@ -3459,7 +3483,7 @@ Mohon dicek file terlampir.`;
         }
       }).catch(err => {
         hideLoading();
-        showIosAlert("Gagal menyimpan Menu & Pagu: " + err.message);
+        showIosAlert("Gagal menyimpan Menu & Pagu & PM: " + err.message);
       });
     }
 
@@ -3580,6 +3604,8 @@ Mohon dicek file terlampir.`;
       const menuVal = document.getElementById('bMenuReplace').value.trim();
       const paguRaw = document.getElementById('bPaguReplace').value.trim();
       const paguNum = parseFloat(paguRaw.replace(/[^0-9]/g, '')) || 0;
+      const pmRaw = document.getElementById('bJumlahPmReplace').value.trim();
+      const pmNum = parseFloat(pmRaw.replace(/[^0-9]/g, '')) || 0;
 
       const setuju = await showIosConfirm(
         `Apakah Anda yakin ingin <b>MENGGANTI SELURUH ITEM PO</b> pada dapur <b>${dpr}</b> di tanggal <b>${tgl}</b> dengan data baru ini?<br><br><span style="color:#EF4444; font-weight:900;">⚠️ PERHATIAN: Semua item PO lama pada hari ini akan DIHAPUS TOTAL dan diganti dengan data baru!</span>`,
@@ -3594,7 +3620,8 @@ Mohon dicek file terlampir.`;
         dapur: dpr,
         items: payloadItems,
         namaMenu: menuVal,
-        nominalPagu: paguNum
+        nominalPagu: paguNum,
+        jumlahPm: pmNum
       };
 
       showLoading("Sedang mengganti massal...<br>Bentar ya Yu!");
