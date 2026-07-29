@@ -2115,8 +2115,8 @@ Mohon dicek file terlampir.`;
       let sppgVal = sppgEl.value.replace(/[^0-9]/g, '');
       let sppgNum = Number(sppgVal) || 0;
       if (sppgNum > 0) {
-        kopEl.value = Math.round(sppgNum * 0.92);
-        supEl.value = Math.round(sppgNum * 0.90);
+        kopEl.value = Math.round(sppgNum * 0.92).toLocaleString('id-ID');
+        supEl.value = Math.round(sppgNum * 0.90).toLocaleString('id-ID');
       } else {
         kopEl.value = '';
         supEl.value = '';
@@ -2149,12 +2149,21 @@ Mohon dicek file terlampir.`;
         return;
       }
       
-      if (kopBaru === "" && sppgBaru !== "") {
-        kopBaru = Math.round(Number(sppgBaru) * 0.92).toString();
+      let cleanSppg = Number(sppgBaru.replace(/[^0-9]/g, '')) || 0;
+      let cleanKop = Number(kopBaru.replace(/[^0-9]/g, '')) || 0;
+      let cleanSup = Number(supBaru.replace(/[^0-9]/g, '')) || 0;
+
+      if (cleanKop === 0 && cleanSppg > 0) {
+        cleanKop = Math.round(cleanSppg * 0.92);
       }
-      if (supBaru === "" && sppgBaru !== "") {
-        supBaru = Math.round(Number(sppgBaru) * 0.90).toString();
+      if (cleanSup === 0 && cleanSppg > 0) {
+        cleanSup = Math.round(cleanSppg * 0.90);
       }
+
+      const qtyNum = parseFloat(qtyBaru.replace(',', '.')) || 0;
+      const totalSppg = Math.round(qtyNum * cleanSppg);
+      const totalKop = Math.round(qtyNum * cleanKop);
+      const totalSup = Math.round(qtyNum * cleanSup);
       
       const payload = {
         tanggalLama: tglLama,
@@ -2167,9 +2176,9 @@ Mohon dicek file terlampir.`;
         satuanBaru: satuanBaru,
         supplierBaru: supplierBaru,
         ketBaru: ketBaru,
-        tSppg: sppgBaru,
-        tKop: kopBaru,
-        tSup: supBaru
+        tSppg: totalSppg,
+        tKop: totalKop,
+        tSup: totalSup
       };
       
       showLoading("Menyimpan ke Spreadsheet...<br>Bentar ya Yu!");
@@ -2232,6 +2241,95 @@ Mohon dicek file terlampir.`;
     }
     
     window.rawEditItems = [];
+    window.showAddNewItemCard = false;
+
+    function hitungDefaultKopSupNew() {
+      const sppgEl = document.getElementById('newSppg');
+      const kopEl = document.getElementById('newKop');
+      const supEl = document.getElementById('newSup');
+      if (!sppgEl || !kopEl || !supEl) return;
+      
+      let sppgVal = sppgEl.value.replace(/[^0-9]/g, '');
+      let sppgNum = Number(sppgVal) || 0;
+      if (sppgNum > 0) {
+        kopEl.value = Math.round(sppgNum * 0.92).toLocaleString('id-ID');
+        supEl.value = Math.round(sppgNum * 0.90).toLocaleString('id-ID');
+      } else {
+        kopEl.value = '';
+        supEl.value = '';
+      }
+    }
+
+    function simpanBarangBaruInline() {
+      const tglLama = document.getElementById('kTglLama').value;
+      const dapurLama = document.getElementById('kDapurLama').value;
+      if (!tglLama || !dapurLama) {
+        showIosAlert("Pilih Dapur & Tanggal target dulu di area TARGET DATA ya!");
+        return;
+      }
+      
+      const barang = document.getElementById('newBarang').value.trim();
+      const qtyStr = document.getElementById('newQty').value.trim();
+      const sat = document.getElementById('newSat').value.trim();
+      const supplier = document.getElementById('newSupplier').value.trim();
+      const ket = document.getElementById('newKet').value.trim();
+      
+      let sppg = document.getElementById('newSppg').value.trim();
+      let kop = document.getElementById('newKop').value.trim();
+      let sup = document.getElementById('newSup').value.trim();
+      
+      if (!barang || !qtyStr || !sat || !supplier) {
+        showIosAlert("Nama barang, Qty, Satuan, dan Supplier wajib diisi!");
+        return;
+      }
+      
+      const qtyVal = parseFloat(qtyStr.replace(',', '.')) || 0;
+      if (qtyVal <= 0) {
+        showIosAlert("Qty harus lebih dari 0!");
+        return;
+      }
+
+      let cleanSppg = Number(sppg.replace(/[^0-9]/g, '')) || 0;
+      let cleanKop = Number(kop.replace(/[^0-9]/g, '')) || 0;
+      let cleanSup = Number(sup.replace(/[^0-9]/g, '')) || 0;
+
+      if (cleanKop === 0 && cleanSppg > 0) {
+        cleanKop = Math.round(cleanSppg * 0.92);
+      }
+      if (cleanSup === 0 && cleanSppg > 0) {
+        cleanSup = Math.round(cleanSppg * 0.90);
+      }
+
+      const totalSppg = Math.round(qtyVal * cleanSppg);
+      const totalKop = Math.round(qtyVal * cleanKop);
+      const totalSup = Math.round(qtyVal * cleanSup);
+
+      const payload = {
+        tanggalBaru: tglLama,
+        dapurBaru: dapurLama,
+        barangBaru: barang,
+        qtyBaru: qtyVal,
+        satuanBaru: sat,
+        supplierBaru: supplier,
+        ketBaru: ket,
+        tSppg: totalSppg,
+        tKop: totalKop,
+        tSup: totalSup
+      };
+
+      showLoading("Menyimpan barang baru ke Spreadsheet...<br>Bentar ya Yu!");
+      apiCall('kelolaDataPesanan', { actionType: 'tambah', data: payload }).then(function(res) {
+        hideLoading();
+        showIosAlert(res.msg);
+        if (res.status === 'success') {
+          window.showAddNewItemCard = false;
+          loadDaftarEdit();
+        }
+      }).catch(err => {
+        hideLoading();
+        showIosAlert("Gagal menyimpan barang baru: " + err.message);
+      });
+    }
 
     function renderEditWithFilter() {
       const searchVal = (document.getElementById('kBarangLama') ? document.getElementById('kBarangLama').value : '').trim().toLowerCase();
@@ -2242,9 +2340,81 @@ Mohon dicek file terlampir.`;
         return barang.includes(searchVal);
       });
       
-      let html = '<div class="section-head" style="margin-top:28px; grid-column: 1 / -1;">Daftar Item PO (Edit Langsung)</div>';
+      let html = `
+      <div class="section-head" style="margin-top:28px; grid-column: 1 / -1; display:flex; justify-content:space-between; align-items:center;">
+        <span>Daftar Item PO (Edit Langsung)</span>
+        <button type="button" onclick="window.showAddNewItemCard = true; renderEditWithFilter(); setTimeout(() => { const el = document.getElementById('newBarang'); if (el) el.focus(); }, 150);" class="btn-go" style="margin:0; padding:6px 14px; font-size:0.75rem; border-radius:12px; display:flex; align-items:center; gap:6px; font-weight:800; cursor:pointer; background:rgba(16,185,129,0.15); color:#10B981; border:1px solid rgba(16,185,129,0.2); box-shadow:var(--shadow-timbul);">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="stroke-width:2.5;"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+          + Tambah Barang
+        </button>
+      </div>
+      `;
+
+      if (window.showAddNewItemCard) {
+        html += `
+        <div class="item-glass fade-up" style="padding: 16px; margin-bottom: 20px; border-radius: 18px; background: var(--bg-card); box-shadow: var(--shadow-timbul); border: 2px solid #10B981;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px dashed rgba(255,255,255,0.08);">
+            <div style="font-size: 0.72rem; font-weight: 900; color: #10B981; display:flex; align-items:center; gap:4px;">
+              <span style="display:inline-block; width:8px; height:8px; background:#10B981; border-radius:50%;"></span>
+              BARANG BARU
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button onclick="simpanBarangBaruInline()" class="btn-mini-save" style="background: rgba(16,185,129,0.15); color: #10B981; border: none; padding: 6px 12px; border-radius: 10px; cursor: pointer; font-size: 0.75rem; font-weight: 800; display: flex; align-items: center; gap: 4px;">
+                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Simpan
+              </button>
+              <button onclick="window.showAddNewItemCard = false; renderEditWithFilter();" class="btn-mini-delete" style="background: rgba(255,255,255,0.05); color: var(--text-muted); border: none; padding: 6px 12px; border-radius: 10px; cursor: pointer; font-size: 0.75rem; font-weight: 800; display: flex; align-items: center; gap: 4px;">
+                Batal
+              </button>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 12px;">
+            <label style="font-size: 0.65rem; font-weight: 800; color: var(--text-muted); display: block; margin-bottom: 4px; letter-spacing:0.5px;">NAMA BARANG *</label>
+            <input type="text" id="newBarang" list="listBarangEdit" class="form-control" placeholder="Nama Barang..." style="font-weight: 800; padding: 8px 12px; border-radius: 10px; font-size: 0.85rem; height: 38px;">
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+            <div>
+              <label style="font-size: 0.65rem; font-weight: 800; color: var(--text-muted); display: block; margin-bottom: 4px; letter-spacing:0.5px;">QTY *</label>
+              <input type="text" id="newQty" class="form-control" placeholder="misal: 10" style="font-weight: 800; padding: 8px 12px; border-radius: 10px; font-size: 0.85rem; height: 38px;">
+            </div>
+            <div>
+              <label style="font-size: 0.65rem; font-weight: 800; color: var(--text-muted); display: block; margin-bottom: 4px; letter-spacing:0.5px;">SATUAN *</label>
+              <input type="text" id="newSat" class="form-control" placeholder="kg, pcs, dll" style="font-weight: 800; padding: 8px 12px; border-radius: 10px; font-size: 0.85rem; height: 38px;">
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+            <div>
+              <label style="font-size: 0.65rem; font-weight: 800; color: var(--text-muted); display: block; margin-bottom: 4px; letter-spacing:0.5px;">SUPPLIER *</label>
+              <input type="text" id="newSupplier" list="listSupplierGlobal" class="form-control" placeholder="Nama Supplier..." style="font-weight: 800; padding: 8px 12px; border-radius: 10px; font-size: 0.85rem; height: 38px;">
+            </div>
+            <div>
+              <label style="font-size: 0.65rem; font-weight: 800; color: var(--text-muted); display: block; margin-bottom: 4px; letter-spacing:0.5px;">KETERANGAN</label>
+              <input type="text" id="newKet" class="form-control" placeholder="Keterangan tambahan..." style="font-weight: 800; padding: 8px 12px; border-radius: 10px; font-size: 0.85rem; height: 38px;">
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
+            <div>
+              <label style="font-size: 0.6rem; font-weight: 900; color: var(--c-sppg); display: block; margin-bottom: 4px;">SPPG (UNIT PRICE)</label>
+              <input type="text" inputmode="numeric" id="newSppg" oninput="formatInpRupiah(this); hitungDefaultKopSupNew()" class="form-control" placeholder="Rp 0" style="font-weight: 900; text-align: center; color: var(--c-sppg); padding: 6px; border-radius: 8px; font-size: 0.82rem; height: 34px;">
+            </div>
+            <div>
+              <label style="font-size: 0.6rem; font-weight: 900; color: var(--c-kop); display: block; margin-bottom: 4px;">KOP (UNIT PRICE)</label>
+              <input type="text" inputmode="numeric" id="newKop" oninput="formatInpRupiah(this)" class="form-control" placeholder="Rp 0" style="font-weight: 900; text-align: center; color: var(--c-kop); padding: 6px; border-radius: 8px; font-size: 0.82rem; height: 34px;">
+            </div>
+            <div>
+              <label style="font-size: 0.6rem; font-weight: 900; color: var(--c-sup); display: block; margin-bottom: 4px;">SUP (UNIT PRICE)</label>
+              <input type="text" inputmode="numeric" id="newSup" oninput="formatInpRupiah(this)" class="form-control" placeholder="Rp 0" style="font-weight: 900; text-align: center; color: var(--c-sup); padding: 6px; border-radius: 8px; font-size: 0.82rem; height: 34px;">
+            </div>
+          </div>
+        </div>
+        `;
+      }
+
       if (!filtered.length) {
-        document.getElementById('listEditBawah').innerHTML = html + '<div class="empty-state" style="padding:20px 10px; grid-column: 1 / -1;">🔍 Tidak ada data yang cocok dengan nama barang tersebut.</div>';
+        document.getElementById('listEditBawah').innerHTML = html + '<div class="empty-state" style="padding:20px 10px; grid-column: 1 / -1;">🔍 Belum ada data atau tidak ada data yang cocok untuk nama barang tersebut.</div>';
         return;
       }
       
@@ -2300,15 +2470,15 @@ Mohon dicek file terlampir.`;
           <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
             <div>
               <label style="font-size: 0.6rem; font-weight: 900; color: var(--c-sppg); display: block; margin-bottom: 4px;">SPPG / ${it.sat || ''}</label>
-              <input type="number" id="inlineSppg-${origIdx}" value="${uSppg || ''}" oninput="hitungDefaultKopSupInline(${origIdx})" class="form-control" style="font-weight: 900; text-align: center; color: var(--c-sppg); padding: 6px; border-radius: 8px; font-size: 0.82rem; height: 34px;">
+              <input type="text" inputmode="numeric" id="inlineSppg-${origIdx}" value="${uSppg ? Math.round(uSppg).toLocaleString('id-ID') : ''}" oninput="formatInpRupiah(this); hitungDefaultKopSupInline(${origIdx})" class="form-control" style="font-weight: 900; text-align: center; color: var(--c-sppg); padding: 6px; border-radius: 8px; font-size: 0.82rem; height: 34px;">
             </div>
             <div>
               <label style="font-size: 0.6rem; font-weight: 900; color: var(--c-kop); display: block; margin-bottom: 4px;">KOP / ${it.sat || ''}</label>
-              <input type="number" id="inlineKop-${origIdx}" value="${uKop || ''}" class="form-control" style="font-weight: 900; text-align: center; color: var(--c-kop); padding: 6px; border-radius: 8px; font-size: 0.82rem; height: 34px;">
+              <input type="text" inputmode="numeric" id="inlineKop-${origIdx}" value="${uKop ? Math.round(uKop).toLocaleString('id-ID') : ''}" oninput="formatInpRupiah(this)" class="form-control" style="font-weight: 900; text-align: center; color: var(--c-kop); padding: 6px; border-radius: 8px; font-size: 0.82rem; height: 34px;">
             </div>
             <div>
               <label style="font-size: 0.6rem; font-weight: 900; color: var(--c-sup); display: block; margin-bottom: 4px;">SUP / ${it.sat || ''}</label>
-              <input type="number" id="inlineSup-${origIdx}" value="${uSup || ''}" class="form-control" style="font-weight: 900; text-align: center; color: var(--c-sup); padding: 6px; border-radius: 8px; font-size: 0.82rem; height: 34px;">
+              <input type="text" inputmode="numeric" id="inlineSup-${origIdx}" value="${uSup ? Math.round(uSup).toLocaleString('id-ID') : ''}" oninput="formatInpRupiah(this)" class="form-control" style="font-weight: 900; text-align: center; color: var(--c-sup); padding: 6px; border-radius: 8px; font-size: 0.82rem; height: 34px;">
             </div>
           </div>
         </div>
@@ -2329,7 +2499,7 @@ Mohon dicek file terlampir.`;
       apiCall('getDataCepat', { dapur: dpr, tgl: tgl }).then(function(res) {
         if (!res.items || !res.items.length) {
           window.rawEditItems = [];
-          document.getElementById('listEditBawah').innerHTML = '<div class="empty-state">Belum ada data untuk dapur dan tanggal ini.</div>';
+          renderEditWithFilter();
           
           window.bulkTableItems = [];
           const menuEl = document.getElementById('bMenuReplace');
@@ -3014,9 +3184,9 @@ Mohon dicek file terlampir.`;
 
       window.bulkTableItems.forEach((item, idx) => {
         let qty = parseFloat(String(item.qty).replace(/,/g, '.')) || 0;
-        let sppg = parseFloat(String(item.unitSppg).replace(/[^0-9.]/g, '')) || 0;
-        let kop = parseFloat(String(item.unitKop).replace(/[^0-9.]/g, '')) || 0;
-        let sup = parseFloat(String(item.unitSup).replace(/[^0-9.]/g, '')) || 0;
+        let sppg = parseFloat(String(item.unitSppg).replace(/[^0-9]/g, '')) || 0;
+        let kop = parseFloat(String(item.unitKop).replace(/[^0-9]/g, '')) || 0;
+        let sup = parseFloat(String(item.unitSup).replace(/[^0-9]/g, '')) || 0;
 
         totalSppg += sppg * qty;
         totalKop += kop * qty;
@@ -3035,13 +3205,13 @@ Mohon dicek file terlampir.`;
               <input type="text" value="${escapeHtml(item.sat)}" oninput="updateBulkItemField(${idx}, 'sat', this.value)" class="form-control" style="font-size: 0.75rem; padding: 4px 8px; height: 30px; text-align: center; color: var(--text-muted); border-radius: 6px;">
             </td>
             <td style="padding: 4px 6px;">
-              <input type="text" value="${sppg ? Math.round(sppg) : ''}" oninput="updateBulkItemPriceField(${idx}, 'unitSppg', this.value)" class="form-control" style="font-size: 0.75rem; padding: 4px 8px; height: 30px; text-align: right; font-weight: 800; color: var(--c-sppg); border-radius: 6px;" placeholder="0">
+              <input type="text" value="${sppg ? Math.round(sppg).toLocaleString('id-ID') : ''}" oninput="formatInpRupiah(this); updateBulkItemPriceField(${idx}, 'unitSppg', this.value)" class="form-control" style="font-size: 0.75rem; padding: 4px 8px; height: 30px; text-align: right; font-weight: 800; color: var(--c-sppg); border-radius: 6px;" placeholder="0">
             </td>
             <td style="padding: 4px 6px;">
-              <input type="text" value="${kop ? Math.round(kop) : ''}" oninput="updateBulkItemField(${idx}, 'unitKop', this.value)" class="form-control" style="font-size: 0.75rem; padding: 4px 8px; height: 30px; text-align: right; font-weight: 800; color: var(--c-kop); border-radius: 6px;" placeholder="92%">
+              <input type="text" value="${kop ? Math.round(kop).toLocaleString('id-ID') : ''}" oninput="formatInpRupiah(this); updateBulkItemField(${idx}, 'unitKop', this.value)" class="form-control" style="font-size: 0.75rem; padding: 4px 8px; height: 30px; text-align: right; font-weight: 800; color: var(--c-kop); border-radius: 6px;" placeholder="92%">
             </td>
             <td style="padding: 4px 6px;">
-              <input type="text" value="${sup ? Math.round(sup) : ''}" oninput="updateBulkItemField(${idx}, 'unitSup', this.value)" class="form-control" style="font-size: 0.75rem; padding: 4px 8px; height: 30px; text-align: right; font-weight: 800; color: var(--c-sup); border-radius: 6px;" placeholder="90%">
+              <input type="text" value="${sup ? Math.round(sup).toLocaleString('id-ID') : ''}" oninput="formatInpRupiah(this); updateBulkItemField(${idx}, 'unitSup', this.value)" class="form-control" style="font-size: 0.75rem; padding: 4px 8px; height: 30px; text-align: right; font-weight: 800; color: var(--c-sup); border-radius: 6px;" placeholder="90%">
             </td>
             <td style="padding: 4px 6px;">
               <input type="text" value="${escapeHtml(item.supplier)}" oninput="updateBulkItemField(${idx}, 'supplier', this.value)" class="form-control" style="font-size: 0.75rem; padding: 4px 8px; height: 30px; font-weight: 800; border-radius: 6px;" list="listSupplierGlobal" placeholder="Pilih Supplier...">
@@ -3086,7 +3256,7 @@ Mohon dicek file terlampir.`;
       if (!window.bulkTableItems[idx]) return;
       window.bulkTableItems[idx][field] = val;
 
-      let cleanVal = parseFloat(val.replace(/[^0-9.]/g, '')) || 0;
+      let cleanVal = parseFloat(val.replace(/[^0-9]/g, '')) || 0;
       if (cleanVal > 0) {
         const rowEl = document.querySelectorAll('#bulkTableBody tr')[idx];
         if (rowEl) {
@@ -3097,11 +3267,11 @@ Mohon dicek file terlampir.`;
           let autoKop = Math.round(cleanVal * 0.92);
           let autoSup = Math.round(cleanVal * 0.90);
 
-          window.bulkTableItems[idx].unitKop = autoKop;
-          if (kopInput) kopInput.value = autoKop;
+          window.bulkTableItems[idx].unitKop = String(autoKop);
+          if (kopInput) kopInput.value = autoKop.toLocaleString('id-ID');
 
-          window.bulkTableItems[idx].unitSup = autoSup;
-          if (supInput) supInput.value = autoSup;
+          window.bulkTableItems[idx].unitSup = String(autoSup);
+          if (supInput) supInput.value = autoSup.toLocaleString('id-ID');
         }
       } else {
         const rowEl = document.querySelectorAll('#bulkTableBody tr')[idx];
@@ -3130,9 +3300,9 @@ Mohon dicek file terlampir.`;
 
       window.bulkTableItems.forEach(item => {
         let qty = parseFloat(String(item.qty).replace(/,/g, '.')) || 0;
-        let sppg = parseFloat(String(item.unitSppg).replace(/[^0-9.]/g, '')) || 0;
-        let kop = parseFloat(String(item.unitKop).replace(/[^0-9.]/g, '')) || 0;
-        let sup = parseFloat(String(item.unitSup).replace(/[^0-9.]/g, '')) || 0;
+        let sppg = parseFloat(String(item.unitSppg).replace(/[^0-9]/g, '')) || 0;
+        let kop = parseFloat(String(item.unitKop).replace(/[^0-9]/g, '')) || 0;
+        let sup = parseFloat(String(item.unitSup).replace(/[^0-9]/g, '')) || 0;
 
         totalSppg += sppg * qty;
         totalKop += kop * qty;
@@ -3184,9 +3354,9 @@ Mohon dicek file terlampir.`;
       if (sat === "") return showIosAlert("Satuan wajib diisi!");
       if (supplier === "") return showIosAlert("Supplier wajib diisi!");
 
-      let sppgVal = parseFloat(String(item.unitSppg).replace(/[^0-9.]/g, '')) || 0;
-      let kopVal = parseFloat(String(item.unitKop).replace(/[^0-9.]/g, '')) || 0;
-      let supVal = parseFloat(String(item.unitSup).replace(/[^0-9.]/g, '')) || 0;
+      let sppgVal = parseFloat(String(item.unitSppg).replace(/[^0-9]/g, '')) || 0;
+      let kopVal = parseFloat(String(item.unitKop).replace(/[^0-9]/g, '')) || 0;
+      let supVal = parseFloat(String(item.unitSup).replace(/[^0-9]/g, '')) || 0;
 
       if (kopVal === 0 && sppgVal > 0) kopVal = Math.round(sppgVal * 0.92);
       if (supVal === 0 && sppgVal > 0) supVal = Math.round(sppgVal * 0.90);
@@ -3381,9 +3551,9 @@ Mohon dicek file terlampir.`;
           adaYangKosong = true;
         }
 
-        let sppgVal = parseFloat(String(item.unitSppg).replace(/[^0-9.]/g, '')) || 0;
-        let kopVal = parseFloat(String(item.unitKop).replace(/[^0-9.]/g, '')) || 0;
-        let supVal = parseFloat(String(item.unitSup).replace(/[^0-9.]/g, '')) || 0;
+        let sppgVal = parseFloat(String(item.unitSppg).replace(/[^0-9]/g, '')) || 0;
+        let kopVal = parseFloat(String(item.unitKop).replace(/[^0-9]/g, '')) || 0;
+        let supVal = parseFloat(String(item.unitSup).replace(/[^0-9]/g, '')) || 0;
 
         if (kopVal === 0 && sppgVal > 0) kopVal = Math.round(sppgVal * 0.92);
         if (supVal === 0 && sppgVal > 0) supVal = Math.round(sppgVal * 0.90);
