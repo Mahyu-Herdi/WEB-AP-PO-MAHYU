@@ -420,52 +420,84 @@
 
       /* SPLIT: MENU EDIT / KELOLA (Selalu Split & Premium) */
       #halamanEdit {
-        display: grid;
-        grid-template-columns: 380px minmax(0, 1fr);
-        grid-template-rows: auto auto auto 1fr;
-        gap: 0 28px;
-        align-items: start;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        max-width: 100%;
+        margin: 0 auto;
       }
-      #halamanEdit > .g-card { display: contents !important; }
+      #halamanEdit > .g-card { display: block !important; background: transparent !important; box-shadow: none !important; padding: 0 !important; margin-bottom: 0 !important; }
       #halamanEdit > * { animation: fadeUp 0.4s cubic-bezier(0.25,0.46,0.45,0.94) both; }
       
       #kBulkSection { 
-        grid-column: 1 / -1; 
-        grid-row: 1; 
         background: var(--bg-card);
         border-radius: 30px;
         padding: 24px;
         box-shadow: var(--shadow-timbul);
-        margin-bottom: 28px !important; 
+        margin-bottom: 0 !important; 
+        width: 100%;
       }
-      #kAction { grid-column: 1; grid-row: 2; margin-bottom: 20px !important; }
-      #areaDataLama { grid-column: 1; grid-row: 3; margin-bottom: 20px !important; }
-      #listEditBawah { grid-column: 1; grid-row: 4; width: 100%; }
+      
+      /* New Unified Dashboard Filter Panel */
+      .kelola-control-panel {
+        background: var(--bg-card);
+        border-radius: 30px;
+        padding: 24px;
+        box-shadow: var(--shadow-timbul);
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        gap: 24px;
+        align-items: center;
+        width: 100%;
+      }
+      .kcp-filter-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 16px;
+        align-items: center;
+        width: 100%;
+      }
+      .kcp-filter-group .form-control {
+        margin-bottom: 0 !important;
+      }
+      #areaDataLama {
+        background: transparent !important;
+        padding: 0 !important;
+        margin-bottom: 0 !important;
+        box-shadow: none !important;
+      }
+      #kcpTitleLama {
+        display: none !important;
+      }
       
       #areaDataBaru, #areaBulkReplace {
-        grid-column: 2;
-        grid-row: 2 / span 2;
         background: var(--bg-card);
         border-radius: 30px;
         padding: 28px;
         box-shadow: var(--shadow-timbul);
         height: fit-content;
-        position: sticky;
-        top: 32px;
+        width: 100%;
+        margin-bottom: 0 !important;
       }
-      #btnSimpanKelola { grid-column: 2; grid-row: 4; margin-top: 10px !important; }
+      
+      #listEditBawah {
+        width: 100%;
+        display: grid !important;
+        grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)) !important;
+        gap: 20px !important;
+      }
+      #btnSimpanKelola { margin-top: 10px !important; }
     }
     
     /* Ekspansi ekstra untuk PC layar sangat lebar (Lebih luas & leluasa) */
     @media (min-width: 1200px) {
       .app-container {
-        max-width: 1320px !important;
+        max-width: 1440px !important;
       }
       #halamanHarian:has(#hasilHarian:not([style*="none"])), 
       #subSecLapPeriode:has(#hasilLapPeriode:not([style*="none"])) { 
         grid-template-columns: 380px minmax(0, 1fr); gap: 40px; 
       }
-      #halamanEdit { grid-template-columns: 400px minmax(0, 1fr); gap: 40px; }
     }
   </style>
 </head>
@@ -846,17 +878,25 @@
 
           <div style="margin-top:40px; margin-bottom: 24px; border-bottom: 2px dashed rgba(255,255,255,0.08);"></div>
           <div class="section-head" style="margin-top:0;"><svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="margin-right:6px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg> 2. KELOLA / EDIT ITEM (SATUAN)</div>
-        <select id="kAction" class="form-select" onchange="gantiModeKelola()" style="margin-bottom:24px;">
-          <option value="edit">Edit Data / Ganti Tanggal</option>
-          <option value="tambah">Tambah Item Baru</option>
-          <option value="hapus">Hapus Item</option>
-        </select>
+        
+        <div class="kelola-control-panel">
+          <div class="kcp-action-box">
+            <div style="font-size:0.8rem; font-weight:900; color:var(--text-muted); margin-bottom:14px;">MODE KELOLA</div>
+            <select id="kAction" class="form-select" onchange="gantiModeKelola()">
+              <option value="edit">Edit Data / Ganti Tanggal</option>
+              <option value="tambah">Tambah Item Baru</option>
+              <option value="hapus">Hapus Item</option>
+            </select>
+          </div>
 
-        <div id="areaDataLama" style="background:var(--bg-inset); padding:24px; border-radius:26px; margin-bottom:24px; box-shadow:var(--shadow-tenggelam);">
-          <div style="font-size:0.8rem; font-weight:900; color:var(--text-muted); margin-bottom:14px;">TARGET DATA (CARI)</div>
-          <input type="date" id="kTglLama" class="form-control" style="margin-bottom:14px;" readonly onchange="fetchDropdownEdit(this.value); loadDaftarEdit();">
-          <input type="text" id="kDapurLama" list="listDapurEdit" class="form-control" placeholder="Dapur..." style="margin-bottom:14px;" onchange="loadDaftarEdit()">
-          <input type="text" id="kBarangLama" list="listBarangEdit" class="form-control" placeholder="Nama Barang..." oninput="renderEditWithFilter()">
+          <div id="areaDataLama" style="background:var(--bg-inset); padding:24px; border-radius:26px; box-shadow:var(--shadow-tenggelam); width: 100%;">
+            <div style="font-size:0.8rem; font-weight:900; color:var(--text-muted); margin-bottom:14px;" id="kcpTitleLama">TARGET DATA (CARI)</div>
+            <div class="kcp-filter-group">
+              <input type="date" id="kTglLama" class="form-control" readonly onchange="fetchDropdownEdit(this.value); loadDaftarEdit();">
+              <input type="text" id="kDapurLama" list="listDapurEdit" class="form-control" placeholder="Dapur..." onchange="loadDaftarEdit()">
+              <input type="text" id="kBarangLama" list="listBarangEdit" class="form-control" placeholder="Nama Barang..." oninput="renderEditWithFilter()">
+            </div>
+          </div>
         </div>
 
         <div id="areaBulkReplace" style="display:none;">
