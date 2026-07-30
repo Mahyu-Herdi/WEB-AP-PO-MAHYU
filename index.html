@@ -440,7 +440,7 @@
       }
       #kAction { grid-column: 1; grid-row: 2; margin-bottom: 20px !important; }
       #areaDataLama { grid-column: 1; grid-row: 3; margin-bottom: 20px !important; }
-      #listEditBawah { grid-column: 1; grid-row: 4; width: 100%; }
+      #listEditBawah { grid-column: 1 / -1; grid-row: 4; width: 100%; }
       
       #areaDataBaru, #areaBulkReplace {
         grid-column: 2;
@@ -467,6 +467,55 @@
       }
       #halamanEdit { grid-template-columns: 400px minmax(0, 1fr); gap: 40px; }
     }
+  
+    /* HORIZONTAL GRID STYLES */
+    #listEditBawah, 
+    .laci-body, 
+    #hasilBarang, 
+    .supplier-item-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      align-items: start;
+    }
+
+    #listEditBawah .item-glass, 
+    .laci-body .item-glass, 
+    #hasilBarang .item-glass, 
+    .supplier-item-list .item-glass {
+      margin-bottom: 0 !important;
+      height: 100%;
+    }
+
+    #listEditBawah > .section-head,
+    #listEditBawah > .empty-state,
+    #listEditBawah > .loading-wrap,
+    .laci-body > .tgl-group,
+    .laci-body > .empty-state,
+    .laci-body > .loading-wrap,
+    #hasilBarang > .tgl-group,
+    #hasilBarang > .empty-state,
+    #hasilBarang > .loading-wrap {
+      grid-column: 1 / -1;
+    }
+
+    @media (min-width: 1024px) {
+      #listEditBawah, 
+      .laci-body, 
+      #hasilBarang, 
+      .supplier-item-list {
+        grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      }
+    }
+    @media (min-width: 1280px) {
+      #listEditBawah, 
+      .laci-body, 
+      #hasilBarang, 
+      .supplier-item-list {
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -2083,8 +2132,8 @@ Mohon dicek file terlampir.`;
         if (btnSimpan) btnSimpan.style.display = 'block';
         const listEdit = document.getElementById('listEditBawah');
         if (listEdit) {
-          listEdit.style.gridColumn = '1';
-          listEdit.style.display = 'block';
+          
+          listEdit.style.display = 'grid';
         }
       } else if (act === 'edit') {
         if (aLama) aLama.style.display = 'block';
@@ -2094,8 +2143,8 @@ Mohon dicek file terlampir.`;
         
         const listEdit = document.getElementById('listEditBawah');
         if (listEdit) {
-          listEdit.style.gridColumn = '1';
-          listEdit.style.display = 'block';
+          
+          listEdit.style.display = 'grid';
         }
       } else { // 'hapus'
         if (aLama) aLama.style.display = 'block';
@@ -2111,8 +2160,8 @@ Mohon dicek file terlampir.`;
             listEdit.style.gridTemplateColumns = 'repeat(auto-fill, minmax(380px, 1fr))';
             listEdit.style.gap = '20px';
           } else {
-            listEdit.style.gridColumn = '1';
-            listEdit.style.display = 'block';
+            
+            listEdit.style.display = 'grid';
           }
         }
       }
@@ -2804,7 +2853,7 @@ Mohon dicek file terlampir.`;
 
         let perTgl = {}; res.items.forEach(it => { let tgl = it.tanggal || 'Tanpa Tanggal'; if (!perTgl[tgl]) perTgl[tgl] = { sppg:0, kop:0, sup:0, menu:'', list:[], sortKey: it.sortDateInt||0 }; perTgl[tgl].sppg += it.tSppg; perTgl[tgl].kop += it.tKop; perTgl[tgl].sup += it.tSup; if (it.menu) perTgl[tgl].menu = it.menu; perTgl[tgl].list.push(it); }); let tglKeys = Object.keys(perTgl).sort((a,b) => (perTgl[a].sortKey||0) - (perTgl[b].sortKey||0)); document.getElementById('lapPerJmlHari').innerText = tglKeys.length + ' hari'; 
         let html = ''; tglKeys.forEach((tgl, idx) => { let h = perTgl[tgl]; let mKop = h.sppg - h.kop; let mYyn = h.kop - h.sup; let totM = mKop + mYyn; let prs = h.sppg > 0 ? ((totM/h.sppg)*100).toFixed(1).replace('.',',') : '0'; let prsK = h.sppg > 0 ? ((mKop/h.sppg)*100).toFixed(1).replace('.',',') : '0'; let prsY = h.sppg > 0 ? ((mYyn/h.sppg)*100).toFixed(1).replace('.',',') : '0'; let grouped = {}; h.list.forEach(it => { let s = it.supplier || 'TANPA SUPPLIER'; if (!grouped[s]) grouped[s] = { sppg:0, kop:0, sup:0, list:[] }; grouped[s].sppg += it.tSppg; grouped[s].kop += it.tKop; grouped[s].sup += it.tSup; grouped[s].list.push(it); }); 
-        let detailHTML = ''; Object.keys(grouped).sort().forEach(sup => { let sg = grouped[sup]; detailHTML += `<div style="margin-bottom:14px; background: transparent; border-radius: 20px; padding: 6px; border: none;"><div style="position: sticky; top: 10px; z-index: 5; font-size:0.85rem; font-weight:900; margin-bottom: 14px; display:flex; align-items:center; gap:10px; padding: 14px; border-radius: 18px; background: var(--bg-card); box-shadow: var(--shadow-timbul);"><span style="color:var(--text-primary); font-weight:900;">📦 ${sup}</span></div><div style="padding: 0 4px; border-left: 2px dashed rgba(255,255,255,0.1); margin-left: 10px;">`; sg.list.forEach(it => { let uS = it.qty>0 ? Math.round(it.tSppg/it.qty).toLocaleString('id-ID') : 0; let uK = it.qty>0 ? Math.round(it.tKop/it.qty).toLocaleString('id-ID')  : 0; let uU = it.qty>0 ? Math.round(it.tSup/it.qty).toLocaleString('id-ID')  : 0; detailHTML += `<div class="item-glass" style="margin-bottom:14px;"><div class="item-top"><div class="item-name">${it.barang}</div><div class="qty-badge">${String(it.qty).replace('.', ',')} ${it.sat}</div></div><div class="price-row pr-sppg"><div class="pr-left"><div class="pr-label">SPPG</div><div class="pr-unit">${uS}/${it.sat}</div></div><div class="pr-val">${Math.round(it.tSppg).toLocaleString('id-ID')}</div></div><div class="price-row pr-kop"><div class="pr-left"><div class="pr-label">KOP</div><div class="pr-unit">${uK}/${it.sat}</div></div><div class="pr-val">${Math.round(it.tKop).toLocaleString('id-ID')}</div></div><div class="price-row pr-sup"><div class="pr-left"><div class="pr-label">SUP</div><div class="pr-unit">${uU}/${it.sat}</div></div><div class="pr-val">${Math.round(it.tSup).toLocaleString('id-ID')}</div></div></div>`; }); let smK = sg.sppg-sg.kop; let smY = sg.kop-sg.sup; detailHTML += `<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;margin-top:16px;"><div class="price-row pr-kop" style="margin-top:0;"><div class="pr-left"><div class="pr-label" style="font-size:0.7rem;">Mrg KOP</div></div><div class="pr-val" style="font-size:0.95rem;">${Math.round(smK).toLocaleString('id-ID')}</div></div><div class="price-row pr-sup" style="margin-top:0;"><div class="pr-left"><div class="pr-label" style="font-size:0.7rem;">Mrg YYN</div></div><div class="pr-val" style="font-size:0.95rem;">${Math.round(smY).toLocaleString('id-ID')}</div></div></div></div></div>`; }); detailHTML += `<div class="section-head" style="margin:24px 0 14px; color: var(--text-muted);">Laporan Keuangan Hari Ini</div><div class="price-row pr-sppg" style="margin-top:0;"><div class="pr-left"><div class="pr-label">Total SPPG</div></div><div class="pr-val">Rp ${Math.round(h.sppg).toLocaleString('id-ID')}</div></div><div class="price-row pr-kop" style="margin-top:10px;"><div class="pr-left"><div class="pr-label">PO Koperasi</div></div><div class="pr-val">Rp ${Math.round(h.kop).toLocaleString('id-ID')}</div></div><div class="price-row pr-sup" style="margin-top:10px;"><div class="pr-left"><div class="pr-label">PO Supplier</div></div><div class="pr-val">Rp ${Math.round(h.sup).toLocaleString('id-ID')}</div></div><div class="total-margin-card" style="margin-top:16px;"><div class="tm-row"><div class="tm-label">Margin KOP</div><div class="tm-val">Rp ${Math.round(mKop).toLocaleString('id-ID')}</div></div><div class="tm-row"><div class="tm-label">Margin YYN</div><div class="tm-val">Rp ${Math.round(mYyn).toLocaleString('id-ID')}</div></div><div class="tm-divider"></div><div class="tm-row"><div class="tm-total-label">Total Margin</div><div class="tm-total-val">Rp ${Math.round(totM).toLocaleString('id-ID')}</div></div><div class="tm-row" style="margin-top:8px;"><div class="tm-label">Persentase Total Margin</div><div class="tm-persen-val">${prs}%</div></div><div style="margin-top:10px; display:flex; justify-content:space-between; font-size:0.75rem; font-weight:800; padding-top:8px; border-top:1px dashed rgba(255,255,255,0.1);"><span style="color:var(--c-kop);">Bagian KOP: <b>${prsK}%</b></span><span style="color:var(--c-sup);">Bagian YYN: <b>${prsY}%</b></span></div></div>`; html += `<div class="hari-card" id="haricard-${idx}" onclick="toggleHariCard(${idx})"><div class="hari-card-header"><div class="hari-tgl">📅 ${tgl}</div><div class="hari-menu-badge">${h.menu || '-'}</div></div><div class="hari-mini-grid"><div class="hari-mini-box sub-box sb-sppg"><div class="sub-lbl">SPPG</div><div class="sub-val">${Math.round(h.sppg).toLocaleString('id-ID')}</div></div><div class="hari-mini-box sub-box sb-kop"><div class="sub-lbl">KOP</div><div class="sub-val">${Math.round(h.kop).toLocaleString('id-ID')}</div></div><div class="hari-mini-box sub-box sb-sup"><div class="sub-lbl">SUP</div><div class="sub-val">${Math.round(h.sup).toLocaleString('id-ID')}</div></div></div><div class="hari-margin-strip"><div class="hms-label">Total Margin</div><div class="hms-val">Rp ${Math.round(totM).toLocaleString('id-ID')}</div><div class="hms-label" style="margin-left:14px;">Persen</div><div class="hms-val">${prs}%</div></div><div class="hari-detail" onclick="event.stopPropagation()">${detailHTML}</div></div>`; }); document.getElementById('lapPerListHari').innerHTML = html; 
+        let detailHTML = ''; Object.keys(grouped).sort().forEach(sup => { let sg = grouped[sup]; detailHTML += `<div style="margin-bottom:14px; background: transparent; border-radius: 20px; padding: 6px; border: none;"><div style="position: sticky; top: 10px; z-index: 5; font-size:0.85rem; font-weight:900; margin-bottom: 14px; display:flex; align-items:center; gap:10px; padding: 14px; border-radius: 18px; background: var(--bg-card); box-shadow: var(--shadow-timbul);"><span style="color:var(--text-primary); font-weight:900;">📦 ${sup}</span></div><div class="supplier-item-list" style="padding: 0 4px; border-left: 2px dashed rgba(255,255,255,0.1); margin-left: 10px;">`; sg.list.forEach(it => { let uS = it.qty>0 ? Math.round(it.tSppg/it.qty).toLocaleString('id-ID') : 0; let uK = it.qty>0 ? Math.round(it.tKop/it.qty).toLocaleString('id-ID')  : 0; let uU = it.qty>0 ? Math.round(it.tSup/it.qty).toLocaleString('id-ID')  : 0; detailHTML += `<div class="item-glass" style="margin-bottom:14px;"><div class="item-top"><div class="item-name">${it.barang}</div><div class="qty-badge">${String(it.qty).replace('.', ',')} ${it.sat}</div></div><div class="price-row pr-sppg"><div class="pr-left"><div class="pr-label">SPPG</div><div class="pr-unit">${uS}/${it.sat}</div></div><div class="pr-val">${Math.round(it.tSppg).toLocaleString('id-ID')}</div></div><div class="price-row pr-kop"><div class="pr-left"><div class="pr-label">KOP</div><div class="pr-unit">${uK}/${it.sat}</div></div><div class="pr-val">${Math.round(it.tKop).toLocaleString('id-ID')}</div></div><div class="price-row pr-sup"><div class="pr-left"><div class="pr-label">SUP</div><div class="pr-unit">${uU}/${it.sat}</div></div><div class="pr-val">${Math.round(it.tSup).toLocaleString('id-ID')}</div></div></div>`; }); let smK = sg.sppg-sg.kop; let smY = sg.kop-sg.sup; detailHTML += `<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;margin-top:16px;"><div class="price-row pr-kop" style="margin-top:0;"><div class="pr-left"><div class="pr-label" style="font-size:0.7rem;">Mrg KOP</div></div><div class="pr-val" style="font-size:0.95rem;">${Math.round(smK).toLocaleString('id-ID')}</div></div><div class="price-row pr-sup" style="margin-top:0;"><div class="pr-left"><div class="pr-label" style="font-size:0.7rem;">Mrg YYN</div></div><div class="pr-val" style="font-size:0.95rem;">${Math.round(smY).toLocaleString('id-ID')}</div></div></div></div></div>`; }); detailHTML += `<div class="section-head" style="margin:24px 0 14px; color: var(--text-muted);">Laporan Keuangan Hari Ini</div><div class="price-row pr-sppg" style="margin-top:0;"><div class="pr-left"><div class="pr-label">Total SPPG</div></div><div class="pr-val">Rp ${Math.round(h.sppg).toLocaleString('id-ID')}</div></div><div class="price-row pr-kop" style="margin-top:10px;"><div class="pr-left"><div class="pr-label">PO Koperasi</div></div><div class="pr-val">Rp ${Math.round(h.kop).toLocaleString('id-ID')}</div></div><div class="price-row pr-sup" style="margin-top:10px;"><div class="pr-left"><div class="pr-label">PO Supplier</div></div><div class="pr-val">Rp ${Math.round(h.sup).toLocaleString('id-ID')}</div></div><div class="total-margin-card" style="margin-top:16px;"><div class="tm-row"><div class="tm-label">Margin KOP</div><div class="tm-val">Rp ${Math.round(mKop).toLocaleString('id-ID')}</div></div><div class="tm-row"><div class="tm-label">Margin YYN</div><div class="tm-val">Rp ${Math.round(mYyn).toLocaleString('id-ID')}</div></div><div class="tm-divider"></div><div class="tm-row"><div class="tm-total-label">Total Margin</div><div class="tm-total-val">Rp ${Math.round(totM).toLocaleString('id-ID')}</div></div><div class="tm-row" style="margin-top:8px;"><div class="tm-label">Persentase Total Margin</div><div class="tm-persen-val">${prs}%</div></div><div style="margin-top:10px; display:flex; justify-content:space-between; font-size:0.75rem; font-weight:800; padding-top:8px; border-top:1px dashed rgba(255,255,255,0.1);"><span style="color:var(--c-kop);">Bagian KOP: <b>${prsK}%</b></span><span style="color:var(--c-sup);">Bagian YYN: <b>${prsY}%</b></span></div></div>`; html += `<div class="hari-card" id="haricard-${idx}" onclick="toggleHariCard(${idx})"><div class="hari-card-header"><div class="hari-tgl">📅 ${tgl}</div><div class="hari-menu-badge">${h.menu || '-'}</div></div><div class="hari-mini-grid"><div class="hari-mini-box sub-box sb-sppg"><div class="sub-lbl">SPPG</div><div class="sub-val">${Math.round(h.sppg).toLocaleString('id-ID')}</div></div><div class="hari-mini-box sub-box sb-kop"><div class="sub-lbl">KOP</div><div class="sub-val">${Math.round(h.kop).toLocaleString('id-ID')}</div></div><div class="hari-mini-box sub-box sb-sup"><div class="sub-lbl">SUP</div><div class="sub-val">${Math.round(h.sup).toLocaleString('id-ID')}</div></div></div><div class="hari-margin-strip"><div class="hms-label">Total Margin</div><div class="hms-val">Rp ${Math.round(totM).toLocaleString('id-ID')}</div><div class="hms-label" style="margin-left:14px;">Persen</div><div class="hms-val">${prs}%</div></div><div class="hari-detail" onclick="event.stopPropagation()">${detailHTML}</div></div>`; }); document.getElementById('lapPerListHari').innerHTML = html; 
       }); 
     }
     
