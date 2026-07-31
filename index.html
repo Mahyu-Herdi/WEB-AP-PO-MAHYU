@@ -1258,6 +1258,17 @@
       const titleEl = document.getElementById('iosSelectTitle');
       const listEl = document.getElementById('iosSelectList');
       
+      const isDateSelect = selectEl.id === 'tanggal' || selectEl.id === 'tglCetak' || selectEl.id.toLowerCase().includes('tanggal') || selectEl.id.toLowerCase().includes('tgl');
+      
+      const boxEl = modal.querySelector('.ios-alert-box');
+      if (boxEl) {
+        if (isDateSelect) {
+          boxEl.style.maxWidth = '420px';
+        } else {
+          boxEl.style.maxWidth = '380px';
+        }
+      }
+
       let titleText = "PILIH OPSI";
       if (selectEl.options.length > 0 && selectEl.options[0].value === "" && selectEl.options[0].text.trim() !== "") {
         titleText = selectEl.options[0].text.trim().toUpperCase();
@@ -1269,32 +1280,176 @@
       titleEl.innerText = titleText;
 
       listEl.innerHTML = '';
+
+      if (isDateSelect) {
+        listEl.style.display = 'grid';
+        listEl.style.gridTemplateColumns = 'repeat(auto-fill, minmax(100px, 1fr))';
+        listEl.style.gap = '10px';
+        
+        // Header Row for "Hari Ini" and "Reset"
+        const headerRow = document.createElement('div');
+        headerRow.style.cssText = `
+          grid-column: 1 / -1;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 10px;
+          margin-bottom: 6px;
+        `;
+        
+        const btnToday = document.createElement('button');
+        btnToday.type = 'button';
+        btnToday.style.cssText = `
+          padding: 11px 14px;
+          font-family: 'Plus Jakarta Sans', sans-serif;
+          font-weight: 800;
+          font-size: 0.78rem;
+          background: var(--bg-inset);
+          color: var(--c-kop);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 6px;
+          box-shadow: var(--shadow-tenggelam);
+          border: none;
+          border-radius: 14px;
+          cursor: pointer;
+        `;
+        btnToday.innerHTML = `<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg> Hari Ini`;
+        btnToday.onclick = function() {
+          const todayObj = new Date();
+          let bestOpt = null;
+          let minDiff = Infinity;
+          
+          Array.from(selectEl.options).forEach((opt) => {
+            if (!opt.value) return;
+            const optDate = new Date(opt.value);
+            if (!isNaN(optDate.getTime())) {
+              const diff = Math.abs(optDate - todayObj);
+              if (diff < minDiff) {
+                minDiff = diff;
+                bestOpt = opt;
+              }
+            }
+          });
+          
+          if (bestOpt) {
+            selectEl.value = bestOpt.value;
+          } else {
+            if (selectEl.options.length > 1) {
+              selectEl.value = selectEl.options[1].value;
+            } else if (selectEl.options.length > 0) {
+              selectEl.value = selectEl.options[0].value;
+            }
+          }
+          closeIosSelectModal();
+          selectEl.dispatchEvent(new Event('change', { bubbles: true }));
+        };
+        
+        const btnReset = document.createElement('button');
+        btnReset.type = 'button';
+        btnReset.style.cssText = `
+          padding: 11px 14px;
+          font-family: 'Plus Jakarta Sans', sans-serif;
+          font-weight: 800;
+          font-size: 0.78rem;
+          background: var(--bg-inset);
+          color: var(--c-sup);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 6px;
+          box-shadow: var(--shadow-tenggelam);
+          border: none;
+          border-radius: 14px;
+          cursor: pointer;
+        `;
+        btnReset.innerHTML = `<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg> Reset`;
+        btnReset.onclick = function() {
+          if (selectEl.options.length > 0) {
+            selectEl.value = selectEl.options[0].value;
+          }
+          closeIosSelectModal();
+          selectEl.dispatchEvent(new Event('change', { bubbles: true }));
+        };
+        
+        headerRow.appendChild(btnToday);
+        headerRow.appendChild(btnReset);
+        listEl.appendChild(headerRow);
+      } else {
+        listEl.style.display = 'flex';
+        listEl.style.flexDirection = 'column';
+        listEl.style.gridTemplateColumns = '';
+        listEl.style.gap = '10px';
+      }
       
       Array.from(selectEl.options).forEach((opt) => {
         const btn = document.createElement('button');
         btn.type = 'button';
         const isSelected = (opt.value === selectEl.value);
         
-        btn.style.cssText = `
-          width: 100%;
-          padding: 14px 18px;
-          border-radius: 18px;
-          border: none;
-          font-family: 'Plus Jakarta Sans', sans-serif;
-          font-weight: 800;
-          font-size: 0.88rem;
-          text-align: left;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          transition: all 0.2s ease;
-          background: ${isSelected ? 'var(--bg-card)' : 'var(--bg-inset)'};
-          color: ${isSelected ? 'var(--c-sppg)' : 'var(--text-primary)'};
-          box-shadow: ${isSelected ? 'var(--shadow-pressed)' : 'var(--shadow-tenggelam)'};
-        `;
+        const parts = opt.text.split(', ');
+        let cardContent = '';
+        let isFormattedDateCard = false;
         
-        btn.innerHTML = `<span>${opt.text}</span> ${isSelected ? '<svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="var(--c-sppg)" style="flex-shrink:0;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>' : ''}`;
+        if (isDateSelect && parts.length === 2) {
+          const dayName = parts[0];
+          const dateParts = parts[1].split(' ');
+          if (dateParts.length >= 2) {
+            const dayNum = dateParts[0];
+            const monthName = dateParts[1];
+            const yearNum = dateParts[2] || '';
+            
+            isFormattedDateCard = true;
+            cardContent = `
+              <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; width:100%; text-align:center;">
+                <span style="font-size:0.58rem; font-weight:900; opacity:0.6; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:1px; color: ${isSelected ? 'var(--bg-inset)' : 'var(--text-soft)'};">${dayName}</span>
+                <span style="font-size:1.35rem; font-weight:900; line-height:1.1; margin:1px 0;">${dayNum}</span>
+                <span style="font-size:0.6rem; font-weight:800; opacity:0.8; color: ${isSelected ? 'var(--bg-inset)' : 'var(--text-muted)'};">${monthName} ${yearNum}</span>
+              </div>
+            `;
+          }
+        }
+        
+        if (isDateSelect && isFormattedDateCard) {
+          btn.style.cssText = `
+            width: 100%;
+            aspect-ratio: 1 / 1.05;
+            padding: 8px;
+            border-radius: 18px;
+            border: none;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            background: ${isSelected ? 'var(--c-sppg)' : 'var(--bg-inset)'};
+            color: ${isSelected ? 'var(--bg-inset)' : 'var(--text-primary)'};
+            box-shadow: ${isSelected ? 'var(--shadow-timbul)' : 'var(--shadow-tenggelam)'};
+          `;
+          btn.innerHTML = cardContent;
+        } else {
+          btn.style.cssText = `
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 18px;
+            border: none;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 800;
+            font-size: 0.88rem;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.2s ease;
+            background: ${isSelected ? 'var(--bg-card)' : 'var(--bg-inset)'};
+            color: ${isSelected ? 'var(--c-sppg)' : 'var(--text-primary)'};
+            box-shadow: ${isSelected ? 'var(--shadow-pressed)' : 'var(--shadow-tenggelam)'};
+            ${isDateSelect ? 'grid-column: 1 / -1; text-align: center; justify-content: center;' : ''}
+          `;
+          btn.innerHTML = `<span>${opt.text}</span> ${isSelected && !isDateSelect ? '<svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="var(--c-sppg)" style="flex-shrink:0;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>' : ''}`;
+        }
         
         btn.onclick = function() {
           selectEl.value = opt.value;
