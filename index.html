@@ -828,6 +828,15 @@
             </div>
 
             <div id="areaPoText" style="display:block;">
+              <!-- Paste Box Area for PO Masal -->
+              <div style="background: rgba(255,255,255,0.02); border: 2px dashed rgba(255,255,255,0.1); border-radius: 20px; padding: 16px; margin-bottom: 20px;">
+                <label style="font-size:0.75rem; color:var(--c-sppg); font-weight:900; display:block; margin-bottom:6px; letter-spacing:0.5px;">PASTE DATA DARI EXCEL / GOOGLE SHEETS DI SINI</label>
+                <textarea id="bPoExcelPasteArea" class="form-control" rows="2" placeholder="Paste baris Excel/Google Sheets di sini (Kolom: Barang, Qty, Satuan, SPPG, [KOP], [SUP], [Ket])..." oninput="parsePoExcelPaste(this.value)" style="font-size:0.78rem; font-family:monospace; line-height:1.4; background:rgba(0,0,0,0.15); border-radius:12px; padding:10px 14px; height: 50px;"></textarea>
+                <div style="font-size:0.65rem; color:var(--text-muted); margin-top:6px; font-weight:800;">
+                  * Cukup copy range tabel dari Excel/Sheets lalu paste ke kotak di atas. Kolom nama barang, qty, satuan, dll. akan otomatis terisi ke kolom-kolom di bawah ini!
+                </div>
+              </div>
+
               <div id="bulkStepWrapper" class="bulk-grid">
                  <div class="bulk-step active-step" id="stepBarang"><label><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="vertical-align:middle; margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg> NAMA BARANG</label><textarea id="bBarang" class="form-control bulk-area" rows="8" placeholder="Paste NAMA BARANG..."></textarea><button class="btn-go mobile-only" style="margin-top:10px; display:flex; align-items:center; justify-content:center; gap:6px;" onclick="nextBulkStep('stepQty')">Lanjut: QTY <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></button><div class="pc-only">Kolom Nama Barang</div></div>
                  <div class="bulk-step" id="stepQty"><label><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="vertical-align:middle; margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 18h12l3-18H3z"/></svg> QTY (JUMLAH)</label><textarea id="bQty" class="form-control bulk-area" rows="8" placeholder="Paste QTY..."></textarea><div class="bulk-nav-btn mobile-only"><button class="btn-go" style="background:var(--bg-card); color:var(--text-soft); display:flex; align-items:center; justify-content:center;" onclick="nextBulkStep('stepBarang')"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg></button><button class="btn-go" style="display:flex; align-items:center; justify-content:center; gap:6px;" onclick="nextBulkStep('stepSat')">Lanjut: SATUAN <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></button></div><div class="pc-only">Kolom QTY</div></div>
@@ -3734,6 +3743,64 @@ Mohon dicek file terlampir.`;
       if (parsedItems.length > 0) {
         window.bulkTableItems = parsedItems;
         renderBulkTable();
+      }
+    }
+
+    function parsePoExcelPaste(text) {
+      if (!text || text.trim() === "") return;
+      const lines = text.split('\n');
+      
+      let barangs = [];
+      let qtys = [];
+      let sats = [];
+      let sppgs = [];
+      let kops = [];
+      let sups = [];
+      let kets = [];
+      
+      lines.forEach(line => {
+        if (line.trim() === "") return;
+        
+        let parts = line.split('\t');
+        if (parts.length < 2) parts = line.split(';');
+        if (parts.length < 2) parts = line.split(',');
+
+        if (parts.length > 0) {
+          let barang = parts[0] ? parts[0].trim() : "";
+          if (barang === "") return;
+          
+          let qtyStr = parts[1] ? parts[1].trim() : "";
+          let sat = parts[2] ? parts[2].trim() : "";
+          let sppgStr = parts[3] ? parts[3].trim().replace(/[^0-9]/g, '') : "";
+          let kopStr = parts[4] ? parts[4].trim().replace(/[^0-9]/g, '') : "";
+          let supStr = parts[5] ? parts[5].trim().replace(/[^0-9]/g, '') : "";
+          let ket = parts[6] ? parts[6].trim() : "";
+          
+          barangs.push(barang);
+          qtys.push(qtyStr);
+          sats.push(sat);
+          sppgs.push(sppgStr);
+          kops.push(kopStr);
+          sups.push(supStr);
+          kets.push(ket);
+        }
+      });
+      
+      if (barangs.length > 0) {
+        document.getElementById('bBarang').value = barangs.join('\n');
+        document.getElementById('bQty').value = qtys.join('\n');
+        document.getElementById('bSat').value = sats.join('\n');
+        document.getElementById('bSppg').value = sppgs.join('\n');
+        document.getElementById('bKop').value = kops.join('\n');
+        document.getElementById('bSup').value = sups.join('\n');
+        document.getElementById('bKet').value = kets.join('\n');
+        
+        let hasKopOrSup = kops.some(k => k !== "") || sups.some(s => s !== "");
+        if (!hasKopOrSup && sppgs.some(s => s !== "")) {
+          if (typeof hitungDefaultKopSupBulk === 'function') {
+            hitungDefaultKopSupBulk();
+          }
+        }
       }
     }
 
