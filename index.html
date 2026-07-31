@@ -668,6 +668,8 @@
           <div class="g-card fade-up">
             <div class="lap-header"><div class="lap-dapur"><svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="display:inline-block; vertical-align:middle; margin-right:6px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg><span id="lapPerDapur"></span></div><div class="periode-badge"><svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="display:inline-block; vertical-align:middle; margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span id="lapPerRange"></span></div></div>
             <div class="pagu-grid">
+              <div class="pagu-mini"><div class="pagu-label" style="font-size:0.6rem;">Total Pagu Periode</div><div class="pagu-val" style="font-size:1.2rem; color:var(--c-kop);" id="lapPerNominalPagu">Rp 0</div></div>
+              <div class="pagu-mini"><div class="pagu-label" style="font-size:0.6rem;" id="textLapPerSisaPagu">Sisa Pagu Periode</div><div class="pagu-val" style="font-size:1.2rem;" id="lapPerSisaPagu">Rp 0</div></div>
               <div class="pagu-mini full"><div class="pagu-label">Total SPPG Periode</div><div class="pagu-val" id="lapPerTotSppg">0</div></div>
               <div class="pagu-mini"><div class="pagu-label" style="font-size:0.6rem;">Total KOP</div><div class="pagu-val" style="font-size:1.2rem;" id="lapPerTotKop">0</div></div>
               <div class="pagu-mini"><div class="pagu-label" style="font-size:0.6rem;">Total SUP</div><div class="pagu-val" style="font-size:1.2rem;" id="lapPerTotSup">0</div></div>
@@ -3009,7 +3011,23 @@ Mohon dicek file terlampir.`;
         let gPorsiKop = gTotMrg > 0 ? ((gMrgKop / gTotMrg) * 100).toFixed(1).replace('.', ',') : "0";
         let gPorsiYyn = gTotMrg > 0 ? ((gMrgYyn / gTotMrg) * 100).toFixed(1).replace('.', ',') : "0";
 
+        let gPagu = res.grand.pagu || 0;
+        let gSisaPagu = gPagu - gSppg;
+
         document.getElementById('lapPerDapur').innerText = d; document.getElementById('lapPerRange').innerText = `${fmt(t1)} – ${fmt(t2)}`; document.getElementById('lapPerTotSppg').innerText = `Rp ${Math.round(gSppg).toLocaleString('id-ID')}`; document.getElementById('lapPerTotKop').innerText = `Rp ${Math.round(gKop).toLocaleString('id-ID')}`; document.getElementById('lapPerTotSup').innerText = `Rp ${Math.round(gSup).toLocaleString('id-ID')}`; document.getElementById('lapPerPoSppg').innerText = `Rp ${Math.round(gSppg).toLocaleString('id-ID')}`; document.getElementById('lapPerPoKop').innerText = `Rp ${Math.round(gKop).toLocaleString('id-ID')}`; document.getElementById('lapPerPoSup').innerText = `Rp ${Math.round(gSup).toLocaleString('id-ID')}`; document.getElementById('lapPerMrgKop').innerText = `Rp ${Math.round(gMrgKop).toLocaleString('id-ID')}`; document.getElementById('lapPerMrgYyn').innerText = `Rp ${Math.round(gMrgYyn).toLocaleString('id-ID')}`; document.getElementById('lapPerTmKop').innerText = `Rp ${Math.round(gMrgKop).toLocaleString('id-ID')}`; document.getElementById('lapPerTmYyn').innerText = `Rp ${Math.round(gMrgYyn).toLocaleString('id-ID')}`; document.getElementById('lapPerTotMrg').innerText = `Rp ${Math.round(gTotMrg).toLocaleString('id-ID')}`; document.getElementById('lapPerPersen').innerText = `${gPersen}%`; 
+        if (document.getElementById('lapPerNominalPagu')) document.getElementById('lapPerNominalPagu').innerText = `Rp ${Math.round(gPagu).toLocaleString('id-ID')}`;
+        if (document.getElementById('lapPerSisaPagu')) {
+          document.getElementById('lapPerSisaPagu').innerText = `Rp ${Math.round(gSisaPagu).toLocaleString('id-ID')}`;
+          let elSisa = document.getElementById('lapPerSisaPagu');
+          let textSisa = document.getElementById('textLapPerSisaPagu');
+          if (gSisaPagu < 0) {
+            elSisa.style.color = 'var(--c-sup)';
+            if (textSisa) textSisa.style.color = 'var(--c-sup)';
+          } else {
+            elSisa.style.color = 'var(--c-kop)';
+            if (textSisa) textSisa.style.color = 'var(--c-kop)';
+          }
+        }
         if (document.getElementById('lapPerPrsKop')) document.getElementById('lapPerPrsKop').innerText = `${gPrsKop}%`;
         if (document.getElementById('lapPerPrsKopPorsi')) document.getElementById('lapPerPrsKopPorsi').innerText = `${gPorsiKop}% dr Total Margin`;
         if (document.getElementById('lapPerPrsYyn')) document.getElementById('lapPerPrsYyn').innerText = `${gPrsYyn}%`;
